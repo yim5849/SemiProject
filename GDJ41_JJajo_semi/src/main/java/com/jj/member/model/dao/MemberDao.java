@@ -32,7 +32,7 @@ public class MemberDao {
 	}
 	
 	
-	public Member login(Connection conn, String userId, String password) {
+	public Member login(Connection conn, String memberId, String memberPwd) {
 		
 		// sql 구문을 실행시키기 위한 PreparedStatement 객체 생성
 		PreparedStatement pstmt=null;
@@ -49,21 +49,24 @@ public class MemberDao {
 		try {
 			
 			pstmt=conn.prepareStatement(sql);
-			pstmt.setString(1, userId);
-			pstmt.setString(2, password);
+			pstmt.setString(1, memberId);
+			pstmt.setString(2, memberPwd);
 			rs=pstmt.executeQuery();
 			
 			if(rs.next()) {
 			/*builder패턴 이용하기*/
-				m=Member.builder().userId(rs.getString("userId"))
-						.password(rs.getString("password"))
-						.userName(rs.getString("userName"))
+				m=Member.builder()
+						.memberNo(rs.getInt("member_no"))
+						.memberId(rs.getString("member_id"))
+						.memberPwd(rs.getString("member_password"))
+						.memberName(rs.getString("member_name"))
+						.birthday(rs.getString("birthday"))
 						.gender(rs.getString("gender"))
-						.age(rs.getInt("age"))
 						.email(rs.getString("email"))
 						.phone(rs.getString("phone"))
-						.address(rs.getString("hobby"))
+						.address(rs.getString("address"))
 						.enrollDate(rs.getDate("enrolldate"))
+						.filePath(rs.getString("filepath"))
 						.build();					
 			}
 		}catch(SQLException e) {

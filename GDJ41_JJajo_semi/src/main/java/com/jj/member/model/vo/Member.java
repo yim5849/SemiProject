@@ -13,15 +13,16 @@ import lombok.NoArgsConstructor;
 @Builder
 public class Member {
 
-		private String userId;
-		private String password;
-		private String userName;
+		private int memberNo;
+		private String memberId;
+		private String memberPwd;
+		private String memberName;
 		private String gender;
-		private int age;
+		private String birthday;
 		private String email;
 		private String phone;
 		private String address;
-		private String hobby;
+		private String filePath;
 		private Date enrollDate;
 		
 }
