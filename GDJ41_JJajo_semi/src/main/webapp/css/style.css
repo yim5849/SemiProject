@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+     /* ==================================================폰트============================================================*/
+		   	 body{
+		        font-family: 'CookieRunOTF-Bold';
+		        background-color: #FBFBEF;
+		      }
+		      
+		     /* ==================================================폰트(모달)============================================================*/
+		     
+		     .modal-title{
+		     	color:#BCA9F5;
+		     	font-size:20px;
+		  
+		     }
+		     
+		     .modal-body{
+		     	color:#81BEF7;
+		     	font-size:15px;
+		     }
+		      
+		      /* ==================================================헤더(최상단)============================================================*/
+		      #header-title{
+		        color: #E2A9F3;
+		        font-size: 50px;
+		        text-align: center;
+		        font-weight:900;
+		    
+		      }
+		      #header-side{
+				background:url("https://t1.daumcdn.net/cfile/blog/222ACF47586B5CC526") center/cover no-repeat;
+		        background-size: contain;
+		      }
+		      #header-middle-side{
+		        background:url("https://healthtype.netlify.app/images/main_char.gif") center/cover no-repeat;
+		        background-size:contain;
+		      }
+		      #container-head{
+		        background:url("https://t1.daumcdn.net/planet/fs10/31_13_13_25_4vhS0_10792249_9_906.gif?original&filename=906.gif") center/cover no-repeat;
+		        background-size:contain;
+		      }
+		
+		      /* ==================================================footer 하단 고정============================================================*/
+		      body { 
+		        min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto;
+		      } 
+		      
+		      footer{
+		        padding-bottom: 20px;
+		      }
+		      
+
+		    /* ==================================================헤더(기능 부분)============================================================*/
+		      @font-face {
+		    font-family: 'CookieRunOTF-Bold';
+		    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.0/CookieRunOTF-Bold00.woff') format('woff');
+		    font-weight: normal;
+		    font-style: normal;
+			}
+		      
+		   
+			   div#banbok {
+			  position: relative;
+			  animation-name: leftright;
+			  animation-duration: 2s;
+			  animation-timing-function: linear;
+			  animation-iteration-count: infinite;
+			  animation-direction: alternate;
+			}
+			 
+			@keyframes leftright {
+			  0%   {left:0px; top:0px;}
+			  100%  {left:400px; top:0px;}
+			}
+		
+		
+		    .home_avatar {
+		       width: 70px;
+		       height: 70px;
+		       border-radius: 50%;
+		       border: 5px solid #8258FA;
+		    }
+   
+   		
+   
+   			  /* =================================================여기 아래부분은 본인 CSS 작성하기============================================================*/
+     		  /* ============================-=======공통적으로 적용하고 싶은 부분이 있다면 위쪽에 구분지어서 작성 후, 추후에 협의 후 합치기=====================================*/
+     		  
+     		  
+     		  
+     		  
+     		  
+     		  
+     		  
+     		  
+     		  
+     		  
+     		  
+      
+      
