@@ -54,7 +54,7 @@
 
           </div>
           <div class="col" id="header-title">
-            GOODEE HEALTH
+            GOODEE MARKET
           </div>
           <div class="col" id="header-middle-side">
 
@@ -79,20 +79,20 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#">MY-BLOG</a>
+                <a class="nav-link disabled" href="#">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#">헬스장찾기</a>
+                <a class="nav-link disabled" href="#">내상점</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">주변친구찾기</a>
+                <a class="nav-link disabled">판매하기</a>
               </li>
-              <li class="nav-item">
+            <%--   <li class="nav-item">
                 <a class="nav-link disabled">Challengers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
-              </li>
+              </li> --%>
             </ul>
           </div>
       
