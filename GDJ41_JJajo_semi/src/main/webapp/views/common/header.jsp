@@ -97,11 +97,11 @@
           </div>
       
           <div class="col">
-            <input type="text" class="form-control" placeholder="아이디" name="userId">
+            <input type="text" class="form-control" placeholder="아이디" name="memberId">
           </div>
 
           <div class="col" style="padding-left:0px">
-            <input type="password" class="form-control" placeholder="비밀번호" name="password">
+            <input type="password" class="form-control" placeholder="비밀번호" name="memberPwd">
           </div>
 
           <div class="col-1">
@@ -120,7 +120,7 @@
                 <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">MY-BLOG</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/blog/blogmain.do">MY-BLOG</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">헬스장찾기</a>
@@ -146,7 +146,7 @@
      		</div>
      		
      		<div class="col-2"  style="padding-top:20px; padding-left:0px; padding-right:0px">
-     			<span style="color:#01DFA5">HELLO. <%=loginMember.getUserName()%>님</span> 
+     			<span style="color:#01DFA5">HELLO. <%=loginMember.getMemberName()%>님</span> 
      			    
      		</div>
      		

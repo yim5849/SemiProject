@@ -14,14 +14,14 @@ public class MemberService {
 	private MemberDao dao=new MemberDao();
 	
 	/*로그인 정보를 반환하는 메서드!*/
-	public Member login(String userId, String password) {
+	public Member login(String memberId, String memberPwd) {
 		
 		// 커넥션 객체 생성!
 		Connection conn = getConnection();
 		
 		// 생성한 커넥션 객체와 servlet으로 부터 받아온 아이디와 비밀번호를
 		// Dao클래스의 login 메서드로 전달한다.
-		Member m=dao.login(conn,userId,password);
+		Member m=dao.login(conn,memberId,memberPwd);
 		
 		// 커넥션 객체를 닫는다!
 		close(conn);

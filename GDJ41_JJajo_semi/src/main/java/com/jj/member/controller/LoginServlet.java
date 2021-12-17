@@ -36,11 +36,11 @@ public class LoginServlet extends HttpServlet {
 	
 	// 아이디 입력창과 비밀번호 입력창으로부터 입력받은 값을 가져온다
 	// 파라미터값에 들어가는 것은 해당 태그의 name값이다!
-	String userId = request.getParameter("userId");
-	String password = request.getParameter("password");
+	String memberId = request.getParameter("memberId");
+	String memberPwd = request.getParameter("memberPwd");
 	
 	// DB로 부터 값을 가져온다 => Main->Service->Dao->Service->Main
-	Member m = new MemberService().login(userId,password); 
+	Member m = new MemberService().login(memberId,memberPwd); 
 	
 	
 	
