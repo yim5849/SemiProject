@@ -1,1 +1,3 @@
-/classes/
+/src/main/WEB-INF/classes/
+/src/main/resources/
+/src/main/webapp/upload/
