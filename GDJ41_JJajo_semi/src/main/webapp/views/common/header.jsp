@@ -21,12 +21,15 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 	 <script>
-      var myModal = document.getElementById('myModal')
-      var myInput = document.getElementById('myInput')
+      var myModal = document.getElementById('myModal');
+      var myInput = document.getElementById('myInput');
         
-        myModal.addEventListener('shown.bs.modal', function () {
-        myInput.focus()
-        })
+      if(myModal != null){
+    	  myModal.addEventListener('shown.bs.modal', function () {
+    	        myInput.focus()
+    	        });
+      }
+        
     </script>
 
 	
