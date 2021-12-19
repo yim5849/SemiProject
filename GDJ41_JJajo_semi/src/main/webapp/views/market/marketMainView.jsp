@@ -11,7 +11,7 @@
 	.dropdown-toggle{
 		background-color: #FBFBEF;
 		font-size: 20px;
-		margin-left: 30px;
+		margin-left: 200px;
 		color: black;
 		border: 0;	
 	}
@@ -28,13 +28,13 @@
 <div class="container">
 	<div class="row" style="text-align: center;">
 	  <div class="col">
-		<a href=""><img src="<%=request.getContextPath()%>/images/market/cash.png" width="50px" height="40px"   class="rounded" alt="..."></a>
+		<a href="<%=request.getContextPath()%>/enrollproduct.do"><img src="<%=request.getContextPath()%>/images/market/cash.png" width="50px" height="40px"   class="rounded" alt="..."></a>
 	</div>
 	  <div class="col" style="text-align: center;">
 		<h3>중고거래 최신매물</h3>
 	  </div>
 	  <div class="col" style="text-align: center;">
-		<a href=""><img src="<%=request.getContextPath()%>/images/market/store.png" width="50px" height="45px"  class="rounded" alt="..."></a>
+		<a href="<%=request.getContextPath()%>/myStore.do"><img src="<%=request.getContextPath()%>/images/market/store.png" width="50px" height="45px"  class="rounded" ></a>
 	  </div>
 	</div>
   </div>
