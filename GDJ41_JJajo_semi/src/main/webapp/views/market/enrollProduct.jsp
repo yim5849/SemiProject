@@ -32,7 +32,7 @@
 		margin:0px;
 	} 
 	
-		.dropdown-toggle{
+	.dropdown-toggle{
 		background-color: #FBFBEF;
 		font-size: 20px;
 		margin-left: 200px;
@@ -74,7 +74,7 @@
 		    	<label class="form-label" style="margin-right: 400px;">상품이미지</label>
 		      	<img id="target" src="<%=request.getContextPath()%>/images/market/camera.png" width="100px" height="100px">
 				<input type="file" name="upFile"  accept="image/*" style="display:none">
-			</div>	
+		  </div>	
 			
 	      <div class="col-12">
 		      <label class="form-label">제목</label>
@@ -102,9 +102,9 @@
 	      </div>
 	      
 	      <div class="col-12" style="border-bottom: black solid 3px">
-	      <label class="form-label">설명</label>
-	      <textarea rows="5" cols="100" class="form-control" placeholder="상품 설명을 입력해주세요."></textarea>
-	      <br>
+	      	<label class="form-label">설명</label>
+	      	<textarea rows="5" cols="100" class="form-control" placeholder="상품 설명을 입력해주세요."></textarea>
+	      	<br>
 	      </div>
 	      
 	      

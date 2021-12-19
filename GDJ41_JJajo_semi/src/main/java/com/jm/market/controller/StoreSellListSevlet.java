@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class MarketMainViewServlet
+ * Servlet implementation class StoreSellListSevlet
  */
-@WebServlet("/marketMainView.do")
-public class MarketMainViewServlet extends HttpServlet {
+@WebServlet("/sellList.do")
+public class StoreSellListSevlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarketMainViewServlet() {
+    public StoreSellListSevlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,9 +26,8 @@ public class MarketMainViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//중고거래 메인화면을 출력해주는 서블릿
-		request.getRequestDispatcher("/views/market/marketMainView.jsp").forward(request, response);
-	
+		//판매목록화면으로 화면전환해주는 서블릿
+		request.getRequestDispatcher("/views/market/sellList.jsp").forward(request, response);
 	}
 
 	/**
