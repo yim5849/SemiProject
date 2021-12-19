@@ -1,0 +1,179 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<%@ include file="/views/common/header.jsp"%>       
+    
+    
+   <section>
+
+      <div class="container"  style="text-align: center; font-size: 50px; color: #01DFD7;" >
+        Challenge List
+		 </div>
+     <br>
+     
+     <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+     <div class="container" style="text-align: center;">
+     <button type="button" class="btn btn-outline-dark" onclick="">광고등록</button>
+     </div>
+     <br>
+     <%} %>
+     
+     <div class="container">
+      <div class="row">
+        <div class="col-1">
+           
+        </div>
+        <div class="col" style="color:grey">
+          <span class="image blinking" >  ※ 해당 페이지는 광고를 제공하고 있습니다 ※</span>
+
+
+        </div>
+      </div>
+   </div>
+ 
+   
+      <div class="container">
+        <div class="row">
+        <div class="col-1" >
+           
+        </div>
+
+        <div class="col">
+          
+        <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel" style="border: 10px solid #A4A4A4;">
+
+          <div class="carousel-inner">
+
+            <div class="carousel-item active">
+              <a href="https://www.coupang.com/np/search?component=&q=%EC%82%BC%EB%8B%A4%EC%88%98&channel=user" target="_blank"><img src="https://thumbs.gfycat.com/FearlessUnnaturalBigmouthbass-size_restricted.gif" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5>※ 화면 클릭시 사이트로 이동합니다 ※</h5>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <a href="https://whoisnerdy.com/" target="_blank"><img src="https://t1.daumcdn.net/cfile/tistory/999134395EB2E0C42D" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5>※ 화면 클릭시 사이트로 이동합니다 ※</h5>
+              </div>
+            </div>
+
+            <div class="carousel-item">
+              <a href="https://www.coupang.com/np/search?component=&q=%EB%A0%88%EB%AA%A8%EB%82%98&channel=user" target="_blank"><img src="https://t1.daumcdn.net/cfile/tistory/9915E73D5C8637E412" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
+              <div class="carousel-caption d-none d-md-block">
+                <h5>※ 화면 클릭시 사이트로 이동합니다 ※</h5>
+              </div>
+            </div>
+
+          </div>
+
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        
+      </div>
+
+      <div class="col-1">
+           
+      </div>
+    </div>
+      </div>
+      <br>
+      <br>
+
+	 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+     <div class="container" style="text-align: center;">
+     <button type="button" class="btn btn-outline-dark" onclick="">List 등록</button>
+     </div>
+     <br>
+     <%} %>
+
+   
+      <div class="container">
+        <div class="row">
+          <div class="col">
+           
+          </div>
+          <div class="col">
+            <div class="card" style="width: 18rem; border: 5px solid #81F7BE" >
+              <img src="https://newsimg.hankookilbo.com/cms/articlerelease/2020/08/18/93e55f66-3144-4bea-834f-69df68b1cd4b.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" style="text-align: center; color: #BCA9F5">헬스장 가기</h5>
+                <p class="card-text" style="height: 100px;">어떠한 일에 집중하기 위해서는 주변 환경을 집중할 수 있도록 만들라는 말이 있죠? 헬스장 만큼 운동에 집중할 수 있는 곳이 있을까요? 도전해보시죠!</p>
+                <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+        
+          </div>
+          <div class="col">
+            <div class="card h-100" style="width: 18rem; border: 5px solid #81F7BE">
+              <img src="https://cphoto.asiae.co.kr/listimglink/6/2018111215570022200_1542005817.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" style="text-align: center; color: #BCA9F5">물 1L 마시기</h5>
+                <p class="card-text">혹시 하루 1L이상의 물을 섭취하는 것이 건강에 도움된다는 것을 알고 계셨나요? 물 마시기 습관화를 통해 건강을 지켜보세요! </p>
+                <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+           
+          </div>
+          <div class="col">
+            <div class="card h-100" style="width: 18rem; border: 5px solid #81F7BE">
+              <img src="https://src.hidoc.co.kr/image/lib/2019/4/8/20190408103037491_0.jpg" class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title" style="text-align: center; color: #BCA9F5">1만보 걷기</h5>
+                <p class="card-text">운동을 하고싶지만 방법을 몰라 고민하고 있는 당신! 오직 당신의 두 다리와 노력만으로도 운동을 할 수 있는 1만보 걷기! 도전해보시겠습니까? </p>
+                <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
+              </div>
+            </div>
+          </div>
+          <div class="col">
+           
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+
+
+      <div class="container" style="text-align: center;">
+        <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#mychallenge-go-check" style="font-size:20px;">My Challenge</button>
+      </div>
+      <br>
+
+     
+
+    </section>
+    
+<!---------------------------------------------------------- Modal ----------------------------------------------------------------------------->
+
+<div class="modal fade" id="mychallenge-go-check" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel" >이동여부 확인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        MyChallenge로 이동하시겠습니까?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+        <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/challengers/mychallenge.do'">&ensp;네&ensp;</button>
+      </div>
+    </div>
+  </div>
+</div> 
+    
+    
+    
+<%@ include file="/views/common/footer.jsp"%>    
