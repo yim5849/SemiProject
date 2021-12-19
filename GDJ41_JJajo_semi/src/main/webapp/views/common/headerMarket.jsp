@@ -146,8 +146,8 @@
      		</div>
      		
      		<div class="col-2"  style="padding-top:20px; padding-left:0px; padding-right:0px">
-     			<span style="color:#01DFA5">HELLO. <%=loginMember.getUserName()%>님</span> 
-     			    
+     			 
+     			    <span style="color:#01DFA5">HELLO. <%=loginMember.getMemberName()%>님</span> 
      		</div>
      		
      		<div class="col"  style="padding-left:0px; padding-right:0px; padding-top:12px ">
