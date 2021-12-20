@@ -73,6 +73,16 @@
 		            <%} 
 		        	} %>      
 		          </div>
+		          	<!-- 광고 좌/우로 움직이는 버튼 -->
+					  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+			            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			            <span class="visually-hidden">Previous</span>
+			         </button>
+			         <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+			            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			            <span class="visually-hidden">Next</span>
+			         </button>    
+		          
 		        </div>
 	      	</div>
 		<!--</div> if/else로 인해 div태그가 2개라서 </div>가 부족하다고 뜨는데 로직상 이거는 없어야 하는거니까 없애도 정상작동-->

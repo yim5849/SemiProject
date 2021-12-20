@@ -29,6 +29,44 @@ public class CH_AdvertisementDao {
 		
 	}
 	
+/* ================================광고 번호로 광고 찾기============================================ */	
+	
+	public CH_Advertisement searchAdvertisement(Connection conn, int adNo) {
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		CH_Advertisement ad = null;
+		
+		String sql=prop.getProperty("searchAdvertisement");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, adNo);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				ad=CH_Advertisement.builder()
+						  .advertisementNo(rs.getInt("AD_NO"))
+						  .content(rs.getString("AD_CONTENT"))
+						  .address(rs.getString("AD_ADDRESS"))
+						  .filepath(rs.getString("AD_FILEPATH"))
+						  .enrollDate(rs.getDate("AD_ENROLLDATE"))
+						  .build();
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return ad;
+		
+		
+	}
+	
+	
 /* ====================================광고 출력================================================ */
 	
 	
@@ -101,7 +139,30 @@ public class CH_AdvertisementDao {
 	
 /* ====================================광고 수정================================================ */
 	
-	
+	public int updateAdvertisement(Connection conn, CH_Advertisement ad) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String sql=prop.getProperty("updateAdvertisement");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, ad.getContent());
+			pstmt.setString(2, ad.getAddress());
+			pstmt.setString(3, ad.getFilepath());
+			pstmt.setInt(4, ad.getAdvertisementNo());
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 	
 /* ====================================광고 삭제================================================ */
 	
@@ -126,5 +187,8 @@ public class CH_AdvertisementDao {
 		return result;
 		
 	}
+	
+/* ============================================================================================== */	
+	
 	
 }

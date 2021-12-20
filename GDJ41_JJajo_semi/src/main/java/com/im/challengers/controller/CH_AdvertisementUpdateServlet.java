@@ -1,11 +1,14 @@
 package com.im.challengers.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.im.challengers.model.service.CH_AdvertisementService;
 
 /**
  * Servlet implementation class CH_AdvertisementUpdateServlet
@@ -26,8 +29,13 @@ public class CH_AdvertisementUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	
+		int adNo= Integer.parseInt(request.getParameter("advertisementNo"));
+		
+		request.setAttribute("advertisement", new CH_AdvertisementService().searchAdvertisement(adNo));
+		
+		request.getRequestDispatcher("/views/challengers/challengers_update.jsp").forward(request, response);
+		
 	}
 
 	/**
