@@ -1,11 +1,12 @@
 package com.im.challengers.model.service;
 
-import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.close;
-import static com.jj.common.JDBCTemplate.rollback;
 import static com.jj.common.JDBCTemplate.commit;
+import static com.jj.common.JDBCTemplate.getConnection;
+import static com.jj.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
+import java.util.List;
 
 import com.im.challengers.model.dao.CH_AdvertisementDao;
 import com.im.challengers.model.vo.CH_Advertisement;
@@ -16,6 +17,17 @@ public class CH_AdvertisementService {
 	
 	
 /* ====================================광고 출력================================================ */
+	
+	
+	public List<CH_Advertisement> searchAllAdvertisement(){
+		
+		Connection conn=getConnection();
+		List<CH_Advertisement> result = dao.searchAllAdvertisement(conn);
+		close(conn);
+		return result;
+		
+	}
+	
 	
 /* ====================================광고 등록================================================ */
 	

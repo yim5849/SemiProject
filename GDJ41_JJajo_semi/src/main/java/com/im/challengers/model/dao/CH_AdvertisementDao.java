@@ -6,7 +6,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import com.im.challengers.model.vo.CH_Advertisement;
@@ -29,8 +32,48 @@ public class CH_AdvertisementDao {
 /* ====================================광고 출력================================================ */
 	
 	
+	public List<CH_Advertisement> searchAllAdvertisement(Connection conn){
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		CH_Advertisement ad=null;
+		
+		List<CH_Advertisement> list=new ArrayList();
+		
+		String sql=prop.getProperty("searchAllAdvertisement");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				ad=CH_Advertisement.builder()
+					  .advertisementNo(rs.getInt("AD_NO"))
+					  .content(rs.getString("AD_CONTENT"))
+					  .address(rs.getString("AD_ADDRESS"))
+					  .filepath(rs.getString("AD_FILEPATH"))
+					  .enrollDate(rs.getDate("AD_ENROLLDATE"))
+					  .build();
+				
+				list.add(ad);
+			}
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+		
+		
+	}
+	
 	
 /* ====================================광고 등록================================================ */
+	
 	
 	public int insertAdvertisement(Connection conn,CH_Advertisement ad) {
 		
