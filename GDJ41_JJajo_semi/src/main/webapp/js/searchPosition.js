@@ -13,6 +13,13 @@ let pos = navigator.geolocation.watchPosition(position=>{
 $(()=>{
     //$("#boxContainer>a").css({display:"none"});
 
+		// 마커가 표시될 위치입니다 
+
+	
+	// 마커가 지도 위에 표시되도록 설정합니다
+	
+
+
 
     let markers=[];
     
@@ -28,6 +35,8 @@ $(()=>{
 
     let map = new kakao.maps.Map(container, options);
     
+
+
     // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
     //let mapTypeControl = new kakao.maps.MapTypeControl();
 

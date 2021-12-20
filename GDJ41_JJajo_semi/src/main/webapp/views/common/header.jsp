@@ -123,7 +123,7 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/blog/blogmain.do">MY-BLOG</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">헬스장찾기</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/find/findPosition.do">헬스장찾기</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link">주변친구찾기</a>
@@ -194,6 +194,7 @@
         <span class="placeholder col-12 placeholder-xs bg-info"></span>
       </p>
     </div>
+	
 	
 	
 </header>
