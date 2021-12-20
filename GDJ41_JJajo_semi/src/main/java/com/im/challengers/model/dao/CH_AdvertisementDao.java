@@ -105,6 +105,26 @@ public class CH_AdvertisementDao {
 	
 /* ====================================광고 삭제================================================ */
 	
-	
+	public int deleteAdvertisement(Connection conn, int adNo) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String sql=prop.getProperty("deleteAdvertisement");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, adNo);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}
+		return result;
+		
+	}
 	
 }

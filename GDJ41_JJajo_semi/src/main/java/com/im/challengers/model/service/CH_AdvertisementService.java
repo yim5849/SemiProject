@@ -49,7 +49,16 @@ public class CH_AdvertisementService {
 	
 /* ====================================광고 삭제================================================ */
 	
-
+	public int deleteAdvertisement(int adNo) {
+		
+		Connection conn=getConnection();
+		int result = dao.deleteAdvertisement(conn, adNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+	}
 	
 	
 	
