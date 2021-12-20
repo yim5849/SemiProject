@@ -58,12 +58,12 @@
   
   	<div class="my-product">
   	
-  		 	<table class="product-table" style="margin-left: 30px;">
+  		 	<table class="product-table" style="margin:30px 0px 0px 30px;">
 				<tr>
 					<td>
 					<img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle">
 					</td>
-					<td rowspan="2" width="650px" border="1" style="padding-left: 30px;" >
+					<td rowspan="2" width="900px" border="1" style="padding-left: 30px;" >
 						<div>
 							<p>내용</p>
 						</div> 

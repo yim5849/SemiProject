@@ -3,10 +3,8 @@
 <%@ include file="/views/common/header.jsp" %>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-
-	section>*{
+   section>*{
 		margin: 0px 300px 20px 300px;
-    
 	}
 
   select>div{
@@ -25,10 +23,7 @@
 	#category{
 	font-size:10px;
 	}
-	
 	 
- 
- 
 </style>
 
 <section> 
@@ -38,9 +33,10 @@
 	      </div>
 	      <br>
 	      <div class="col-12">
-		    	<label class="form-label" style="margin-right: 400px;">상품이미지</label>
+		    	<label class="form-label" style="margin-right: 300px;">상품이미지</label>
 		      	<img id="target" src="<%=request.getContextPath()%>/images/market/camera.png" width="100px" height="100px">
 				<input type="file" name="upFile"  accept="image/*" style="display:none">
+				<span id="imageContainer"></span>
 		  </div>	
 			
 	      <div class="col-12">
@@ -105,6 +101,26 @@
 	$("#target2").click(e=>{
 		$("input[name=back]").click();
 	})
+	
+	
+	$("input[name=upFile]").change(e=>{
+		if(e.target.files[0].type.includes("image")){
+			let reader=new FileReader();
+			reader.onload=(e)=>{
+				const img=$("<img>").attr({
+					src:e.target.result,
+					width:"100px",
+					height:"100px"
+				});
+				$("#imageContainer").append(img); 
+			}
+			reader.readAsDataURL(e.target.files[0]);
+		}	
+		
+	});
+	
+	
+	
 </script>
 
 

@@ -6,20 +6,14 @@
 	 section>*{
 		margin: 0px 300px 20px 300px;
 	 }
-	 
 	 #myImage{
 		height:100px;
 		width:100px; 
 	}
- 
-
-	.wh-200{
+ 	.wh-200{
 		width:0px;
 		height:200px;
 	}
-	
- 
- 
 </style>
 
  	
@@ -77,17 +71,25 @@
 	      	<br>
 	  </div>
 	  <br>
+	  <div>
+			<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
+			<input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
+	  </div>
  	  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
   			<button class="btn btn-primary me-md-2" type="submit">채팅하기</button>	 
 	  </div>
  	
- 	
- 	
- 	
+	 
 </form>
-
-
-
+ 
 </section>
+
+
+<script> 
+	$("#target2").click(e=>{
+		$("input[name=back]").click();
+	})
+</script>
+ 	
 
 <%@ include file="/views/common/footer.jsp" %>
