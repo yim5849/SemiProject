@@ -50,7 +50,7 @@
           </div>
           <div class="col">
             <button type="submit" class="btn btn-outline-success" onclick="AdValidation();">등록</button> 
-            <button type="button" class="btn btn-outline-danger">취소</button>
+            <button type="button" class="btn btn-outline-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/introduce.do')">취소</button>
           </div>
           <div class="col">
 

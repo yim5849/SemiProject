@@ -97,7 +97,7 @@
 	<!-- 로그인된 유저가 관리자일 경우에만 챌린지 리스트등록 버튼이 생성된다 -->
 	 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
      <div class="container" style="text-align: center;">
-     <button type="button" class="btn btn-outline-dark" onclick="">List 등록</button>
+     <button type="button" class="btn btn-outline-dark" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_enroll.do')">List 등록</button>
      </div>
      <br>
      <%} %>
