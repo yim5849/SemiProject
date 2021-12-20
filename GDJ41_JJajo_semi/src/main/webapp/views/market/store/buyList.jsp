@@ -21,7 +21,7 @@
 		    <h5 class="card-title">Card title</h5>
 		     <p class="card-text">2021-12-19</p>
 		   	 <div class="btn-group" role="group" aria-label="Basic outlined example">
-  				<button type="button" class="btn btn-outline-primary">거래후기남기기</button> 
+  				<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/reviewEroll.do")>거래후기남기기</button> 
 			 </div>
 		  </div>
 		</div>
@@ -32,7 +32,7 @@
 		    <h5 class="card-title">Card title</h5>
 		     <p class="card-text">2021-12-19</p>
 		     <div class="btn-group" role="group" aria-label="Basic outlined example">
-  				<button type="button" class="btn btn-outline-primary">거래후기남기기</button>
+  				<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/reviewEroll.do">거래후기남기기</button>
 			 </div>
 		  </div>
 		</div>
@@ -43,7 +43,7 @@
 		    <h5 class="card-title">Card title</h5>
 		     <p class="card-text">2021-12-19</p>
 		     <div class="btn-group" role="group" aria-label="Basic outlined example">
-  				<button type="button" class="btn btn-outline-primary">거래후기남기기</button>
+  				<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/reviewEroll.do">거래후기남기기</button>
 			 </div>
 		  </div>
 		</div>

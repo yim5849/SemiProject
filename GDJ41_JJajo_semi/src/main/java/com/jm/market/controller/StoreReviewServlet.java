@@ -27,7 +27,7 @@ public class StoreReviewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//후기화면으로 전환
-		request.getRequestDispatcher("/views/market/review.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/market/store/reviewView.jsp").forward(request, response);
 	}
 
 	/**

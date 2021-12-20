@@ -27,7 +27,7 @@ public class MarketMyStoreServet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 중고거래 내상점 화면으로 전환해주는 서블릿
-		request.getRequestDispatcher("/views/market/mystore.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/market/store/mystore.jsp").forward(request, response);
 	}
 
 	/**

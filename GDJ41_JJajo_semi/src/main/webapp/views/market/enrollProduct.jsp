@@ -17,9 +17,7 @@
    .enrollTitle{
     font-size: 30px; 
   }
-	 
-	 
-
+	  
 	#inputPrice{
 		width:300px;
 	}
@@ -27,44 +25,13 @@
 	#category{
 	font-size:10px;
 	}
-
-   .dropdown{
-		margin:0px;
-	} 
 	
-	.dropdown-toggle{
-		background-color: #FBFBEF;
-		font-size: 20px;
-		margin-left: 200px;
-		color: black;
-		border: 0;	
-	}
-	
-	.dropdown-toggle:hover{
-		background-color: tan;
-			
-	} 
-
+	 
+ 
  
 </style>
 
-<section>
-
-	<div class="dropdown">
-	  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-	    CATEGORY
-	  </a>
-	   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-	    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/marketMainView.do">HOME</a></li>
-	    <li><a class="dropdown-item" href="#">헬스의류</a></li>
-	    <li><a class="dropdown-item" href="#">헬스기구</a></li>
-	    <li><a class="dropdown-item" href="#">운동간식</a></li>
-	    <li><a class="dropdown-item" href="#">기타</a></li>
-	  </ul>
- 	</div>
-
-	<br>
- 
+<section> 
 	    <form> 
 	      <div style="border-bottom: black solid 3px">
 	       		 <label for="enrollTitle" class="enrollTitle">기본정보</label>
@@ -106,13 +73,18 @@
 	      	<textarea rows="5" cols="100" class="form-control" placeholder="상품 설명을 입력해주세요."></textarea>
 	      	<br>
 	      </div>
+	       <br>
 	      
-	      
-	      <br>
-	        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  				<button class="btn btn-primary me-md-2" type="submit">등록</button>
-  				<button class="btn btn-primary" type="reset">취소</button>
-			</div>
+	    
+		      	<div>
+		      	<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
+		      	<input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
+		      	</div>
+		        <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	  				<button class="btn btn-primary me-md-2" type="submit">등록</button>
+	  				<button class="btn btn-primary" type="reset">취소</button>
+				</div>
+		 	
 	    </form>  
 	
  
@@ -130,6 +102,9 @@
 	})
 
 
+	$("#target2").click(e=>{
+		$("input[name=back]").click();
+	})
 </script>
 
 

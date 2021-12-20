@@ -27,7 +27,7 @@ public class StoreSellListSevlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//판매목록화면으로 화면전환해주는 서블릿
-		request.getRequestDispatcher("/views/market/sellList.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/market/store/sellList.jsp").forward(request, response);
 	}
 
 	/**

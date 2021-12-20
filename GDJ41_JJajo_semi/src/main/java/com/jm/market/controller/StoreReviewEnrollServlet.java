@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class StoreBuyListServlet
+ * Servlet implementation class ReviewEnrollServlet
  */
-@WebServlet("/buyList.do")
-public class StoreBuyListServlet extends HttpServlet {
+@WebServlet("/reviewEroll.do")
+public class StoreReviewEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreBuyListServlet() {
+    public StoreReviewEnrollServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,8 @@ public class StoreBuyListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//구매목록화면으로 전환해주는 서블릿
-		request.getRequestDispatcher("/views/market/store/buyList.jsp").forward(request, response);
+		// 리뷰작성페이지로 화면전환
+		request.getRequestDispatcher("/views/market/store/reviewEnroll.jsp").forward(request, response);
 	}
 
 	/**
