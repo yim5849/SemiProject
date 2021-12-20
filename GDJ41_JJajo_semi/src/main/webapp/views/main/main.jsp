@@ -16,6 +16,11 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 	height: 400px;
 	border-radius: 10px;
 	margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.mainbox:hover {
+	box-shadow: 0px 0px 10px rgba(143, 140, 140, 0.5);
 }
 
 .mainbox>div {
@@ -45,7 +50,7 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 				for (MainBoard mb : mbList) {
 			%>
 			<div class="mainbox">
-				<img src="images/info.png" width="100%" height="150px" />
+				<img src="images/blankimg.png" width="100%" height="150px" />
 				<div>
 					<span><strong><%=mb.getBoardTitle() %></strong></span><br> <span>#태그#태그#태그#태그#태그</span>
 					<div style="height: 100px;">
@@ -81,9 +86,9 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 	</div>
 
     <script>
+
         (()=>{
             const root = $("#mainContainer>div");
-           
             let lastBox = $("div.mainbox:last");
             console.log(root);
            // console.log(mainbox);
