@@ -13,7 +13,7 @@
      
      <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
      <div class="container" style="text-align: center;">
-     <button type="button" class="btn btn-outline-dark" onclick="">광고등록</button>
+     <button type="button" class="btn btn-outline-dark" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_enroll.do')">광고등록</button>
      </div>
      <br>
      <%} %>
@@ -48,6 +48,10 @@
               <a href="https://www.coupang.com/np/search?component=&q=%EC%82%BC%EB%8B%A4%EC%88%98&channel=user" target="_blank"><img src="https://thumbs.gfycat.com/FearlessUnnaturalBigmouthbass-size_restricted.gif" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
               <div class="carousel-caption d-none d-md-block">
                 <h5>※ 화면 클릭시 사이트로 이동합니다 ※</h5>
+                 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+	                <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_enroll.do')">수정하기</button>
+	                <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_delete.do')">삭제하기</button>
+                <%} %>
               </div>
             </div>
 
@@ -55,6 +59,10 @@
               <a href="https://whoisnerdy.com/" target="_blank"><img src="https://t1.daumcdn.net/cfile/tistory/999134395EB2E0C42D" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
               <div class="carousel-caption d-none d-md-block">
                 <h5>※ 화면 클릭시 사이트로 이동합니다 ※</h5>
+                <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+	                <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_enroll.do')">수정하기</button>
+	                <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_delete.do')">삭제하기</button>
+                <%} %>
               </div>
             </div>
 
@@ -62,6 +70,10 @@
               <a href="https://www.coupang.com/np/search?component=&q=%EB%A0%88%EB%AA%A8%EB%82%98&channel=user" target="_blank"><img src="https://t1.daumcdn.net/cfile/tistory/9915E73D5C8637E412" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
               <div class="carousel-caption d-none d-md-block">
                 <h5>※ 화면 클릭시 사이트로 이동합니다 ※</h5>
+                 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+	                <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_enroll.do')">수정하기</button>
+	                <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_delete.do')">삭제하기</button>
+                <%} %>
               </div>
             </div>
 
@@ -168,7 +180,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-        <button type="button" class="btn btn-primary" onclick="location.href='<%=request.getContextPath() %>/challengers/mychallenge.do'">&ensp;네&ensp;</button>
+        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="location.href='<%=request.getContextPath() %>/challengers/mychallenge.do'">&ensp;네&ensp;</button>
       </div>
     </div>
   </div>

@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CH_IntroduceServlet
+ * Servlet implementation class CH_AdvertisementEnrollServlet
  */
-@WebServlet("/challengers/introduce.do")
-public class CH_IntroduceServlet extends HttpServlet {
+@WebServlet("/challengers/advertisement_enroll.do")
+public class CH_AdvertisementEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_IntroduceServlet() {
+    public CH_AdvertisementEnrollServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,12 +26,11 @@ public class CH_IntroduceServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		request.getRequestDispatcher("/views/challengers/challengers_advertisement_enroll.jsp")
+		.forward(request, response);
 	
-		
-		
-		
-		request.getRequestDispatcher("/views/challengers/challengers_introduce.jsp").forward(request, response);
-		
+	
 	}
 
 	/**
