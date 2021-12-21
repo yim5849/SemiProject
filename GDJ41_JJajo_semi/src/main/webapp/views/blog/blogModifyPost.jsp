@@ -1,10 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
-
 <section>
 	<div class="main">
-	<h2>게시물 업로드</h2>
+	<h2>게시물 수정</h2>
 		<hr class="line_break">
 		
 		
@@ -60,7 +59,7 @@
 		
 		<hr class="line_break">
 		<div id="upload_btn">
-		<button type="button" class="btn btn-primary"  onclick="location.assign('<%=request.getContextPath()%>/blog/uploadpost.do')">등록하기</button>
+		<button type="button" class="btn btn-primary"  onclick="location.assign('<%=request.getContextPath()%>/blog/uploadpost.do')">수정하기</button>
 		</div>
 	
 	</div>
