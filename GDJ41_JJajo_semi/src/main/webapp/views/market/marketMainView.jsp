@@ -73,25 +73,26 @@
 
 
 	 
-             
-   <div class="d-flex flex-wrap">
-     <%for(ProductBoard pb : list) {%> 
-        <div style="display:inline-block"> 
-		  <div class="card" style="width: 18rem;">
-			  <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top">
-		 	   <div class="card-body">
-		   	        <h5 class="card-title"><%=pb.getTitle()%></h5>
-		     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
-		     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
-		    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
-		    		
-		  	   </div>
-		  </div>            		
-        </div>
-      <%} %>
-   </div>	 
-             
-        
+  <%if(list!=null&&list.isEmpty()){%>
+	  		<p>등록된 게시물이 없습니다</p>
+	  <%}else{ %>        
+	   <div class="d-flex flex-wrap">
+	     <%for(ProductBoard pb : list) {%> 
+	        <div style="display:inline-block"> 
+			  <div class="card" style="width: 18rem;">
+				  <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top">
+			 	   <div class="card-body">
+			   	        <h5 class="card-title"><%=pb.getTitle()%></h5>
+			     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
+			     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
+			    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
+			    		
+			  	   </div>
+			  </div>            		
+	        </div>
+	      <%} %>
+	    </div>	       
+	   <%} %>    
 
 
 
