@@ -3,9 +3,7 @@
 <%@ page import="com.jj.member.model.vo.Member" %>
     
 <%
-	Member loginMember = (Member)session.getAttribute("loginMember");
-
-
+	Member loginMember = (Member)session.getAttribute("loginMember"); 
 %>   
    
     
@@ -24,12 +22,13 @@
       var myModal = document.getElementById('myModal');
       var myInput = document.getElementById('myInput');
         
-      if(myModal != null){
-    	  myModal.addEventListener('shown.bs.modal', function () {
-    	        myInput.focus()
-    	        });
-      }
-        
+
+      if(myModal!=null && myInput!=null){
+        myModal.addEventListener('shown.bs.modal', function () {
+        myInput.focus();
+        })
+      } 
+
     </script>
 
 	
@@ -39,8 +38,9 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	<title>Hello, MVC 프로젝트!</title>
+	<title>GOODEE HEALTH</title>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
+	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/challengers.css">
 	</head>
 	<body>
 	
@@ -94,7 +94,7 @@
                 <a class="nav-link disabled">Challengers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">중고거래</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
               </li>
             </ul>
           </div>
@@ -126,16 +126,16 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/blog/blogmain.do">MY-BLOG</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">헬스장찾기</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/find/findPosition.do">헬스장찾기</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link">주변친구찾기</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" >Challengers</a>
+                <a class="nav-link"  href="<%=request.getContextPath()%>/challengers/main.do">Challengers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link">중고거래</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
               </li>
             </ul>
           </div>
@@ -197,6 +197,7 @@
         <span class="placeholder col-12 placeholder-xs bg-info"></span>
       </p>
     </div>
+	
 	
 	
 </header>

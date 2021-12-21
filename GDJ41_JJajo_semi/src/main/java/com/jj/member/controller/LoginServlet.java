@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
 	// 로그인이 완료되면 메인페이지로 이동해야 하기 때문에 주소값이 유지되면 안된다!
 	// /login.do 가 유지되면 계속 로그인 처리 창이 뜬다...!
 	
-	response.sendRedirect(request.getContextPath());
+	//response.sendRedirect(request.getContextPath());
 	
 	
 	
