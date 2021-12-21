@@ -1,7 +1,10 @@
 package com.jm.market.service;
 
+ 
 import static com.jj.common.JDBCTemplate.close;
 import static com.jj.common.JDBCTemplate.getConnection;
+import static com.jj.common.JDBCTemplate.commit;
+import static com.jj.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -25,6 +28,36 @@ public class MarketService {
 		ProductBoard pb = dao.searchProduct(conn,productNo);
 		close(conn);
 		return pb;
+	}
+	
+	public int insertBoard(ProductBoard pb) {
+		Connection conn=getConnection();
+		int result=dao.insertBoard(conn,pb); ;
+		if(result>0) { 	
+				commit(conn); 
+		}else {
+				rollback(conn);
+		}
+		close(conn);
+		return result; 
+	}
+
+	public int maxCount(ProductBoard pb) {
+		Connection conn=getConnection();
+		int result=dao.maxCount(conn,pb); 
+		return result;
+	}
+	
+	public int insertFile(ProductBoard pb,int pdno) {
+		Connection conn=getConnection();
+		int result=dao.insertFile(conn,pb,pdno); 
+		if(result>0) { 	
+				commit(conn); 
+		}else {
+				rollback(conn);
+		}
+		close(conn);
+		return result; 
 	}
 	
 

@@ -47,7 +47,7 @@
 <div class="container">
 	<div class="row" style="text-align: center;">
 	  <div class="col">
-		<a href="<%=request.getContextPath()%>/enrollproduct.do"><img src="<%=request.getContextPath()%>/images/market/cash.png" width="50px" height="40px"   class="rounded" alt="..."></a>
+		<a href="<%=request.getContextPath()%>/enrollproduct.do"><img src="<%=request.getContextPath()%>/images/market/cash.png" width="50px" height="40px" class="rounded"></a>
 	</div>
 	  <div class="col" style="text-align: center;">
 		<h3>중고거래 최신매물</h3>

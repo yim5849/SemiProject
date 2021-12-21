@@ -3,7 +3,8 @@
 <%@ include file="/views/common/header.jsp" %>
 <%@ page import="com.jm.market.model.vo.ProductBoard" %>
 <%
-	ProductBoard pb=(ProductBoard)request.getAttribute("productBoard");
+	ProductBoard pb=(ProductBoard)request.getAttribute("productBoard"); 
+ 
  %>
 <style> 
 
@@ -14,17 +15,23 @@
 		height:100px;
 		width:100px; 
 	}
- 	.wh-200{
+	
+ 	.w-50{
 		width:0px;
-		height:200px;
+		height:400px;
 	}
-</style>
-
+	.carousel-item{
+		margin-right:500px;
+	}
+	 
+</style> 
  	
 <section>
 	 
 <form> 
- 	<div class="container">
+
+
+<%--  	<div class="container">
   		<div class="row" style="margin-left:200px">
   		  <div class="col" style="align-self: center; row:0px width:0px">
    			   <img src="<%=request.getContextPath()%>/images/market/leftArrow.png" height=50px class="rounded"  >
@@ -36,8 +43,32 @@
       		   <img src="<%=request.getContextPath()%>/images/market/rightArrow.png" height=50px class="rounded"  >
     	  </div>
   	  	</div>
-	</div> 
+	</div>  --%> 
  
+	 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+  		<div class="carousel-inner">
+   		 <div class="carousel-item active">
+     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName()%>" class="d-block w-50"  >
+   		 </div>
+    	<div class="carousel-item">
+     		 <img src="<%=request.getContextPath()%>/images/market/중고.jpg" class="d-block w-50"  >
+    	</div>
+   		 <div class="carousel-item">
+     		 <img src="<%=request.getContextPath()%>/images/market/중고.jpg" class="d-block w-50"  >
+    	</div>
+ 	   </div>
+	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Previous</span>
+	  </button>
+	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+	    <span class="visually-hidden">Next</span>
+	  </button>
+	</div>
+		 
+		 
+	 
 	 
 	<br><br>	
 		
@@ -62,7 +93,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td>user_name</td> 
+			<td style="text-align:center;"><%=pb.getMember_name()%></td> 
 		</tr>
  
  	</table>
@@ -71,7 +102,7 @@
  	
  	
  	  <div class="col-12" style="border-bottom: black solid 3px"> 
-	      	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" ><%=pb.getContent()%></textarea>
+	      	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" readonly ><%=pb.getContent()%></textarea>
 	      	<br>
 	  </div>
 	  <br>

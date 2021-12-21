@@ -87,6 +87,8 @@ public class MarketDao {
 						 .isSale(rs.getString("pd_sale"))
 						 .isDelete(rs.getString("pd_delete"))
 						 .memberNo(rs.getInt("member_no"))  
+						 .member_name(rs.getString("member_name"))
+						 .fileName(rs.getString("filename"))
 						 .build();  
 			}
 			
@@ -100,10 +102,76 @@ public class MarketDao {
 		return pb;
 		
 	}
+
+
+		public int insertBoard(Connection conn,ProductBoard pb) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("insertBoard");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, pb.getTitle());
+				pstmt.setString(2, pb.getCategory());
+				pstmt.setString(3, pb.getContent());
+				pstmt.setInt(4, pb.getPrice());
+				pstmt.setString(5, pb.getAddress());  
+				pstmt.setInt(6, pb.getMemberNo());  
+				result=pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
 	
 	
+	 
 	
+		
+		public int insertFile(Connection conn,ProductBoard pb,int pdno) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("insertFile");
+			try {
+				pstmt=conn.prepareStatement(sql); 
+				pstmt.setInt(1, pb.getMemberNo());
+				pstmt.setString(2, pb.getFileName());
+				result=pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+			
+		}
 	
-	
-	
+		
+	 
+		
+		public int maxCount(Connection conn,ProductBoard pb) {
+			PreparedStatement pstmt=null; 
+			ResultSet rs=null;
+			int result=0;  
+			String sql=prop.getProperty("maxCount");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					result=rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			System.out.println(result);
+			return result;
+			
+			
+		}
 }//클래스 종료
