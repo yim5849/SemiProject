@@ -69,11 +69,6 @@
 		                        like btn
 		                    </div>
 						</div>
-	               		<div class="row">
-		                    <div class="col">
-		                        short description
-		                    </div>
-		                </div>
 		                <div class="row">
 		                    <div class="col">
 		                        #tags
@@ -176,19 +171,27 @@
 </section>
 
 <section>
-	<div class="main">
+ <%if(mbList!=null&&mbList.isEmpty()){ %>
+		<tr>
+			<td colspan="5">등록된 게시물이 없습니다.</td>
+		</tr>
+	<%}else{ 
+		for(MainBoard mb : mbList){%>  
+				
+	<div class="main">	
 		<!-- Portfolio Gallery Grid -->	
-		<div class="row">
+ 		<div class="row">
+ 		
 		  <div class="column">
 		    <div class="content">
 		      <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/picture-seal.jpg" alt="1" style="width:100%">
-		      <h3>title</h3>
+		      <h3><%=mb.getBoardTitle() %></h3>
 		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no
-		      만약 내가 더 길게쓰면 박스를 넘어가나요.</p>
+		      <p><%=mb.getBoardContent() %></p>
 		    </div>
 		  </div>
-		  <div class="column">
+		  
+<!--  		  <div class="column">
 		    <div class="content">
 		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
 		      <h3>title</h3>
@@ -211,9 +214,15 @@
 		      <p class="tag">#해쉬태그</p>
 		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
 		    </div>
-		  </div>
+		  </div> -->
+		  
+		  
 		</div>
 	</div>
+	
+ 	<%}
+		 }%> 
+		 
 </section>
 
 
@@ -242,6 +251,8 @@
 	$("#target").click(e=>{
 		$("input[name=upFile]").click();
 	})
+	
+	
 
 
 </script>
