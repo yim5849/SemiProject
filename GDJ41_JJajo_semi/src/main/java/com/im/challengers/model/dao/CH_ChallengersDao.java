@@ -113,6 +113,36 @@ public class CH_ChallengersDao {
 		
 	}
 	
+/* =================================== 챌린져스 갯수 출력 =============================== */	
+	
+	public int searchAllChallengersCount(Connection conn) {
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		int result=0;
+		
+		String sql = prop.getProperty("searchAllChallengersCount");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
+		
+	}
+	
 /* ======================================챌린져스 등록================================= */	
 
 	public int insertChallengers(Connection conn, CH_Challengers ch) {

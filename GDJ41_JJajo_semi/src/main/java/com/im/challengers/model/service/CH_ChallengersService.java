@@ -38,6 +38,17 @@ public class CH_ChallengersService {
 		
 	}
 	
+/* ===================================챌린져스 갯수 출력================================ */	
+	
+	public int searchAllChallengersCount() {
+		
+		Connection conn=getConnection();
+		int result = dao.searchAllChallengersCount(conn);
+		close(conn);
+		return result;
+		
+	}
+
 /* ======================================챌린져스 등록================================= */	
 
 	public int insertChallengers(CH_Challengers ch) {

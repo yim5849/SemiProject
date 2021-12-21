@@ -4,11 +4,14 @@
 
 <%@ page import="java.util.*" %>
 <%@ page import="com.im.challengers.model.vo.CH_Advertisement" %>
+<%@ page import="com.im.challengers.model.vo.CH_Challengers" %>
 
 <%
 
 	List<CH_Advertisement> adList = (List)request.getAttribute("advertisementList");
-
+	List<CH_Challengers> chList = (List)request.getAttribute("challengersList");
+//	String pageBar = (String)request.getAttribute("pageBar");
+	
 %>
 
 
@@ -104,24 +107,27 @@
 	
 	<!-- 챌린지 리스트 출력되는 부분 -->
       <div class="container">
-        <div class="row">
-          <div class="col">
+        <div class="row" style="padding-left: 100px;">
+<!--           <div class="col-2">
            
-          </div>
-          <div class="col">
+          </div> -->
+          <%if(chList!=null && !(chList.isEmpty())){ 
+          			for(CH_Challengers ch : chList){%>
+          <div class="col-4">
             <div class="card" style="width: 18rem; border: 5px solid #81F7BE" >
-              <img src="https://newsimg.hankookilbo.com/cms/articlerelease/2020/08/18/93e55f66-3144-4bea-834f-69df68b1cd4b.jpg" class="card-img-top" alt="...">
+              <img src="<%=request.getContextPath()%>/images/challengers/<%=ch.getFilepath()%>" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title" style="text-align: center; color: #BCA9F5">헬스장 가기</h5>
-                <p class="card-text" style="height: 100px;">어떠한 일에 집중하기 위해서는 주변 환경을 집중할 수 있도록 만들라는 말이 있죠? 헬스장 만큼 운동에 집중할 수 있는 곳이 있을까요? 도전해보시죠!</p>
+                <h5 class="card-title" style="text-align: center; color: #BCA9F5"><%=ch.getTitle() %></h5>
+                <p class="card-text" style="height: 100px;"><%=ch.getContent() %></p>
                 <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
               </div>
             </div>
           </div>
-          <div class="col">
+          <%} %>
+  <!--         <div class="col-2">
         
-          </div>
-          <div class="col">
+          </div> -->
+       <!--    <div class="col-4">
             <div class="card h-100" style="width: 18rem; border: 5px solid #81F7BE">
               <img src="https://cphoto.asiae.co.kr/listimglink/6/2018111215570022200_1542005817.jpg" class="card-img-top" alt="...">
               <div class="card-body">
@@ -130,11 +136,11 @@
                 <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
               </div>
             </div>
-          </div>
-          <div class="col">
+          </div> -->
+          <!-- <div class="col-2">
            
-          </div>
-          <div class="col">
+          </div> -->
+	     <!--  <div class="col-4">
             <div class="card h-100" style="width: 18rem; border: 5px solid #81F7BE">
               <img src="https://src.hidoc.co.kr/image/lib/2019/4/8/20190408103037491_0.jpg" class="card-img-top" alt="...">
               <div class="card-body">
@@ -143,12 +149,17 @@
                 <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
               </div>
             </div>
-          </div>
-          <div class="col">
+          </div> --> 
+      <!--     <div class="col">
            
-          </div>
+          </div> -->
         </div>
       </div>
+      
+       	<div id="pageBar">
+        	<%=request.getAttribute("pageBar") %>
+        </div>
+      
       <br>
       <br>
 
