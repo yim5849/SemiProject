@@ -3,9 +3,7 @@
 <%@ page import="com.jj.member.model.vo.Member" %>
     
 <%
-	Member loginMember = (Member)session.getAttribute("loginMember");
-
-
+	Member loginMember = (Member)session.getAttribute("loginMember"); 
 %>   
    
     

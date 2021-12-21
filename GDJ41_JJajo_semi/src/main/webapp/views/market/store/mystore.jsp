@@ -37,12 +37,18 @@
 	  <span>user_id</span> 
 	</div>
 	<br>
-	
+	<%if(loginMember==null){ %>
+	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 810px;">
+	  <button type="button" class="btn btn-primary">블로그</button> 
+	</div>
+	<%}else { %>
 	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 720px;">
 	  <button type="button" class="btn btn-primary">블로그</button>
 	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/sellList.do")>판매내역</button>
 	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do")>구매내역</button>
 	</div>
+	
+	<%} %>
 	<br>
   
 	

@@ -1,6 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<%@ page import="com.jm.market.model.vo.ProductBoard" %>
+<%
+	ProductBoard pb=(ProductBoard)request.getAttribute("productBoard");
+ %>
 <style> 
 
 	 section>*{
@@ -44,21 +48,21 @@
 			</td>
 			<td rowspan="2" width="300px" border="1" style="padding-left: 30px;" >
 				<div>
-					<h3>타이틀</h3>
+					<h3><%=pb.getTitle()%></h3>
 				</div>
 				<div>
-					<p>내용</p>
+					<p style="margin-bottom: 0px;"><%=pb.getPrice()%>원</p>
 				</div>
 				<div>
-					거래장소
+					<p><%=pb.getAddress()%></p>
 				</div> 
 				<div>
-					#카테고리
+					<p style="color: cornflowerblue;">#<%=pb.getCategory()%></p>
 				</div>
 			</td>
 		</tr>
 		<tr>
-			<td>USER_NAME</td> 
+			<td>user_name</td> 
 		</tr>
  
  	</table>
@@ -67,7 +71,7 @@
  	
  	
  	  <div class="col-12" style="border-bottom: black solid 3px"> 
-	      	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" ></textarea>
+	      	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" ><%=pb.getContent()%></textarea>
 	      	<br>
 	  </div>
 	  <br>

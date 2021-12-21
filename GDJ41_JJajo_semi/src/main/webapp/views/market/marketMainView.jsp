@@ -1,10 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
- 
 <%@ include file="/views/common/header.jsp" %>
+<%@ page import="java.util.List,com.jm.market.model.vo.ProductBoard" %>
+<%
+	List<ProductBoard> list=(List)request.getAttribute("list");
+
+%>
 <style> 
 	section>*{
-		margin: 0px 300px 20px 300px;
+		margin: 0px 200px 20px 300px;
     
 	}
 	section>h3{
@@ -30,8 +34,10 @@
 	} 	
 	.card{
 		margin-right: 80px;
+		margin-bottom: 30px;
 	}
- 
+	
+	 
  
 
 </style>
@@ -65,34 +71,34 @@
 	  </ul>
  	</div>
 
-	<div id="product-line" style="display:inline-flex">
-		<div class="card" style="width: 18rem;">
-		  <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		     <p class="card-text">2021-12-19</p>
-		    <a href="<%=request.getContextPath()%>/productView.do" class="btn btn-primary">보러가기</a>
-		  </div>
-		</div>
-		
-		<div class="card" style="width: 18rem;">
-		  <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		     <p class="card-text">2021-12-19</p>
-		    <a href="<%=request.getContextPath()%>/productView.do" class="btn btn-primary">보러가기</a>
-		  </div>
-		</div>
-		
-		<div class="card" style="width: 18rem;">
-		  <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top" alt="...">
-		  <div class="card-body">
-		    <h5 class="card-title">Card title</h5>
-		     <p class="card-text">2021-12-19</p>
-		    <a href="<%=request.getContextPath()%>/productView.do" class="btn btn-primary">보러가기</a>
-		  </div>
-		</div>
-	</div>
+
+	 
+             
+   <div class="d-flex flex-wrap">
+     <%for(ProductBoard pb : list) {%> 
+        <div style="display:inline-block"> 
+		  <div class="card" style="width: 18rem;">
+			  <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top">
+		 	   <div class="card-body">
+		   	        <h5 class="card-title"><%=pb.getTitle()%></h5>
+		     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
+		     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
+		    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
+		    		
+		  	   </div>
+		  </div>            		
+        </div>
+      <%} %>
+   </div>	 
+             
+        
+
+
+
+
+
+
+ 
 
 
 
