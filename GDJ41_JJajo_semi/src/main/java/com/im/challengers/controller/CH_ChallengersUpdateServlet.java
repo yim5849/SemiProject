@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.im.challengers.model.service.CH_AdvertisementService;
+import com.im.challengers.model.service.CH_ChallengersService;
 
 /**
- * Servlet implementation class CH_AdvertisementUpdateServlet
+ * Servlet implementation class CH_ChallengersUpdateServlet
  */
-@WebServlet("/challengers/advertisement_update.do")
-public class CH_AdvertisementUpdateServlet extends HttpServlet {
+@WebServlet("/challengers/ch_update.do")
+public class CH_ChallengersUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_AdvertisementUpdateServlet() {
+    public CH_ChallengersUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +29,13 @@ public class CH_AdvertisementUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int adNo= Integer.parseInt(request.getParameter("advertisementNo"));
+
+		int chNo = Integer.parseInt(request.getParameter("challengersNo"));
 		
-		request.setAttribute("advertisement", new CH_AdvertisementService().searchAdvertisement(adNo));
+		request.setAttribute("challengers", new CH_ChallengersService().searchChallengers(chNo));
 		
-		request.getRequestDispatcher("/views/challengers/challengers_advertisement_update.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/challengers/challengers_list_update.jsp").forward(request, response);
+
 	}
 
 	/**

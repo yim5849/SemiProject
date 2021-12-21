@@ -10,7 +10,7 @@
 
 	List<CH_Advertisement> adList = (List)request.getAttribute("advertisementList");
 	List<CH_Challengers> chList = (List)request.getAttribute("challengersList");
-//	String pageBar = (String)request.getAttribute("pageBar");
+	//	String pageBar = (String)request.getAttribute("pageBar");
 	
 %>
 

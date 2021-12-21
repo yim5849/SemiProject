@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.im.challengers.model.service.CH_AdvertisementService;
+import com.im.challengers.model.service.CH_ChallengersService;
 
 /**
- * Servlet implementation class CH_AdvertisementUpdateServlet
+ * Servlet implementation class CH_ChallengersDeleteServlet
  */
-@WebServlet("/challengers/advertisement_update.do")
-public class CH_AdvertisementUpdateServlet extends HttpServlet {
+@WebServlet("/challengers/ch_delete.do")
+public class CH_ChallengersDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_AdvertisementUpdateServlet() {
+    public CH_ChallengersDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,12 +29,25 @@ public class CH_AdvertisementUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int adNo= Integer.parseInt(request.getParameter("advertisementNo"));
 		
-		request.setAttribute("advertisement", new CH_AdvertisementService().searchAdvertisement(adNo));
+		int chNo=Integer.parseInt(request.getParameter("challengersNo"));
 		
-		request.getRequestDispatcher("/views/challengers/challengers_advertisement_update.jsp").forward(request, response);
+		int result = new CH_ChallengersService().deleteChallengers(chNo);
+		
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="관리자님! 광고삭제가 정상적으로 완료되었습니다! :)";
+			loc="/challengers/introduce.do";
+		}else {
+			msg="관리자님! 광고삭제 프로세스에 문제가 발생하였습니다 :(";
+			loc="/challengers/advertisement_enroll.do";
+		}
+		request.setAttribute("msg",msg);
+		request.setAttribute("loc",loc);
+		request.getRequestDispatcher("/views/common/msg.jsp")
+		.forward(request, response);
+		
 		
 	}
 
