@@ -42,7 +42,7 @@ public class MainViewServlet extends HttpServlet {
 		int numPerOnce=20;
 		
 		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
-		
+		System.out.println(mbList);
 		request.setAttribute("mainBoardList", mbList);
 		
 		
