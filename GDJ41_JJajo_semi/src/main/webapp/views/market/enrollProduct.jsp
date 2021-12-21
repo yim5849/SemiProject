@@ -3,6 +3,7 @@
 <%@ include file="/views/common/header.jsp" %>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
+/* 오휴해결 */
    section>*{
 		margin: 0px 300px 20px 300px;
 	}
