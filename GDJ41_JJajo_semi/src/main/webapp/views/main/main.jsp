@@ -50,7 +50,15 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 				for (MainBoard mb : mbList) {
 			%>
 			<div class="mainbox">
-				<img src="images/blankimg.png" width="100%" height="150px" />
+				<%
+				int idx = mb.getAttachedFile().getImgNoList().indexOf("1");
+				
+				if(idx>=0){
+				%>
+				<img src="<%=request.getContextPath() %>/upload/attachedimg/<%=mb.getAttachedFile().getImgNameList().get(idx) %>" width="100%" height="150px" />
+				<%
+				}
+				%>
 				<div>
 					<span><strong><%=mb.getBoardTitle() %></strong></span><br> <span>#태그#태그#태그#태그#태그</span>
 					<div style="height: 100px;">
@@ -71,11 +79,7 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 
 			<%
 			}
-			%>
-
-
-
-			<%
+		
 			} else {
 			%>
 			error!!!
