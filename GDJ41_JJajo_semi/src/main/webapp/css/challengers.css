@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+
+  	/*========================================== Challengers 메인 페이지 ========================================================*/
+   		
+			.loading span {
+			  display: inline-block;
+			  margin: 0 -.075em;
+			  animation: loading .8s infinite alternate;
+			  text-align: center; font-size: 50px; color: #01DFD7;
+			}
+			.loading span:nth-child(2) {
+			  animation-delay: .1s;
+			}
+			.loading span:nth-child(3) {
+			  animation-delay: .2s;
+			}
+			.loading span:nth-child(4) {
+			  animation-delay: .3s;
+			}
+			.loading span:nth-child(5) {
+			  animation-delay: .4s;
+			}
+			.loading span:nth-child(6) {
+			  animation-delay: .5s;
+			}
+			.loading span:nth-child(7) {
+			  animation-delay: .6s;
+			}
+			.loading span:nth-child(8) {
+			  animation-delay: .7s;
+			}
+			.loading span:nth-child(9) {
+			  animation-delay: .8s;
+			}
+			.loading span:nth-child(10) {
+			  animation-delay: .9s;
+			} 
+			.loading span:nth-child(11) {
+			  animation-delay: .9s;
+			} 
+			@keyframes loading {
+			  0% {
+			    transform: scale(1);
+			  }
+			  100% {
+			    transform: scale(0.8);
+			  }
+			}
+   		
+   
+			.challengers_main {
+			  display: flex;
+			  margin: 32px 0;
+			}
+			
+			.challengers_main_avatar {
+			  width: 150px;
+			  height: 150px;
+			  border-radius: 50%;
+			}
+			
+			.challengers_main_avatar:nth-child(odd) {
+			  margin-right: 40px;
+			}
+			
+			.challengers_main_avatar:nth-child(even) {
+			  margin-left: 40px;
+			}
+			
+			.challengers_main_speech-bubble {
+			  padding: 18px;
+			  background-color: #EFFBF2;
+			  border-radius: 4px;
+			}
+			
+			.challengers_main_speech-bubble p {
+			  color: #7c7979;
+			}
+			
+			
+			   
+		/*========================================== Challengers 소개 페이지 ========================================================*/
+      
+      .blinking{ 
+        -webkit-animation:blink 1.5s ease-in-out infinite alternate; 
+        -moz-animation:blink 1.5s ease-in-out infinite alternate; 
+        animation:blink 1.5s ease-in-out infinite alternate; 
+      } 
+      
+      @-webkit-keyframes blink{ 
+        0% {opacity:0;} 100% {opacity:1;} 
+      } 
+      
+      @-moz-keyframes blink{ 
+        0% {opacity:0;} 
+        100% {opacity:1;}
+  
+      } @keyframes blink{ 
+        0% {opacity:0;} 
+        100% {opacity:1;} 
+      }
+
+      /* -----광고 화면 크기------- */
+      #challengeListAdvertisement{
+  
+        height: 500px;
+
+      }
+
+      .card-img-top img{
+        height: 190px;
+      }
+      
+      
+      
+ /*=================================================================================================*/ 		
