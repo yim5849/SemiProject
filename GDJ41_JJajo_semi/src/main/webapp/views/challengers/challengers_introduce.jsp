@@ -61,7 +61,7 @@
 					<%count++;}else{ %>
 		           	 <div class="carousel-item">
 		          	<%} %>
-		              <a href="<%=ad.getAddress() %>" target="_blank"><img src="<%=request.getContextPath()%>/images/challengers/advertisement/<%=ad.getFilepath() %>" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
+		              <a href="<%=ad.getAddress() %>" target="_blank"><img src="<%=request.getContextPath()%>/images/challengers/advertisement/<%=ad.getFilepath()%>" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
 		              <div class="carousel-caption d-none d-md-block">
 		                <h5><%=ad.getContent() %></h5>
 		                 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
