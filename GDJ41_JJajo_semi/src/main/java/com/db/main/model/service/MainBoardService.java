@@ -15,6 +15,7 @@ public class MainBoardService {
 	private MainBoardDao dao = new MainBoardDao();
 	
 	public List<MainBoard> searchMainBoard(int curPosition, int numPerOnce) {
+		//DB
 		Connection conn = getConnection();
 		List<MainBoard> mbList = dao.searchMainBoard(conn, curPosition, numPerOnce);
 		close(conn);
@@ -24,6 +25,9 @@ public class MainBoardService {
 	
 	
 
+	
+	
+	
 	
 	
 	

@@ -24,4 +24,7 @@ public class ProductBoard {
 	private String isSale;
 	private String isDelete;
 	private int memberNo; 
+	private String member_name;
+	private String fileName;
+	
 }

@@ -4,11 +4,14 @@
 
 <%@ page import="java.util.*" %>
 <%@ page import="com.im.challengers.model.vo.CH_Advertisement" %>
+<%@ page import="com.im.challengers.model.vo.CH_Challengers" %>
 
 <%
 
 	List<CH_Advertisement> adList = (List)request.getAttribute("advertisementList");
-
+	List<CH_Challengers> chList = (List)request.getAttribute("challengersList");
+	//	String pageBar = (String)request.getAttribute("pageBar");
+	
 %>
 
 
@@ -61,7 +64,7 @@
 					<%count++;}else{ %>
 		           	 <div class="carousel-item">
 		          	<%} %>
-		              <a href="<%=ad.getAddress() %>" target="_blank"><img src="<%=request.getContextPath()%>/images/challengers/advertisement/<%=ad.getFilepath() %>" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
+		              <a href="<%=ad.getAddress() %>" target="_blank"><img src="<%=request.getContextPath()%>/images/challengers/advertisement/<%=ad.getFilepath()%>" class="d-block w-100" id="challengeListAdvertisement" alt="..."></a>
 		              <div class="carousel-caption d-none d-md-block">
 		                <h5><%=ad.getContent() %></h5>
 		                 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
@@ -104,52 +107,37 @@
 	
 	<!-- 챌린지 리스트 출력되는 부분 -->
       <div class="container">
-        <div class="row">
-          <div class="col">
-           
-          </div>
-          <div class="col">
+        <div class="row" style="padding-left: 100px;">
+
+          <%if(chList!=null && !(chList.isEmpty())){ 
+          			for(CH_Challengers ch : chList){%>
+          <div class="col-4">
             <div class="card" style="width: 18rem; border: 5px solid #81F7BE" >
-              <img src="https://newsimg.hankookilbo.com/cms/articlerelease/2020/08/18/93e55f66-3144-4bea-834f-69df68b1cd4b.jpg" class="card-img-top" alt="...">
+              <img src="<%=request.getContextPath()%>/images/challengers/<%=ch.getFilepath()%>" class="card-img-top" alt="...">
               <div class="card-body">
-                <h5 class="card-title" style="text-align: center; color: #BCA9F5">헬스장 가기</h5>
-                <p class="card-text" style="height: 100px;">어떠한 일에 집중하기 위해서는 주변 환경을 집중할 수 있도록 만들라는 말이 있죠? 헬스장 만큼 운동에 집중할 수 있는 곳이 있을까요? 도전해보시죠!</p>
+                <h5 class="card-title" style="text-align: center; color: #BCA9F5"><%=ch.getTitle() %></h5>
+                <p class="card-text" style="height: 100px;"><%=ch.getContent() %></p>
+       		    <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+			      <div style="text-align:center">
+			      <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_update.do?challengersNo=<%=ch.getChallengersNo()%>')">수정하기</button>
+			      <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_delete.do?challengersNo=<%=ch.getChallengersNo()%>')">삭제하기</button>
+		        </div>
+		        <br>
+		        <%} %>         
                 <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
               </div>
             </div>
           </div>
-          <div class="col">
-        
-          </div>
-          <div class="col">
-            <div class="card h-100" style="width: 18rem; border: 5px solid #81F7BE">
-              <img src="https://cphoto.asiae.co.kr/listimglink/6/2018111215570022200_1542005817.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="text-align: center; color: #BCA9F5">물 1L 마시기</h5>
-                <p class="card-text">혹시 하루 1L이상의 물을 섭취하는 것이 건강에 도움된다는 것을 알고 계셨나요? 물 마시기 습관화를 통해 건강을 지켜보세요! </p>
-                <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-           
-          </div>
-          <div class="col">
-            <div class="card h-100" style="width: 18rem; border: 5px solid #81F7BE">
-              <img src="https://src.hidoc.co.kr/image/lib/2019/4/8/20190408103037491_0.jpg" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title" style="text-align: center; color: #BCA9F5">1만보 걷기</h5>
-                <p class="card-text">운동을 하고싶지만 방법을 몰라 고민하고 있는 당신! 오직 당신의 두 다리와 노력만으로도 운동을 할 수 있는 1만보 걷기! 도전해보시겠습니까? </p>
-                <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
-              </div>
-            </div>
-          </div>
-          <div class="col">
-           
-          </div>
+          <%} 
+          }%>
+ 
         </div>
       </div>
+      
       <br>
+     
+       <%=request.getAttribute("pageBar") %>
+ 
       <br>
 
 
@@ -176,7 +164,7 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-	        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="location.href='<%=request.getContextPath() %>/challengers/mychallenge.do'">&ensp;네&ensp;</button>
+	        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="">&ensp;네&ensp;</button>
 	      </div>
 	    </div>
 	  </div>

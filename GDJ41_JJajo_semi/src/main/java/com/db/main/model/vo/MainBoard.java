@@ -16,4 +16,6 @@ public class MainBoard {
 	private String deleteYn;
 	private Date updateDate;
 	private String memberNo;
+	private String memberName;
+	private AttachedFile attachedFile;
 }
