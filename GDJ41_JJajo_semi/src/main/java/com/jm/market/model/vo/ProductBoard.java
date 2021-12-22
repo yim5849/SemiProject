@@ -3,8 +3,6 @@ package com.jm.market.model.vo;
 import java.util.Date;
 import java.util.List;
 
-import com.jj.member.model.vo.AttachedFile;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -26,6 +24,6 @@ public class ProductBoard {
 	private String isDelete;
 	private int memberNo; 
 	private String member_name;
-	private List<AttachedFile> fileName;
+	private List<AttachedFiles> fileName;
 	
 }

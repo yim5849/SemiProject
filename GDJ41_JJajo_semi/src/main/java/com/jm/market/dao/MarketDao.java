@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.jj.member.model.vo.AttachedFile;
+import com.jm.market.model.vo.AttachedFiles;
 import com.jm.market.model.vo.ProductBoard;
 
 public class MarketDao {
@@ -36,7 +36,7 @@ public class MarketDao {
 		ProductBoard pb=null;
 		List<ProductBoard> list = new ArrayList();
 		String sql=prop.getProperty("allProduct");
-		List<AttachedFile> files=new ArrayList();
+		List<AttachedFiles> files=new ArrayList();
 		try {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
@@ -70,9 +70,9 @@ public class MarketDao {
 	public ProductBoard searchProduct(Connection conn,int productNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		List<AttachedFile> list=new ArrayList();
+		List<AttachedFiles> list=new ArrayList();
 		ProductBoard pb=null; 
-		AttachedFile file=null;
+		AttachedFiles file=null;
 		String sql=prop.getProperty("searchProduct");
 		
 		try {
@@ -80,7 +80,7 @@ public class MarketDao {
 			pstmt.setInt(1, productNo);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
-				file=AttachedFile.builder().fileName(rs.getString("filename")).build();
+				file=AttachedFiles.builder().fileName(rs.getString("filename")).build();
 				list.add(file);
 				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
 						 .title(rs.getString("pd_title"))

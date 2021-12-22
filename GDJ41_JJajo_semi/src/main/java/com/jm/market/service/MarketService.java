@@ -10,8 +10,8 @@ import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.jj.member.model.vo.AttachedFile;
 import com.jm.market.dao.MarketDao;
+import com.jm.market.model.vo.AttachedFiles;
 import com.jm.market.model.vo.ProductBoard;
 public class MarketService {
 	

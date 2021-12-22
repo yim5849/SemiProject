@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-<%@ page import="com.jm.market.model.vo.ProductBoard" %>
+<%@ page import="com.jm.market.model.vo.ProductBoard" %> 
 <%
 	ProductBoard pb=(ProductBoard)request.getAttribute("productBoard"); 
  

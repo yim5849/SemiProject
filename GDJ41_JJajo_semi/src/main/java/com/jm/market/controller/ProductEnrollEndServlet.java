@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
-import com.jj.member.model.vo.AttachedFile;
+import com.jm.market.model.vo.AttachedFiles;
 import com.jm.market.model.vo.ProductBoard;
 import com.jm.market.service.MarketService;
 import com.oreilly.servlet.MultipartRequest;
@@ -52,11 +52,11 @@ public class ProductEnrollEndServlet extends HttpServlet {
 				"UTF-8",new DefaultFileRenamePolicy());
 		
 		Enumeration<String> e=mr.getFileNames();
-		List<AttachedFile> filenames=new ArrayList();
-		AttachedFile file=null;
+		List<AttachedFiles> filenames=new ArrayList();
+		AttachedFiles file=null;
 		
 		while (e.hasMoreElements()) {
-			file=AttachedFile.builder().
+			file=AttachedFiles.builder().
 						    fileName(mr.getFilesystemName(e.nextElement())).build();
 			filenames.add(file);
 		}
