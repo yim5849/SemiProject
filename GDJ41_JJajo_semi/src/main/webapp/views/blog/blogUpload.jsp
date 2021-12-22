@@ -6,7 +6,7 @@
 	<div class="main">
 	<h2>게시물 업로드</h2>
 	<hr class="line_break">
-		<form action="<%=request.getContextPath() %>/blog/uploadpostend.do" method="post"
+		<form action="<%=request.getContextPath() %>/blog/uploadpostend.do?memberNo=<%=loginMember.getMemberNo()%>"  method="post"
 	    enctype="multipart/form-data">
 			<div class="container">
 				 <div class="row">
