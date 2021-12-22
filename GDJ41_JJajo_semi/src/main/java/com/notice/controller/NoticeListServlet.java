@@ -1,4 +1,4 @@
-package com.jy.blog.controller;
+package com.notice.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -9,20 +9,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.db.main.model.service.MainBoardService;
-import com.db.main.model.vo.MainBoard;
+import com.notice.model.service.NoticeService;
+import com.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class BlogMainServlet
+ * Servlet implementation class NoticeListServlet
  */
-@WebServlet("/blog/blogmain.do")
-public class BlogMainServlet extends HttpServlet {
+@WebServlet("/notice/noticeList.do")
+public class NoticeListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BlogMainServlet() {
+    public NoticeListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +31,20 @@ public class BlogMainServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int curPosition;
+		int curPage;
+		
 		try {
-			curPosition=Integer.parseInt(request.getParameter("cPage"));
+			curPage = Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {
-			curPosition=1;
+			curPage=1;
 		}
 		
-		int numPerOnce=20;
+		int numPerPage = 5;
 		
-		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
-		System.out.println(mbList);
-		request.setAttribute("mainBoardList", mbList);
+		List<Notice> noticeList = new NoticeService().searchNoticeByPaging(curPage, numPerPage);
 		
-		request.getRequestDispatcher("/views/blog/blogMain.jsp")
-		.forward(request, response);
+		
+		
 	}
 
 	/**

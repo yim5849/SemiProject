@@ -16,6 +16,11 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 	height: 400px;
 	border-radius: 10px;
 	margin-bottom: 20px;
+    overflow: hidden;
+}
+
+.mainbox:hover {
+	box-shadow: 0px 0px 10px rgba(143, 140, 140, 0.5);
 }
 
 .mainbox>div {
@@ -45,17 +50,29 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 				for (MainBoard mb : mbList) {
 			%>
 			<div class="mainbox">
-				<img src="images/info.png" width="100%" height="150px" />
+				<%
+				int idx = mb.getAttachedFile().getImgNoList().indexOf("1");
+				
+				if(idx>=0){
+				%>
+				<img src="<%=request.getContextPath() %>/upload/attachedimg/<%=mb.getAttachedFile().getImgNameList().get(idx) %>" width="100%" height="150px" />
+				<%
+				}
+				%>
 				<div>
-					<span><strong><%=mb.getBoardTitle() %></strong></span><br> <span>#태그#태그#태그#태그#태그</span>
+					<span><strong><%=mb.getBoardTitle() %></strong></span><br> 
+					<span>#태그#태그#태그#태그#태그</span>
 					<div style="height: 100px;">
 						<p><%=mb.getBoardContent() %></p>
 					</div>
-					<small>6일전*</small><small>17개의 댓글</small>
+					<small>6일전</small>
+					<small>17개의 댓글</small>
 					<hr>
 					<div class="d-flex justify-content-between">
 						<div>
-							<img src="" width="30px" height="30px"> <small>by</small> <span><%=mb.getMemberNo() %></span>
+							<img src="" width="30px" height="30px">
+							 <small>by</small> 
+							 <span><%=mb.getMemberNo() %></span>
 						</div>
 						<div>
 							<img src="images/heart.png" width="24px" height="24px"> <small>82</small>
@@ -66,11 +83,7 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 
 			<%
 			}
-			%>
-
-
-
-			<%
+		
 			} else {
 			%>
 			error!!!
@@ -81,24 +94,36 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 	</div>
 
     <script>
+		let listCount =2;
+		let flag = true;
         (()=>{
             const root = $("#mainContainer>div");
-           
             let lastBox = $("div.mainbox:last");
-            console.log(root);
-           // console.log(mainbox);
-            console.log(lastBox[0]);
             const io = new IntersectionObserver((entry,observer)=>{
                 const ioTarget = entry[0].target;
 
-                if(entry[0].isIntersecting){
+                if(entry[0].isIntersecting&&flag){
                     console.log('현재 보이는 타켓', ioTarget);
                     io.unobserve(lastBox[0]);
-                    for(let i=0; i<20;i++){
+						flag=false;
+                  /*   for(let i=0; i<20;i++){
                         const mainbox=$("#mainContainer div.mainbox:first").clone();
                         root.append(mainbox);
                         console.log("추가");
-                    }
+                    } */
+					$.ajax({
+						url:("<%=request.getContextPath()%>/main/addBoxList?cPage="+listCount),
+						dataType:"html",
+						success:data=>{
+								console.log(data);
+								root.append(data);
+								listCount++;
+								flag=true;
+							}
+	
+					});
+
+
                     lastBox = $("div.mainbox:last");
                    io.observe(lastBox[0]);
                 }
