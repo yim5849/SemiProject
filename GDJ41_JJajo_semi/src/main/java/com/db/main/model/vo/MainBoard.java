@@ -1,6 +1,7 @@
 package com.db.main.model.vo;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.Builder;
 import lombok.Data;
@@ -17,5 +18,5 @@ public class MainBoard {
 	private Date updateDate;
 	private String memberNo;
 	private String memberName;
-	private AttachedFile attachedFile;
+	private List<AttachedFile> attachedFileList;
 }
