@@ -60,15 +60,19 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 				}
 				%>
 				<div>
-					<span><strong><%=mb.getBoardTitle() %></strong></span><br> <span>#태그#태그#태그#태그#태그</span>
+					<span><strong><%=mb.getBoardTitle() %></strong></span><br> 
+					<span>#태그#태그#태그#태그#태그</span>
 					<div style="height: 100px;">
 						<p><%=mb.getBoardContent() %></p>
 					</div>
-					<small>6일전*</small><small>17개의 댓글</small>
+					<small>6일전</small>
+					<small>17개의 댓글</small>
 					<hr>
 					<div class="d-flex justify-content-between">
 						<div>
-							<img src="" width="30px" height="30px"> <small>by</small> <span><%=mb.getMemberNo() %></span>
+							<img src="" width="30px" height="30px">
+							 <small>by</small> 
+							 <span><%=mb.getMemberNo() %></span>
 						</div>
 						<div>
 							<img src="images/heart.png" width="24px" height="24px"> <small>82</small>
@@ -90,24 +94,36 @@ List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
 	</div>
 
     <script>
-
+		let listCount =2;
+		let flag = true;
         (()=>{
             const root = $("#mainContainer>div");
             let lastBox = $("div.mainbox:last");
-            console.log(root);
-           // console.log(mainbox);
-            console.log(lastBox[0]);
             const io = new IntersectionObserver((entry,observer)=>{
                 const ioTarget = entry[0].target;
 
-                if(entry[0].isIntersecting){
+                if(entry[0].isIntersecting&&flag){
                     console.log('현재 보이는 타켓', ioTarget);
                     io.unobserve(lastBox[0]);
-                    for(let i=0; i<20;i++){
+						flag=false;
+                  /*   for(let i=0; i<20;i++){
                         const mainbox=$("#mainContainer div.mainbox:first").clone();
                         root.append(mainbox);
                         console.log("추가");
-                    }
+                    } */
+					$.ajax({
+						url:("<%=request.getContextPath()%>/main/addBoxList?cPage="+listCount),
+						dataType:"html",
+						success:data=>{
+								console.log(data);
+								root.append(data);
+								listCount++;
+								flag=true;
+							}
+	
+					});
+
+
                     lastBox = $("div.mainbox:last");
                    io.observe(lastBox[0]);
                 }
