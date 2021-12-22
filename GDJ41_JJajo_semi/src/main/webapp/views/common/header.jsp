@@ -22,11 +22,13 @@
       var myModal = document.getElementById('myModal');
       var myInput = document.getElementById('myInput');
         
+
       if(myModal!=null && myInput!=null){
         myModal.addEventListener('shown.bs.modal', function () {
         myInput.focus();
         })
       } 
+
     </script>
 
 	
