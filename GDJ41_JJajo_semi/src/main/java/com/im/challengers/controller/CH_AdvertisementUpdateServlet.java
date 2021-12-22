@@ -34,7 +34,7 @@ public class CH_AdvertisementUpdateServlet extends HttpServlet {
 		
 		request.setAttribute("advertisement", new CH_AdvertisementService().searchAdvertisement(adNo));
 		
-		request.getRequestDispatcher("/views/challengers/challengers_update.jsp").forward(request, response);
+		request.getRequestDispatcher("/views/challengers/challengers_advertisement_update.jsp").forward(request, response);
 		
 	}
 
