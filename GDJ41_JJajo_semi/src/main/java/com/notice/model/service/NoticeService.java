@@ -19,4 +19,12 @@ public class NoticeService {
 		return list;
 	}
 
+	public int searchNoticeAllCount() {
+		Connection conn = getConnection();
+		int result= dao.searchNoticeAllCount(conn);
+		close(conn);
+		return result;
+		
+	}
+
 }
