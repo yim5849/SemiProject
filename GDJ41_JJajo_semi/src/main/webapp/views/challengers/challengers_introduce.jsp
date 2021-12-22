@@ -109,7 +109,10 @@
       <div class="container">
         <div class="row" style="padding-left: 100px;">
 
-          <%if(chList!=null && !(chList.isEmpty())){ 
+          <%if(chList!=null && !(chList.isEmpty())){
+        	  /* 각 챌린지마다 서로다른 form태그의 id값을 갖게 해줄 변수 
+        	  ID값 뒤에 붙혀줌으로써 for문을 돌면서 서로 다른 id값을 갖게해준다*/
+        	  	int count=0; 
           			for(CH_Challengers ch : chList){%>
           <div class="col-4">
             <div class="card" style="width: 18rem; border: 5px solid #81F7BE" >
@@ -118,17 +121,47 @@
                 <h5 class="card-title" style="text-align: center; color: #BCA9F5"><%=ch.getTitle() %></h5>
                 <p class="card-text" style="height: 100px;"><%=ch.getContent() %></p>
        		    <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
+       		    <br>
+       		    <br>
 			      <div style="text-align:center">
 			      <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_update.do?challengersNo=<%=ch.getChallengersNo()%>')">수정하기</button>
 			      <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_delete.do?challengersNo=<%=ch.getChallengersNo()%>')">삭제하기</button>
 		        </div>
 		        <br>
-		        <%} %>         
-                <div style="text-align: center;"><a href="#" class="btn btn-outline-success">도전하기</a></div>
+		        <%} %>
+		        <!-- 챌린지 마다 서로 다른 form태그의 아이디를 가져야 한다 => 모달창의 확인버튼으로 submit을 발동시키는데 form태그의 아이디값이 같다면 어떤 챌린지의 form태그를 실행시킬 지 알 수 없기 때문이다 -->
+		        <!-- form태그가 발동되면 get방식으로 로그인한 회원의 memberNo와 해당 challengersNo를 넘긴다 -->
+		        <form id="ch_startFrm<%=count%>" action="<%=request.getContextPath()%>/challengers/ch_start.do?memberNo=<%=loginMember.getMemberNo()%>&challengersNo=<%=ch.getChallengersNo()%>"
+		        method="post">  
+                <div style="text-align: center;"><a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#mychallenge-do-check<%=count%>" >도전하기</a></div>
+                
+                <!------------------------ 도전하기 여부 확인 모달 ------------------------->	
+			     <div class="modal fade" id="mychallenge-do-check<%=count%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+				  <div class="modal-dialog modal-dialog-centered">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <h5 class="modal-title" id="staticBackdropLabel" >챌린지 도전 여부 확인</h5>
+				        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				      </div>
+				      <div class="modal-body">
+				        해당 챌린지를 도전 하시겠습니까?
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+				        <!-- 모달 확인 버튼을 통해 submit을 발동시키기 위해 form의 id값을 가져와 submit을 발동하였으나 생성된 챌린지 마다 모두 동일한 아이디의 form태그가 생성되게 된다면 문제가 발생한다 -->
+				        <!-- 따라서, 다음과 같이 form태그 내부에 같이 모달 코드가 존재하면서 기존 아이디값에 변화되는 값을 붙혀주면서 챌린지 마다 각기 다른 form아이디값을 가지게하며 이를 모달도 같으 공유해야한다.(모달이 해당 챌린지의 form을 submit하기 위해)  -->
+				        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="document.getElementById('ch_startFrm<%=count%>').submit();">&ensp;네&ensp;</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>  
+                	
+                </form>  
               </div>
             </div>
           </div>
-          <%} 
+		<!-- for문 마지막에 count를 증가시켜준다!! -->
+          <%count++; } 
           }%>
  
         </div>
@@ -152,11 +185,12 @@
     
 <!---------------------------------------------------------- Modal ----------------------------------------------------------------------------->
 
+	<!-- 마이 챌린지 페이지 이동 여부 체크 모달 -->
 	<div class="modal fade" id="mychallenge-go-check" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
 	      <div class="modal-header">
-	        <h5 class="modal-title" id="staticBackdropLabel" >이동여부 확인</h5>
+	        <h5 class="modal-title" id="staticBackdropLabel" >페이지 이동 확인</h5>
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
@@ -164,12 +198,11 @@
 	      </div>
 	      <div class="modal-footer">
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-	        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="">&ensp;네&ensp;</button>
+	        <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="location.assign('<%=request.getContextPath()%>/challengers/mychallenge.do')">&ensp;네&ensp;</button>
 	      </div>
 	    </div>
 	  </div>
 	</div> 
-    
-    
+	
     
 <%@ include file="/views/common/footer.jsp"%>    

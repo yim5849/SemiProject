@@ -37,7 +37,13 @@ public class CH_IntroduceServlet extends HttpServlet {
 		/* 광고 */
 		List<CH_Advertisement> adlist = new CH_AdvertisementService().searchAllAdvertisement();
 		
-		/* 챌린져스 */
+		/* 챌린져스 진행여부 체크 */
+		
+		int memberNo = Integer.parseInt(request.getParameter("memberNo"));
+		
+		
+		
+		/* 챌린져스 리스트 페이징 처리 */
 		
 		int cPage;
 		try {

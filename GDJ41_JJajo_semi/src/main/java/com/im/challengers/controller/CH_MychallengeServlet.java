@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class CH_MychallengeServlet
  */
-@WebServlet("/challengers/mychallengers.do")
+@WebServlet("/challengers/mychallenge.do")
 public class CH_MychallengeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -27,7 +27,14 @@ public class CH_MychallengeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		request.getRequestDispatcher("/views/challengers/challengers-mychallengers.jsp")
+		
+		
+		
+		
+		
+		
+		
+		request.getRequestDispatcher("/views/challengers/challengers_mychallenge.jsp")
 		.forward(request, response);
 		
 	}
