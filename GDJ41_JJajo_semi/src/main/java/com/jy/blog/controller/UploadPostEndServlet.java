@@ -57,22 +57,36 @@ public class UploadPostEndServlet extends HttpServlet {
 		// 업로드 처리
 		MultipartRequest mr = new MultipartRequest(request, path, maxSize, encode, new DefaultFileRenamePolicy());
 
+		//이미지 객체생성 전 순서부여로직
+		
+		
+		
+		
 		// DB에 저장할 데이터 가져오기
-		MainBoard mb = MainBoard.builder().boardTitle(mr.getParameter("title")).boardContent(mr.getParameter("content"))
+		MainBoard mb = MainBoard.builder()
+				.boardTitle(mr.getParameter("title"))
+				.boardContent(mr.getParameter("content"))
+				
 				.build();
 
 		String memberNo = request.getParameter("memberNo");
 
 		
-		/*
-		 * int result=new MainBoardService().insertMainBoard(mb,memberNo); String
-		 * msg=""; String loc=""; if(result>0) { msg="게시물을 등록했습니다.";
-		 * loc="/blog/blogmain.do"; }else { msg="게시물을 등록에 실패했습니다.";
-		 * loc="/blog/uploadpost.do"; } request.setAttribute("msg", msg);
-		 * request.setAttribute("loc", loc);
-		 * request.getRequestDispatcher("/views/common/msg.jsp") .forward(request,
-		 * response);
-		 */
+		
+		 int result=new MainBoardService().insertBoard(mb,memberNo); 
+		 String msg=""; String loc="";
+		 if(result>0) { 
+			 msg="게시물을 등록했습니다.";
+			 loc="/blog/blogmain.do";
+		 } else { 
+			 msg="게시물을 등록에 실패했습니다.";
+			 loc="/blog/uploadpost.do"; 
+		 }
+		 request.setAttribute("msg", msg);
+	 	 request.setAttribute("loc", loc);
+		 request.getRequestDispatcher("/views/common/msg.jsp") 
+		 .forward(request,response);
+		
 		 
 
 	}

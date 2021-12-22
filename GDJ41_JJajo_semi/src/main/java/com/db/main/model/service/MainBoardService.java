@@ -23,7 +23,11 @@ public class MainBoardService {
 	}
 
 	
-	
+	/*
+	 * public int insertBoard(MainBoard mb, String memberNo) {
+	 * 
+	 * }
+	 */
 
 	
 	
