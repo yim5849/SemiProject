@@ -34,13 +34,31 @@ public class MarketDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ProductBoard pb=null;
+		//AttachedFiles file=null;
 		List<ProductBoard> list = new ArrayList();
+		//List<AttachedFiles> files = new ArrayList();
 		String sql=prop.getProperty("allProduct");
-		List<AttachedFiles> files=new ArrayList();
-		try {
+		String sql2=prop.getProperty("allAttachedfiles");
+		
+		try { 
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
+			
+			pstmt.clearParameters();
+			
 			while(rs.next()) {
+				pstmt=conn.prepareStatement(sql2);
+				int productNo=rs.getInt("pd_no");
+				
+				pstmt.setInt(1,productNo);
+				ResultSet rs2=pstmt.executeQuery();
+				List<AttachedFiles> files = new ArrayList();
+				while(rs2.next()) {
+					AttachedFiles file=AttachedFiles.builder().fileName(rs2.getString("filename")).build();
+					files.add(file);
+					
+				}
+				
 				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
 										 .title(rs.getString("pd_title"))
 										 .category(rs.getString("pd_category"))
@@ -50,11 +68,14 @@ public class MarketDao {
 										 .enrollDate(rs.getDate("pd_enrolldate"))
 										 .isSale(rs.getString("pd_sale"))
 										 .isDelete(rs.getString("pd_delete"))
-										 .memberNo(rs.getInt("member_no"))
-										 .fileName(null)
+										 .memberNo(rs.getInt("member_no")) 
+										 .fileName(files)
 										 .build();
+				close(rs2);
 				list.add(pb);
+				pstmt.clearParameters();
 			}
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -66,6 +87,44 @@ public class MarketDao {
 		
 		
 	}
+	
+	
+	
+	
+//	public List<ProductBoard> allProduct(Connection conn){
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		ProductBoard pb=null;
+//		List<ProductBoard> list = new ArrayList(); 
+//		String sql=prop.getProperty("allProduct"); 
+//		try { 
+//			pstmt=conn.prepareStatement(sql);
+//			rs=pstmt.executeQuery();
+//			while(rs.next()) {
+//				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
+//										 .title(rs.getString("pd_title"))
+//										 .category(rs.getString("pd_category"))
+//										 .content(rs.getString("pd_content"))
+//										 .price(rs.getInt("pd_price"))
+//										 .address(rs.getString("pd_address"))
+//										 .enrollDate(rs.getDate("pd_enrolldate"))
+//										 .isSale(rs.getString("pd_sale"))
+//										 .isDelete(rs.getString("pd_delete"))
+//										 .memberNo(rs.getInt("member_no")) 
+//										 .build();
+//				list.add(pb);
+//			}
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return list;
+//		
+//		
+//	}
 	
 	public ProductBoard searchProduct(Connection conn,int productNo) {
 		PreparedStatement pstmt=null;
