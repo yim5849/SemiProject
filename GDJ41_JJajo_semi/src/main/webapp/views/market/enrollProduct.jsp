@@ -32,7 +32,7 @@
 </style>
 
 <section> 
-	 <form action='<%=request.getContextPath()%>/enrollProductEnd.do' method="post" enctype="multipart/form-data"> 
+	<%--  <form action='<%=request.getContextPath()%>/enrollProductEnd.do' method="post" enctype="multipart/form-data">  --%>
 	      <div style="border-bottom: black solid 3px">
 	       		 <label for="enrollTitle" class="enrollTitle">기본정보</label>
 	      </div>
@@ -40,7 +40,7 @@
 	      <div class="col-12">
 		    	<label class="form-label" style="margin-right: 300px;">상품이미지</label>
 		      	<img id="target" src="<%=request.getContextPath()%>/images/market/camera.png" width="100px" height="100px">
-				<input type="file" name="upFile"  accept="image/*" style="display:none">
+				<input type="file" name="upFile"  accept="image/*" multiple style="display:none">
 				<span id="imageContainer"></span>
 		  </div>	
 			
@@ -70,7 +70,7 @@
 	      
 	      <div class="col-12" style="border-bottom: black solid 3px">
 	      	<label class="form-label">설명</label>
-	      	<textarea rows="5" cols="100" name="boardContent" class="form-control" placeholder="상품 설명을 입력해주세요."></textarea>
+	      	<textarea rows="5" cols="100" id="boardContent" class="form-control" placeholder="상품 설명을 입력해주세요."></textarea>
 	      	<br>
 	      </div>
 	       <br>
@@ -82,20 +82,21 @@
 		 </div>
 		 
 		 <div>
-		 	<input type="hidden" name="memberNo" value=<%=loginMember.getMemberNo()%>>
+		 	<input type="hidden" id="memberNo" value=<%=loginMember.getMemberNo()%>>
 
 		 </div>
 		<!-- 버튼 --> 
 	    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  			<input type="submit" class="btn btn-primary me-md-2" value="등록"> 	  			
-  			<input type="reset" class="btn btn-primary me-md-2" value="취소"> 			
+  			<!-- <input type="submit" class="btn btn-primary me-md-2" value="등록"> -->
+  			<button id="upload" class="btn btn-primary me-md-2">등록</button> 	  			
+  			<!-- <input type="reset" class="btn btn-primary me-md-2" value="취소"> --> 			
 		</div>
 		
 		 	
-    </form>  
+<!--     </form> -->  
 	
  
-	
+	 
 
 
 
@@ -112,6 +113,7 @@
 	$("#target2").click(e=>{
 		$("input[name=back]").click();
 	})
+
 	
 	
 	$("input[name=upFile]").change(e=>{
@@ -130,6 +132,39 @@
 		
 	});
 	
+	//다중파일 업로드하기
+ 	$("#upload").click(e=>{
+ 		const frm=new FormData();
+ 		const fileInput=$("input[name=upFile]");
+ 		console.log(fileInput);
+ 		for(let i=0;i<fileInput[0].files.length;i++){
+ 			frm.append("upfile"+i,fileInput[0].files[i]);
+ 		}
+ 		frm.append("title",$("#inputTitle").val());
+ 		frm.append("address",$("#inputAddress").val());
+ 		frm.append("price",$("#inputPrice").val());
+ 		frm.append("category",$("#category").val());
+ 		frm.append("content",$("#boardContent").val());
+ 		frm.append("memberNo",$("#memberNo").val());
+ 		
+ 		$.ajax({
+ 			url:"<%=request.getContextPath()%>/enrollProductEnd.do",
+ 			type:"post",
+ 			data:frm,
+ 			processData:false,
+ 			contentType:false,
+ 			success:data=>{
+ 				alert("상품등록에 성공하였습니다");
+ 				location.replace("<%=request.getContextPath()%>/marketMainView.do");
+ 			}
+ 		})
+ 	})
+	
+ 
+	
+	
+	
+	 
 	
 	
 </script>

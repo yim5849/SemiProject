@@ -1,16 +1,19 @@
 package com.jm.market.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
+import com.jj.member.model.vo.AttachedFile;
 import com.jm.market.model.vo.ProductBoard;
 import com.jm.market.service.MarketService;
 import com.oreilly.servlet.MultipartRequest;
@@ -48,29 +51,40 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		MultipartRequest mr=new MultipartRequest(request, path,1024*1024*10,
 				"UTF-8",new DefaultFileRenamePolicy());
 		
+		Enumeration<String> e=mr.getFileNames();
+		List<AttachedFile> filenames=new ArrayList();
+		AttachedFile file=null;
 		
-		ProductBoard pb=ProductBoard.builder().Title(mr.getParameter("boardTitle"))
+		while (e.hasMoreElements()) {
+			file=AttachedFile.builder().
+						    fileName(mr.getFilesystemName(e.nextElement())).build();
+			filenames.add(file);
+		}
+		System.out.println(filenames);
+		
+		ProductBoard pb=ProductBoard.builder().title(mr.getParameter("title"))
 				                              .address(mr.getParameter("address"))
 				                              .price(Integer.parseInt(mr.getParameter("price")))
-				                              .Category(mr.getParameter("category"))
-				                              .content(mr.getParameter("boardContent"))
+				                              .category(mr.getParameter("category"))
+				                              .content(mr.getParameter("content"))
 				                              .memberNo(Integer.parseInt(mr.getParameter("memberNo")))
-				                              .fileName(mr.getFilesystemName("upFile"))
+				                              .fileName(filenames)
 				                              .build();
 		
-		System.out.println(pb.getFileName());
-		int result=new MarketService().insertBoard(pb);
+	  
 		System.out.println(pb);
+		//System.out.println(pb.getFileName().get(1));
+		int result=new MarketService().insertBoard(pb);
+		 
 		
-		int pdno=new MarketService().maxCount(pb);
-		System.out.println(pdno);
-		
-		int result2=new MarketService().insertFile(pb,pdno);
+		//int pdno=new MarketService().maxCount(pb);
+		//System.out.println(pdno);
+//		int result2=new MarketService().insertFile(pb,pdno);
 		
 		
 		String msg="";
 		String loc="";
-		if(result>0&&result2>0) {
+		if(result>0) {
 			msg="상품 등록 성공";
 			loc="/marketMainView.do";
 		}else {

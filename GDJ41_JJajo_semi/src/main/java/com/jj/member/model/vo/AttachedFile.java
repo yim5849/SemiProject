@@ -11,9 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AttachedFile {
 
-	private int pdNo;
-	private int memberNo;
-	private int imageNo;
+	private int productNo;
+	private int memberNo; 
 	private String fileName;
 	
 	

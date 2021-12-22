@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.jj.member.model.vo.Member;
+import com.jj.member.model.vo.AttachedFile;
 import com.jm.market.model.vo.ProductBoard;
 
 public class MarketDao {
@@ -36,14 +36,14 @@ public class MarketDao {
 		ProductBoard pb=null;
 		List<ProductBoard> list = new ArrayList();
 		String sql=prop.getProperty("allProduct");
-		
+		List<AttachedFile> files=new ArrayList();
 		try {
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
 			while(rs.next()) {
 				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
-										 .Title(rs.getString("pd_title"))
-										 .Category(rs.getString("pd_category"))
+										 .title(rs.getString("pd_title"))
+										 .category(rs.getString("pd_category"))
 										 .content(rs.getString("pd_content"))
 										 .price(rs.getInt("pd_price"))
 										 .address(rs.getString("pd_address"))
@@ -51,6 +51,7 @@ public class MarketDao {
 										 .isSale(rs.getString("pd_sale"))
 										 .isDelete(rs.getString("pd_delete"))
 										 .memberNo(rs.getInt("member_no"))
+										 .fileName(null)
 										 .build();
 				list.add(pb);
 			}
@@ -69,17 +70,21 @@ public class MarketDao {
 	public ProductBoard searchProduct(Connection conn,int productNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ProductBoard pb=null;  
+		List<AttachedFile> list=new ArrayList();
+		ProductBoard pb=null; 
+		AttachedFile file=null;
 		String sql=prop.getProperty("searchProduct");
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, productNo);
 			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
+				file=AttachedFile.builder().fileName(rs.getString("filename")).build();
+				list.add(file);
 				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
-						 .Title(rs.getString("pd_title"))
-						 .Category(rs.getString("pd_category"))
+						 .title(rs.getString("pd_title"))
+						 .category(rs.getString("pd_category"))
 						 .content(rs.getString("pd_content"))
 						 .price(rs.getInt("pd_price"))
 						 .address(rs.getString("pd_address"))
@@ -87,10 +92,11 @@ public class MarketDao {
 						 .isSale(rs.getString("pd_sale"))
 						 .isDelete(rs.getString("pd_delete"))
 						 .memberNo(rs.getInt("member_no"))  
-						 .member_name(rs.getString("member_name"))
-						 .fileName(rs.getString("filename"))
+						 .member_name(rs.getString("member_name")) 
+						 .fileName(list)
 						 .build();  
 			}
+			 
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -102,6 +108,12 @@ public class MarketDao {
 		return pb;
 		
 	}
+	
+ 
+	
+	
+	 
+	
 
 
 		public int insertBoard(Connection conn,ProductBoard pb) {
@@ -117,7 +129,7 @@ public class MarketDao {
 				pstmt.setInt(4, pb.getPrice());
 				pstmt.setString(5, pb.getAddress());  
 				pstmt.setInt(6, pb.getMemberNo());  
-				result=pstmt.executeUpdate();
+				result = pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -130,14 +142,15 @@ public class MarketDao {
 	 
 	
 		
-		public int insertFile(Connection conn,ProductBoard pb,int pdno) {
+		public int insertFile(Connection conn,ProductBoard pb,int pdno,String filename) {
 			PreparedStatement pstmt=null; 
 			int result=0;  
 			String sql=prop.getProperty("insertFile");
 			try {
 				pstmt=conn.prepareStatement(sql); 
-				pstmt.setInt(1, pb.getMemberNo());
-				pstmt.setString(2, pb.getFileName());
+				pstmt.setInt(1, pdno);
+				pstmt.setInt(2, pb.getMemberNo());
+				pstmt.setString(3, filename);
 				result=pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -152,11 +165,11 @@ public class MarketDao {
 		
 	 
 		
-		public int maxCount(Connection conn,ProductBoard pb) {
+		public int maxCount(Connection conn) {
 			PreparedStatement pstmt=null; 
 			ResultSet rs=null;
 			int result=0;  
-			String sql=prop.getProperty("maxCount");
+			String sql=prop.getProperty("sequence");
 			try {
 				pstmt=conn.prepareStatement(sql);
 				rs=pstmt.executeQuery();
