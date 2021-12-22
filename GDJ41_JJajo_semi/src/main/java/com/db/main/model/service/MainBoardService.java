@@ -1,7 +1,9 @@
 package com.db.main.model.service;
 
-import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.close;
+import static com.jj.common.JDBCTemplate.getConnection;
+import static com.jj.common.JDBCTemplate.commit;
+import static com.jj.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
 import java.util.List;
@@ -19,8 +21,20 @@ public class MainBoardService {
 		close(conn);
 		return mbList;
 	}
+
+	
+	
+
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
 	
 }
+

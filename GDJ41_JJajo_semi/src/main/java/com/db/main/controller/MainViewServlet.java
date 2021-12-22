@@ -43,6 +43,9 @@ public class MainViewServlet extends HttpServlet {
 		int numPerOnce=20;
 		
 		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
+
+		
+
 		
 //	
 //		JSONArray jarr = new JSONArray();
@@ -64,6 +67,7 @@ public class MainViewServlet extends HttpServlet {
 //		response.getWriter().print(jarr);
 		
 		new Gson().toJson(mbList,response.getWriter());
+
 		
 		
 		

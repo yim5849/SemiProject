@@ -90,7 +90,49 @@ public class MainBoardDao {
 	
 	
 	
+
+	//jy
+	//태그랑 사진파일 추가해야하는데 아직 어떻게 해야하는지 모름.. 일단 제목,내용,멤버넘버만 추가함
+	public int insertMainBoard(Connection conn, MainBoard mb, String memberNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertMainBoard");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, mb.getBoardTitle());
+			pstmt.setString(2, mb.getBoardContent());
+			pstmt.setString(3,memberNo);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e){
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;	
+	}
 	
+
+	
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+
 	
 	
 	
