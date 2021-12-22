@@ -1,4 +1,4 @@
-package com.jj.member.model.vo;
+package com.jm.market.model.vo;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,11 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AttachedFile {
+public class AttachedFiles {
 
-	private int pdNo;
-	private int memberNo;
-	private int imageNo;
+	private int productNo;
+	private int memberNo; 
 	private String fileName;
 	
 	

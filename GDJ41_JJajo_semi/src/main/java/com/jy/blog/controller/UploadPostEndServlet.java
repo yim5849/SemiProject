@@ -25,17 +25,18 @@ public class UploadPostEndServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public UploadPostEndServlet() {
-		super();
+ 
+ 
+	public UploadPostEndServlet() { 
 		// TODO Auto-generated constructor stub
+ 
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 파일 업로드가 된 요청인지 아닌지 판단
 		if (!ServletFileUpload.isMultipartContent(request)) {
 			// 파일업로드 요청을 해야하는데 그 요청이 아닐 때 예외처리
