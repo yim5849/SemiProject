@@ -3,7 +3,9 @@
 <%@ page import="com.jj.member.model.vo.Member" %>
     
 <%
-	Member loginMember = (Member)session.getAttribute("loginMember"); 
+	Member loginMember = (Member)session.getAttribute("loginMember");
+
+
 %>   
    
     
@@ -19,16 +21,12 @@
 	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css">
 
 	 <script>
-      var myModal = document.getElementById('myModal');
-      var myInput = document.getElementById('myInput');
+      var myModal = document.getElementById('myModal')
+      var myInput = document.getElementById('myInput')
         
-
-      if(myModal!=null && myInput!=null){
         myModal.addEventListener('shown.bs.modal', function () {
-        myInput.focus();
+        myInput.focus()
         })
-      } 
-
     </script>
 
 	
@@ -38,9 +36,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-	<title>GOODEE HEALTH</title>
+	<title>Hello, MVC 프로젝트!</title>
 	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/style.css">
-	<link rel="stylesheet" type="text/css" href="<%=request.getContextPath()%>/css/challengers.css">
 	</head>
 	<body>
 	
@@ -57,7 +54,7 @@
 
           </div>
           <div class="col" id="header-title">
-            GOODEE HEALTH
+            GOODEE MARKET
           </div>
           <div class="col" id="header-middle-side">
 
@@ -82,29 +79,29 @@
                 <a class="nav-link active" aria-current="page" href="#">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#">MY-BLOG</a>
+                <a class="nav-link disabled" href="#">HOME</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled" href="#">헬스장찾기</a>
+                <a class="nav-link disabled" href="#">내상점</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">주변친구찾기</a>
+                <a class="nav-link disabled">판매하기</a>
               </li>
-              <li class="nav-item">
+            <%--   <li class="nav-item">
                 <a class="nav-link disabled">Challengers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
-              </li>
+              </li> --%>
             </ul>
           </div>
       
           <div class="col">
-            <input type="text" class="form-control" placeholder="아이디" name="memberId">
+            <input type="text" class="form-control" placeholder="아이디" name="userId">
           </div>
 
           <div class="col" style="padding-left:0px">
-            <input type="password" class="form-control" placeholder="비밀번호" name="memberPwd">
+            <input type="password" class="form-control" placeholder="비밀번호" name="password">
           </div>
 
           <div class="col-1">
@@ -123,19 +120,19 @@
                 <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/blog/blogmain.do">MY-BLOG</a>
+                <a class="nav-link" href="#">MY-BLOG</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/find/findPosition.do">헬스장찾기</a>
+                <a class="nav-link" href="#">헬스장찾기</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link">주변친구찾기</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link"  href="<%=request.getContextPath()%>/challengers/main.do">Challengers</a>
+                <a class="nav-link" >Challengers</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
+                <a class="nav-link">중고거래</a>
               </li>
             </ul>
           </div>
@@ -149,8 +146,8 @@
      		</div>
      		
      		<div class="col-2"  style="padding-top:20px; padding-left:0px; padding-right:0px">
-     			<span style="color:#01DFA5">HELLO. <%=loginMember.getMemberName()%>님</span> 
-     			    
+     			 
+     			    <span style="color:#01DFA5">HELLO. <%=loginMember.getMemberName()%>님</span> 
      		</div>
      		
      		<div class="col"  style="padding-left:0px; padding-right:0px; padding-top:12px ">
@@ -197,7 +194,6 @@
         <span class="placeholder col-12 placeholder-xs bg-info"></span>
       </p>
     </div>
-	
 	
 	
 </header>
