@@ -83,7 +83,7 @@
 
         function requestMainBox(cPage){
             $.ajax({
-                url:(window.location.href+"main/mainView.do?cPage="+cPage),
+                url:'<%=request.getContextPath()%>/main/mainView.do?cPage='+cPage ,
                 dataType:"json",
                 success:data=>{
                     console.log(data);
@@ -113,7 +113,7 @@
 
                     console.log("요청"+ listCount);
 					$.ajax({
-                        url:(window.location.href+"main/mainView.do?cPage="+listCount),
+                        url:'<%=request.getContextPath()%>/main/mainView.do?cPage='+listCount ,
                         dataType:"json",
                         success:data=>{
                          console.log(data);
@@ -148,24 +148,26 @@
             let mainImgName;
             console.log("이미지 이름 : " , info["attachedFile"]["imgNameList"][0] );
             if(idx>=0){
-                mainImgName = window.location.href+"upload/attachedimg/"+info["attachedFile"]["imgNameList"][idx];
+                mainImgName = "<%=request.getContextPath()%>/upload/attachedimg/"+info["attachedFile"]["imgNameList"][idx];
+               
             }else{
-                mainImgName="";
+                mainImgName = "<%=request.getContextPath()%>/upload/attachedimg/ex1.png";
             }
-
             let mainImg = $("<img>").attr({src: mainImgName ,width:"300px",height:"180px"});
+            mainbox.append(mainImg);
+          
             let contentContainer = $("<div>").addClass("contentContainer");
             let title= $("<span>").append($("<strong>").html(info["boardTitle"]));
             let tag =$("<span>").html("#태그");
             let content= $("<div>").append($("<p>").html(info["boardContent"]));
             content.append($("<hr>"));
-            mainbox.append(mainImg);
+         
             contentContainer.append(title).append(tag).append(content);
         
             let footerContainer = $("<div>").addClass("footerContainer");
             let additionalContainer=$("<div>").addClass("additionalContainer");
             let day =$("<small>").html(info["boardDate"]);
-            let comment = $("<small>").html(info["comment"]);
+            let comment = $("<small>").html(info["comment"]+"개의 댓글");
 
             additionalContainer.append(day).append(comment);
             footerContainer.append(additionalContainer);
@@ -181,7 +183,7 @@
             wFirstDiv.append(writerImg).append(by).append(writer);
 
             let wSecondDiv=$("<div>");
-            let heartImg = $("<img>").attr({src: window.location.href+"images/heart.png",width:"24px",height:"24px"});    
+            let heartImg = $("<img>").attr({src: "<%=request.getContextPath()%>/images/heart.png", width:"24px", height:"24px"});    
             let read=$("<small>").html(0);
             wSecondDiv.append(heartImg).append(read);
             writerContainer.append(wFirstDiv).append(wSecondDiv);

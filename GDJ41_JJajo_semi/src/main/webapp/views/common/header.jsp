@@ -96,6 +96,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
               </li>
+               <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/notice.do">공지사항</a>
+              </li>
             </ul>
           </div>
       
