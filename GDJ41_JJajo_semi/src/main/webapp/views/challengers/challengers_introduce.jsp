@@ -31,7 +31,7 @@
      <!-- 로그인된 유저가 관리자일 경우에만 광고등록 버튼이 생성된다 -->
      <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
      <div class="container" style="text-align: center;">
-     <button type="button" class="btn btn-outline-dark" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_enroll.do')">광고등록</button>
+     <button type="button" class="btn btn-outline-dark"  data-bs-toggle="modal" data-bs-target="#advertisement_enroll">광고등록</button>
      </div>
      <br>
      <%}%>
@@ -70,8 +70,9 @@
 		              <div class="carousel-caption d-none d-md-block">
 		                <h5><%=ad.getContent() %></h5>
 		                 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
-			                <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_update.do?advertisementNo=<%=ad.getAdvertisementNo()%>')">수정하기</button>
-			                <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/advertisement_delete.do?advertisementNo=<%=ad.getAdvertisementNo()%>')">삭제하기</button>
+			                <button type="button"  id="adUpdate" class="btn btn-success"  data-bs-toggle="modal" data-bs-target="#advertisement_update"
+			                data-address="<%=ad.getAddress()%>" data-img="<%=ad.getFilepath()%>" data-content="<%=ad.getContent() %>"  data-no="<%=ad.getAdvertisementNo()%>">수정하기</button>
+			                <button type="button"   id="adDelete"  class="btn btn-danger"  data-bs-toggle="modal" data-bs-target="#advertisement_delete"  data-no="<%=ad.getAdvertisementNo()%>">삭제하기</button>
 		                <%} %>
 		              </div>
 		            </div>
@@ -102,7 +103,7 @@
 	<!-- 로그인된 유저가 관리자일 경우에만 챌린지 리스트등록 버튼이 생성된다 -->
 	 <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
      <div class="container" style="text-align: center;">
-     <button type="button" class="btn btn-outline-dark" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_enroll.do')">List 등록</button>
+     <button type="button" class="btn btn-outline-dark" data-bs-toggle="modal" data-bs-target="#challengersList_enroll" >List 등록</button>
      </div>
      <br>
      <%} %>
@@ -118,7 +119,7 @@
           			for(CH_Challengers ch : chList){%>
           <div class="col-4">
             <div class="card" style="width: 18rem; border: 5px solid #81F7BE" >
-              <img src="<%=request.getContextPath()%>/images/challengers/<%=ch.getFilepath()%>" class="card-img-top" alt="...">
+              <img src="<%=request.getContextPath()%>/images/challengers/<%=ch.getFilepath()%>" class="card-img-top" alt="..." style="height:190px;">
               <div class="card-body">
                 <h5 class="card-title" style="text-align: center; color: #BCA9F5"><%=ch.getTitle() %></h5>
                 <p class="card-text" style="height: 110px;"><%=ch.getContent() %></p>
@@ -126,8 +127,9 @@
        		    <br>
        		    <br>
 			      <div style="text-align:center">
-			      <button type="button" class="btn btn-success" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_update.do?challengersNo=<%=ch.getChallengersNo()%>')">수정하기</button>
-			      <button type="button" class="btn btn-danger" onclick="location.assign('<%=request.getContextPath()%>/challengers/ch_delete.do?challengersNo=<%=ch.getChallengersNo()%>')">삭제하기</button>
+			      <button type="button"  id="chUpdate" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#challengersList_update" 
+			      data-title="<%=ch.getTitle() %>" data-img="<%=ch.getFilepath()%>"  data-content="<%=ch.getContent() %>" data-no="<%=ch.getChallengersNo()%>">수정하기</button>
+			      <button type="button"  id="chDelete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#challengersList_delete"  data-no="<%=ch.getChallengersNo()%>">삭제하기</button>
 		        </div>
 		        <br>
 		        <%} %>
@@ -197,7 +199,220 @@
 
     </section>
     
-<!---------------------------------------------------------- Modal ----------------------------------------------------------------------------->
+<!------------------------------------------------------------------------------------------------------------------------------------------>
+																							<!--=========== modal / script ===========-->
+<!------------------------------------------------------------------------------------------------------------------------------------------>
+
+	<!-- 광고 등록 모달 -->
+	<div class="modal fade" id="advertisement_enroll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >광고 등록</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 17px; color: lightsalmon;">광고 등록 페이지입니다. 작성 후, 등록완료 부탁드립니다.</div>
+	      <br>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/advertisement_submit.do'
+			method="post" enctype="multipart/form-data"  id="adFrm">
+		    <div>광고 주소</div>
+		     <input type="text" class="form-control" id="formGroupExampleInput"  name="ad_url" placeholder="상품페이지 URL을 입력하세요">
+		    <br>
+		    <div>광고 이미지</div>
+		    <input class="form-control"  name="ad_upfile" type="file" id="formFile">
+		    <br>
+		    <div>광고 안내글</div>
+		     <textarea class="form-control" id="adv_content"  name="ad_content" rows="5" style="resize:none;" 
+		              	placeholder="※이미지 클릭시, 해당 상품 사이트로 이동합니다※" ></textarea>
+	              	
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="AdValidation();">&ensp;등록&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 광고 수정 모달 -->
+	<div class="modal fade" id="advertisement_update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >광고 수정</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 17px; color: lightsalmon;">광고 수정 페이지입니다. 수정 후, 수정완료 부탁드립니다.</div>
+	      <br>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/advertisement_update_end.do'
+			method="post" enctype="multipart/form-data"  id="adEnrollFrm">
+		    <div>광고 주소</div>
+		     <input type="text" class="form-control" id="up_ad_url"  name="ad_url" placeholder="상품페이지 URL을 입력하세요" value="">
+		    <br>
+		    <div>광고 이미지</div>
+		    <input class="form-control"  name="ad_upfile" type="file" id="ad_upfile">
+		    <input class="form-control form-control-sm" type="text" id="adImg" placeholder="이전에 등록된 이미지가 없습니다!" aria-label=".form-control-sm example" value="" readonly>
+		     <input type="hidden"  id="up_ad_orifile" name="ad_orifile" value="">
+		    <br>
+		    <div>광고 안내글</div>
+		     <textarea class="form-control"  id="adv1_content"  name="ad_content" rows="5" style="resize:none;" 
+		              	placeholder="※이미지 클릭시, 해당 상품 사이트로 이동합니다※" ></textarea>
+		     <input type="hidden" id="up_ad_advertisementNo" name="ad_advertisementNo" value="">       
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="AdEnrollValidation();">&ensp;수정&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 광고 삭제 모달 -->
+	<div class="modal fade" id="advertisement_delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >광고 삭제</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 17px; color: lightsalmon;">광고 삭제 페이지입니다</div>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/advertisement_delete.do'
+			method="post"  id="chDeleteFrm">
+			<div style="text-align:center;">해당 광고를 삭제하시겠습니까?</div>
+			<br>
+			<input type="hidden"  id="de_av_no" name="advertisementNo" value="">     
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="document.getElementById('chDeleteFrm').submit();">&ensp;삭제&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 챌린져스 리스트 등록 모달 -->
+	<div class="modal fade" id="challengersList_enroll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >챌린져스 등록</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">챌린져스 등록 페이지입니다. 작성 후, 등록완료 부탁드립니다.</div>
+	      <br>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/ch_submit.do'
+			method="post" enctype="multipart/form-data"  id="chFrm">
+		    <div>제목(TITLE)</div>
+		    <input type="text" class="form-control" id="ch_title_"  name="ch_title" placeholder="챌린져스 제목을 입력하세요(10글자 미만 입력(공백포함))">
+		    <br>
+		    <div>챌린져스 이미지</div>
+		   <input class="form-control"  name="ch_upfile" type="file" id="formFile">
+		    <br>
+		    <div>챌린져스 소개글</div>
+	         <textarea class="form-control" id="ch_content_"  name="ch_content" rows="5" style="resize:none;" 
+              	placeholder="** 해당 챌린지를 소개하는 글을 작성해주세요! (82글자 미만 입력(공백포함))**" ></textarea>
+	              	
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="return ChValidation();">&ensp;등록&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 챌린져스 리스트 수정 모달 -->
+	<div class="modal fade" id="challengersList_update" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >챌린져스 수정</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">챌린져스 수정 페이지입니다. 수정 후, 수정완료 부탁드립니다.</div>
+	      <br>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/ch_update_end.do'
+			method="post" enctype="multipart/form-data"  id="up_chFrm">
+		    <div>제목(TITLE)</div>
+		    <input type="text" class="form-control" id="up_ch_title_"  name="ch_title" placeholder="챌린져스 제목을 입력하세요(10글자 미만 입력(공백포함))" value="">
+		    <br>
+		    <div>챌린져스 이미지</div>
+		   <input class="form-control"  name="ch_upfile" type="file" id="up_formFile">
+		    <input class="form-control form-control-sm" type="text" id="chImg" placeholder="이전에 등록된 이미지가 없습니다!" aria-label=".form-control-sm example" value="" readonly>
+		    <input type="hidden"  id="up_ch_orifile" name="ch_orifile" value="">
+		    <br>
+		    <div>챌린져스 소개글</div>
+	         <textarea class="form-control" id="up_ch_content_"  name="ch_content" rows="5" style="resize:none;" 
+              	placeholder="** 해당 챌린지를 소개하는 글을 작성해주세요! (82글자 미만 입력(공백포함))**" ></textarea>
+	         <input type="hidden"  id="up_ch_no" name="challengersNo" value="">    	
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="return ChUpValidation();">&ensp;수정&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+	
+	<!-- 챌린져스 리스트 삭제 모달 -->
+	<div class="modal fade" id="challengersList_delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >챌린져스 삭제</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">챌린져스 삭제 페이지입니다.</div>
+	      <br>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/ch_delete.do'
+			method="post"  id="de_chFrm">
+			<div style="text-align:center;">해당 챌린지를 삭제하시겠습니까?</div>
+	        <input type="hidden"  id="de_ch_no" name="challengersNo" value="">
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="document.getElementById('de_chFrm').submit();">&ensp;삭제&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	
+
 
 	<!-- 마이 챌린지 페이지 이동 여부 체크 모달 -->
 	<div class="modal fade" id="mychallenge-go-check" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -218,7 +433,7 @@
 	  </div>
 	</div>
 	
-	<!-- 마이 챌린지 페이지 이동 여부 체크 모달 -->
+	<!-- 진행중인 챌린지 재신청 경고 모달 -->
 	<div class="modal fade" id="mychallenge-doing-alert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 	  <div class="modal-dialog modal-dialog-centered">
 	    <div class="modal-content">
@@ -235,6 +450,122 @@
 	    </div>
 	  </div>
 	</div>  
+	
+	
+  <script>
+  
+  const AdValidation= ()=>{
+	  
+	  const content = $("#adv_content").val().trim();
+	  if(content.length==0){
+		  $("#adv_content").val('※이미지 클릭시, 해당 상품 사이트로 이동합니다※');
+	  }
+	  $("#adFrm").submit();
+	  
+  }
+  
+  const AdEnrollValidation= ()=>{
+	  
+	  const content = $("#adv1_content").val().trim();
+	  if(content.length==0){
+		  $("#adv1_content").val('※이미지 클릭시, 해당 상품 사이트로 이동합니다※');
+	  }
+	  $("#adEnrollFrm").submit();
+	  
+  }
+  
+  
+  $(document).on("click", "#adUpdate", function () { 
+  	let address = $(this).data('address');
+  	let img=$(this).data('img');
+  	let content=$(this).data('content');
+  	let no=$(this).data('no');
+
+  	$("#up_ad_url").val(address); 
+  	$("#adImg").val(img); 
+  	$("#up_ad_orifile").val(img); 
+  	$("#adv1_content").val(content); 
+  	$("#up_ad_advertisementNo").val(no); 
+  	   	 	
+	});
+  
+  $(document).on("click", "#adDelete", function () { 
+  	let deno=$(this).data('no');
+  	$("#de_av_no").val(deno); 
+  	
+	});
+  
+  
+  
+  $(document).on("click", "#chUpdate", function () { 
+	  	let title = $(this).data('title');
+	  	let img=$(this).data('img');
+	  	let content=$(this).data('content');
+	  	let no=$(this).data('no');
+	  	
+	  	$("#up_ch_title_").val(title); 
+	  	$("#chImg").val(img); 
+	  	$("#up_ch_orifile_").val(img); 
+	  	$("#up_ch_content_").val(content); 
+	  	$("#up_ch_no").val(no); 
+	  	   	 	
+		});
+	  
+	  $(document).on("click", "#chDelete", function () { 
+	  	let no=$(this).data('no');
+	  	$("#de_ch_no").val(no); 
+	  	
+		});
+  
+  
+  const ChValidation= ()=>{
+	  
+	  const content = $("#ch_content_").val();
+	  if(content.length>82){
+		  alert("내용은 82글자 이상 입력 불가합니다.. :( ");
+			$("#ch_content_").focus();
+			return false;
+	  }
+	  
+	  const title = $("#ch_title_").val();
+	  if(title.length>10){
+		  alert("제목은 10글자 이상 입력 불가합니다.. :( ");
+		  $("ch_title_").focus();
+		  return false;
+	  }
+	  
+	  $("#chFrm").submit();
+	  
+  }
+  
+  
+  const ChUpValidation= ()=>{
+	  
+	  const content = $("#up_ch_content_").val();
+	  if(content.length>82){
+		  alert("내용은 82글자 이상 입력 불가합니다.. :( ");
+			$("#up_ch_content_").focus();
+			return false;
+	  }
+	  
+	  const title = $("#up_ch_title_").val();
+	  if(title.length>10){
+		  alert("제목은 10글자 이상 입력 불가합니다.. :( ");
+		  $("up_ch_title_").focus();
+		  return false;
+	  }
+	  
+	  $("#up_chFrm").submit();
+	  
+  }
+  
+  
+  
+  
+  </script> 
+	
+	
+	
 	
     
 <%@ include file="/views/common/footer.jsp"%>    

@@ -59,7 +59,8 @@ public class CH_AdvertisementUpdateEndServlet extends HttpServlet {
 												.content(mr.getParameter("ad_content"))
 												.address(mr.getParameter("ad_url"))
 												.build();
-		
+
+		System.out.println(mr.getParameter("ad_content"));
 		//파일이 전송됐는지 확인하고 전송이 됐으면 이전파일을 삭제
 		//전송되지않았으면 이전파일을 넣어야함.
 		File f=mr.getFile("ad_upfile");

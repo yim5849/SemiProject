@@ -45,7 +45,7 @@ public class CH_ChallengersSubmitServlet extends HttpServlet {
 		System.out.println(getServletContext());
 		
 		/* 파일을 저장할 위치의 정보를 가져온다 => 절대경로를 가져온다 */
-		String path=getServletContext().getRealPath("/upload/challengers/");
+		String path=getServletContext().getRealPath("/images/challengers/");
 		
 		/* 저장할 파일의 크기를 설정한다 = (요청 정보를 받을때의 크기) */
 		int maxSize = 1024*1024*10;
