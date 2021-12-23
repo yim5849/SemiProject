@@ -1,6 +1,9 @@
 package com.db.main.model.service;
 
 import static com.jj.common.JDBCTemplate.close;
+import static com.jj.common.JDBCTemplate.commit;
+import static com.jj.common.JDBCTemplate.rollback;
+import static com.jj.common.JDBCTemplate.close;
 import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.commit;
 import static com.jj.common.JDBCTemplate.rollback;
@@ -23,11 +26,15 @@ public class MainBoardService {
 	}
 
 	
-	/*
-	 * public int insertBoard(MainBoard mb, String memberNo) {
-	 * 
-	 * }
-	 */
+	//JY
+	public int insertBoard(MainBoard mb, String memberNo) {
+		Connection conn=getConnection();
+		int result=dao.insertMainBoard(conn, mb, memberNo);
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;		 
+	}
 
 	
 	

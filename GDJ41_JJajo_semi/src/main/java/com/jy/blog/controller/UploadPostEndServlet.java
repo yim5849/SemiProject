@@ -74,14 +74,21 @@ public class UploadPostEndServlet extends HttpServlet {
 
 		
 		
-		/*
-		 * int result=new MainBoardService().insertBoard(mb,memberNo); String msg="";
-		 * String loc=""; if(result>0) { msg="게시물을 등록했습니다."; loc="/blog/blogmain.do"; }
-		 * else { msg="게시물을 등록에 실패했습니다."; loc="/blog/uploadpost.do"; }
-		 * request.setAttribute("msg", msg); request.setAttribute("loc", loc);
-		 * request.getRequestDispatcher("/views/common/msg.jsp")
-		 * .forward(request,response);
-		 */
+		
+		 int result=new MainBoardService().insertBoard(mb,memberNo); String msg="";
+		 String loc="";
+		 if(result>0) {
+			 msg="게시물을 등록했습니다.";
+			 loc="/blog/blogmain.do"; }
+		 else {
+			 msg="게시물을 등록에 실패했습니다.";
+			 loc="/blog/uploadpost.do";
+			 }
+		 request.setAttribute("msg", msg);
+		 request.setAttribute("loc", loc);
+		 request.getRequestDispatcher("/views/common/msg.jsp")
+		 .forward(request,response);
+		 
 		
 		 
 
