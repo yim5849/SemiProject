@@ -1,6 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
+<link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
+
+<style>
+	#imagePreview{
+   width: 300px;
+   height: 169px;
+   border: 1px solid black;
+   background-position: center;
+   background-size: cover;
+   }
+   
+     #drag-drop-area{
+   	
+   }
+	
+	.uppy-Dashboard-inner{
+		min-height: 300px;
+	}
+</style>
 
 <section>
 	<div class="main">
@@ -15,14 +34,12 @@
 				    		* 필수항목
 				    	</div>	
 				    	<div class="row" style="margin: 0; padding: 0;">
-				    		<h4>사진등록</h4>
-				    		<div class="input-group mb-3">
-							  <input type="file" class="form-control" id="post_img_upload" name="image" accept="img/*" required multiple>
-							</div>
-							<h5>이미지 미리보기</h5>
-							<div id="imagePreview">
-								<img id="img" />
-							</div>
+				    		<!-- <h4>사진등록</h4> -->
+				    		
+				    			<div class="col-md" id="drag-drop-area">
+			    		
+			    				</div>
+				    		
 				    	</div>	
 				    </div>
 				    <div class="col-7">
@@ -59,47 +76,41 @@
 	</div>
 </section>
 
+
+
+<script src="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.js"></script>
+
+
+
+
 <script>
 	$("#target").click(e=>{
 		$("input[name=upFile]").click();
 	})
 
 	
-	
-	
-/* 	//이미지 미리보기 
-	function readInputFile(e){
-    var sel_files = [];
-    
-    sel_files = [];
-    $('#imagePreview').empty();
-    
-    var files = e.target.files;
-    var fileArr = Array.prototype.slice.call(files);
-    var index = 0;
-    
-    fileArr.forEach(function(f){
-    	if(!f.type.match("image/.*")){
-        	alert("이미지 확장자만 업로드 가능합니다.");
-            return;
-        };
-        if(files.length < 4){
-        	sel_files.push(f);
-            var reader = new FileReader();
-            reader.onload = function(e){
-            	var html = `<a id=img_id_${index}><img src=${e.target.result} data-file=${f.name} /></a>`;
-                $('imagePreview').append(html);
-                index++;
-            };
-            reader.readAsDataURL(f);
-        }
+	var uppy = Uppy.Core({
+		restrictions: {
+			maxNumberOfFiles: 3,
+			allowedFileTypes:['image/*']
+		}
+	})
+    .use(Uppy.Dashboard, {
+      inline: true,
+      target: '#drag-drop-area',
+      height:'100px'
     })
-    if(files.length > 4){
-    	alert("최대 3장까지 업로드 할 수 있습니다.");
-    }
-}
+    .use(Uppy.Tus, {endpoint: "<%=request.getContextPath()%>/blog/uploadpostend.do"})
 
-$('#post_img_upload').on('change',readInputFile); */
+	uppy.on('complete', (result) => {
+    	console.log('업로드 성공!:', result.successful)
+	})
+	
+
+	
+	
+	
+	
 
 </script>
 
