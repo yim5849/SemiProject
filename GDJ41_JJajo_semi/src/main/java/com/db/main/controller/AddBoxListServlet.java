@@ -11,19 +11,18 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.db.main.model.service.MainBoardService;
 import com.db.main.model.vo.MainBoard;
-import com.google.gson.Gson;
 
 /**
- * Servlet implementation class MainViewServlet
+ * Servlet implementation class AddBoxListServlet
  */
-@WebServlet("/main/mainView.do")
-public class MainViewServlet extends HttpServlet {
+@WebServlet("/main/addBoxList")
+public class AddBoxListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainViewServlet() {
+    public AddBoxListServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +31,22 @@ public class MainViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		int curPosition;
 		try {
 			curPosition=Integer.parseInt(request.getParameter("cPage"));
 		}catch(NumberFormatException e) {
-			curPosition=1;
+			curPosition=2;
 		}
-		System.out.println(curPosition);
+		
 		int numPerOnce=20;
 		
 		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
-
-	
-		new Gson().toJson(mbList,response.getWriter());
-
+		
+		request.setAttribute("mainBoardList", mbList);
+		
+		request.getRequestDispatcher("/views/main/addmainbox.jsp").forward(request, response);
 		
 	}
-	
-	
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

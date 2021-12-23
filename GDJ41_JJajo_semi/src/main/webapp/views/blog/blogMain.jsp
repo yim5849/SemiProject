@@ -3,7 +3,7 @@
 <%@ page import="java.util.List,com.db.main.model.vo.MainBoard" %>
 <%@ include file="/views/common/header.jsp"%>
 <%
-	List<MainBoard> mbList = (List) request.getAttribute("mainBoardList");
+	List<MainBoard> mbList=(List)request.getAttribute("mainBoardList");
 %>
 
 
@@ -171,27 +171,79 @@
 </section>
 
 <section>
- <%if(mbList!=null&&mbList.isEmpty()){ %>
-		<tr>
-			<td colspan="5">등록된 게시물이 없습니다.</td>
-		</tr>
-	<%}else{ 
-		for(MainBoard mb : mbList){%>  
-				
 	<div class="main">	
 		<!-- Portfolio Gallery Grid -->	
  		<div class="row">
- 		
+		  <%System.out.println(mbList);
+		  if(mbList!=null&&!(mbList.isEmpty())){ 
+		  	for(MainBoard mb : mbList){   %>		
+			   <div class="column">
+			    <div class="content">
+			      <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/picture-seal.jpg" alt="1" style="width:100%">
+			      <h3><%=mb.getBoardTitle() %></h3>
+			      <p class="tag">#해쉬태그</p>
+			      <p><%=mb.getBoardContent() %></p>
+			    </div>
+			  </div> 
+			<%}
+		 		}else{ %>
+				<div>
+					<p>등록된 게시물이 없습니다.</p>
+				</div>
+				 <%
+			 	}%>
+		  
+  		 <!--  <div class="column">
+		    <div class="content">
+		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
+		      <h3>title</h3>
+		      <p class="tag">#해쉬태그</p>
+		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+		    </div>
+		  </div>
 		  <div class="column">
 		    <div class="content">
-		      <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/picture-seal.jpg" alt="1" style="width:100%">
-		      <h3><%=mb.getBoardTitle() %></h3>
+		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/goat-picture.jpg" alt="3" style="width:100%">
+		      <h3>title</h3>
 		      <p class="tag">#해쉬태그</p>
-		      <p><%=mb.getBoardContent() %></p>
+		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="content">
+		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/lynx-picture.jpg" alt="4" style="width:100%">
+		      <h3>title</h3>
+		      <p class="tag">#해쉬태그</p>
+		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
 		    </div>
 		  </div>
 		  
-<!--  		  <div class="column">
+		  <div class="column">
+		    <div class="content">
+		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
+		      <h3>title</h3>
+		      <p class="tag">#해쉬태그</p>
+		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="content">
+		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/goat-picture.jpg" alt="3" style="width:100%">
+		      <h3>title</h3>
+		      <p class="tag">#해쉬태그</p>
+		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+		    </div>
+		  </div>
+		  <div class="column">
+		    <div class="content">
+		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/lynx-picture.jpg" alt="4" style="width:100%">
+		      <h3>title</h3>
+		      <p class="tag">#해쉬태그</p>
+		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
+		    </div>
+		  </div>
+		  
+		  <div class="column">
 		    <div class="content">
 		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
 		      <h3>title</h3>
@@ -220,8 +272,7 @@
 		</div>
 	</div>
 	
- 	<%}
-		 }%> 
+ 	  
 		 
 </section>
 
@@ -251,6 +302,35 @@
 	$("#target").click(e=>{
 		$("input[name=upFile]").click();
 	})
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 

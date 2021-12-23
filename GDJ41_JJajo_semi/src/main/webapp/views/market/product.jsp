@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-<%@ page import="com.jm.market.model.vo.ProductBoard" %>
+<%@ page import="com.jm.market.model.vo.ProductBoard" %> 
 <%
 	ProductBoard pb=(ProductBoard)request.getAttribute("productBoard"); 
  
@@ -47,15 +47,17 @@
  
 	 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
   		<div class="carousel-inner">
+   		 <%for(int i=0; i<pb.getFileName().size();i++) { %>
    		 <div class="carousel-item active">
-     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName()%>" class="d-block w-50"  >
+     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(i).getFileName()%>" class="d-block w-50"  >
    		 </div>
-    	<div class="carousel-item">
-     		 <img src="<%=request.getContextPath()%>/images/market/중고.jpg" class="d-block w-50"  >
+   		 <%} %>
+    <%-- 	<div class="carousel-item">
+     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(1).getFileName()%>" class="d-block w-50"  >
     	</div>
    		 <div class="carousel-item">
-     		 <img src="<%=request.getContextPath()%>/images/market/중고.jpg" class="d-block w-50"  >
-    	</div>
+     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(2).getFileName()%>" class="d-block w-50"  >
+    	 </div> --%>
  	   </div>
 	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
 	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>

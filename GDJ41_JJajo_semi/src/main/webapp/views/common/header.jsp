@@ -96,6 +96,9 @@
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>
               </li>
+               <li class="nav-item">
+                <a class="nav-link" href="<%=request.getContextPath()%>/notice/noticeList.do">공지사항</a>
+              </li>
             </ul>
           </div>
       
@@ -123,7 +126,7 @@
                 <a class="nav-link active" aria-current="page" href="<%=request.getContextPath()%>">Home</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="<%=request.getContextPath()%>/blog/blogmain.do">MY-BLOG</a>
+                <a class="nav-link" href="<%=request.getContextPath() %>/blog/blogmain.do?memberNo=<%=loginMember.getMemberNo()%>">MY-BLOG</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/find/findPosition.do">헬스장찾기</a>
