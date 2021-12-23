@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.im.challengers.model.vo.CH_Challengers;
 import com.im.challengers.model.vo.CH_Mychallenge;
 
 public class CH_MychallengeDao {
@@ -107,6 +108,45 @@ public class CH_MychallengeDao {
 				
 				list.add(my);
 			}
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+/*======================= DropList에 담을 챌린지 찾기========================= */
+	
+	public List<CH_Challengers> searchChallengeListDrop(Connection conn, int memberNo){
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		CH_Challengers ch = null;
+		
+		 List<CH_Challengers> list = new ArrayList();
+		
+		String sql = prop.getProperty("searchChallengeListDrop");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			
+			rs=pstmt.executeQuery();
+			
+		while(rs.next()) {
+				
+				ch=CH_Challengers.builder().challengersNo(rs.getInt("CH_NO")).title(rs.getString("CH_TITLE")).build();
+				
+				list.add(ch);
+			}
+			System.out.println(list);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();

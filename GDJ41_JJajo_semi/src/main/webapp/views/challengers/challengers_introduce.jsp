@@ -136,15 +136,19 @@
 		        <form id="ch_startFrm<%=count%>" action="<%=request.getContextPath()%>/challengers/ch_start.do?memberNo=<%=loginMember.getMemberNo()%>&challengersNo=<%=ch.getChallengersNo()%>"
 		        method="post">
 		        <!-- 해당 멤버가 진행중인 chNo를 담은 리스트를 불러와 각 챌린져스 chNo를 비교하여 같으면 진행중인 상태를 표시하는 버튼을 생성한다 -->
-		        <%if(myList!=null&&!(myList.isEmpty())){ 
+		        <%if(myList!=null){
+		        			boolean flag1=true;
+		        		
 		        			for(CH_Mychallenge my : myList){
 		        					if(my.getChallengersNo()==ch.getChallengersNo()){	%>
 		        					<div style="text-align: center;"><a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#mychallenge-doing-alert" >진행중</a></div>
-		        			<%}else{%>
+		        			<% flag1=false;}
+		        			}		
+		        			if(flag1==true){%>
 		        				<div style="text-align: center;"><a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#mychallenge-do-check<%=count%>" >도전하기</a></div>
 		        			<%}
-                				} 
-                				}%>
+                				 
+                			}%>
                 <!------------------------ 도전하기 여부 확인 모달 ------------------------->	
 			     <div class="modal fade" id="mychallenge-do-check<%=count%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered">

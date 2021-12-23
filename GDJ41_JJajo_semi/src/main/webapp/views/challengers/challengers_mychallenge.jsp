@@ -1,6 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 
+<%@ page import="java.util.*" %>
+<%@ page import="com.im.challengers.model.vo.CH_Challengers" %>
+<%@ page import="com.im.challengers.model.vo.CH_MychallengeNotice" %>
+
+<%
+
+	List<CH_Challengers> dropList = (List)request.getAttribute("mychallengeDropList");
+	List<CH_MychallengeNotice> noList = (List)request.getAttribute("mychallengeNoticeList");
+	
+%>
 
 
 <%@ include file="/views/common/header.jsp"%>
@@ -79,10 +89,12 @@
           <div class="col">
             <form>
               <select class="form-select" id="list_drop" aria-label="Default select example">
-                <option selected>물 1L 마시기</option>
-                <option value="1">헬스장 가기</option>
-                <option value="2">밥대신 샐러드</option>
-                <option value="3">1만보 걷기</option>
+                <%if(dropList!=null && !(dropList.isEmpty())){
+                		boolean flag=true;
+                		for(CH_Challengers ch : dropList){%>
+                	<option value="<%=ch.getChallengersNo()%>" <%=flag==true?"selected":""%>><%=ch.getTitle()%></option>
+                <%flag=false;}
+                }%>
               </select>
             </form>
           </div>
@@ -95,7 +107,7 @@
       <div class="container">
         <div class="row">
           <div class="col-2" style="padding-left: 20px;">
-            <button type="button" class="btn btn-warning btn-sm"><span style="color: white;">◁ 리스트 보기</span></button>
+            <button type="button" class="btn btn-warning btn-sm" onclick="location.assign('<%=request.getContextPath()%>/challengers/introduce.do')"><span style="color: white;">◁ 리스트 보기</span></button>
           </div>
           <div class="col-5">
     
@@ -366,62 +378,164 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-            
-           <span style="color:#F7819F;">#안내사항 1)
+          
+            <%if(noList!=null && noList.isEmpty()){ %>
+            		<p>등록된 안내사항이 없습니다.</p>
+            <%}else{ 
+            	int num=1;
+            	for(CH_MychallengeNotice no : noList){%>
+           <span style="color:#F7819F;">#안내사항 <%=num%>)
            		<%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %> 
-	           		<span class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#guide_update_modal">수정</span>
-	           		<span class="badge rounded-pill bg-danger" data-bs-toggle="modal" data-bs-target="#guide_delete_modal">삭제</span>
+	           		<%-- <span class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#exampleModalToggle<%=num%>" >수정</span> --%>
+	           		<span class="badge rounded-pill bg-success" id="noticeupdateclick" data-bs-toggle="modal" data-bs-target="#guide_update_modal" 
+	           		data-no="<%=no.getMychallengeNoticeNo()%>" data-content="<%=no.getContent()%>">수정</span>
+	           		<span class="badge rounded-pill bg-danger"  id="noticedeleteclick" data-bs-toggle="modal" data-bs-target="#guide_delete_modal"
+	           		data-no="<%=no.getMychallengeNoticeNo()%>">삭제</span>
            		<%} %>
            </span>
            <br>
-           ㅎㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㅇㅀㅇㅀㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
+           <%=no.getContent() %>
             <br>
+          
             <br>
+            <%num++;} 
+            }%>
               
           </div>
           <div class="modal-footer">
+            <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"  data-bs-toggle="modal" data-bs-target="#chNotice_enroll_modal">&ensp;등록&ensp;</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
-        </div>
-      </div>
-    </div>
+    	</div>
+     </div>
+   </div>
 
-	<!-- 안내사항 수정 모달 -->
-	 <div class="modal fade" id="guide_text_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+
+<!--------------------------------------------------------------------------------------------------------------------------->
+														<!--=========================== modal / script ===========================-->
+<!--------------------------------------------------------------------------------------------------------------------------->
+
+	<!-- 안내사항 등록 모달 -->
+	 <div class="modal fade" id="chNotice_enroll_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항</h5>
+            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항 등록</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
            
+                 <div class="container">
+					  <div class="row">
+					    <div class="col-4" style="padding-top:150px;">
+					      안내사항 내용
+					    </div>
+					    <div class="col-8">
+					    <div class="form-floating">
+			    	<form id="ch_noticeEnrollFrm" action="<%=request.getContextPath()%>/challengers/notice_submit.do" method="post">
+
+			  		<textarea class="form-control"  name="chNotice_content"  placeholder="내용을 작성하세요" id="floatingTextarea2" 
+			  							style="height: 300px; resize:none;"></textarea>
+		
+			  		</form>
+				</div>
+			    </div>
+			  </div>
+			</div>
+           
           </div>
           <div class="modal-footer">
+            <button class="btn btn-primary"  data-bs-toggle="modal"  onclick="document.getElementById('ch_noticeEnrollFrm').submit();">등록하기</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
     </div>
+    
+    
+    <script>
+    
+    // 수정 버튼 클릭 시, data-(변수) 형태로 저장된 값을 가져와서 다른 모달에 데이터를 val()을 사용하여 뿌려준다!
+    
+    $(document).on("click", "#noticeupdateclick", function () { 
+    	let content = $(this).data('content');
+    	let noticeNo=$(this).data('no');
+    	$("#chNotice_content").val(content); 
+    	$("#updatenoticeNo").val(noticeNo); 
+    	   	 	
+	});
+    
+    $(document).on("click", "#noticedeleteclick", function () { 
+    	let noticeNo=$(this).data('no');
+    	$("#deletenoticeNo").val(noticeNo); 
+    	
+	});
+    
+    </script>
+    
+    <!-- 안내사항 수정 모달 -->
+     <div class="modal fade" id="guide_update_modal"  data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항 수정</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           
+                 <div class="container">
+					  <div class="row">
+					    <div class="col-4" style="padding-top:150px;">
+					      안내사항 내용
+					    </div>
+					    <div class="col-8">
+					    <div class="form-floating">
+			    	<form id="ch_noticeUpdateFrm" action="<%=request.getContextPath()%>/challengers/update_end.do" method="post">
+					<input type="hidden" id="updatenoticeNo"  name="updatenoticeNo" value="">
+			  		<textarea class="form-control"  name="chNotice_content"  placeholder="내용을 작성하세요" id="chNotice_content" 
+			  							style="height: 300px; resize:none;"></textarea>
+		
+			  		</form>
+				</div>
+			    </div>
+			  </div>
+			</div>
+           
+          </div>
+          <div class="modal-footer">
+            <button class="btn btn-primary"  data-bs-toggle="modal"  onclick="document.getElementById('ch_noticeUpdateFrm').submit();">수정하기</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div> 
     
     
     <!-- 안내사항 삭제 모달 -->
-	 <div class="modal fade" id="guide_text_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+     <div class="modal fade" id="guide_delete_modal"  data-bs-backdrop="static" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항</h5>
+            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항 삭제</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
-           
+           		<p>해당 안내사항을 삭제하시겠습니까?</p>
+			 <form id="ch_noticeDeleteFrm" action="<%=request.getContextPath()%>/challengers/deletenotice.do" method="post">
+				<input type="hidden" id="deletenoticeNo"  name="deletenoticeNo" value="">
+			  </form>
+	
           </div>
           <div class="modal-footer">
+            <button class="btn btn-primary"  data-bs-toggle="modal"  onclick="document.getElementById('ch_noticeDeleteFrm').submit();">삭제하기</button>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
         </div>
       </div>
-    </div>
+    </div> 
+    
+    
+    
 
 </section>
 

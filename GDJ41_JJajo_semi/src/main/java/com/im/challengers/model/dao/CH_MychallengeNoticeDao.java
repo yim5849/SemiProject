@@ -73,7 +73,7 @@ public class CH_MychallengeNoticeDao {
 	
 /* ===================마이챌린지 공지사항 등록=================== */
 	
-	public int insertMychallengeNotice(Connection conn, CH_MychallengeNotice no) {
+	public int insertMychallengeNotice(Connection conn, String content) {
 		
 		PreparedStatement pstmt=null;
 		int result=0;
@@ -83,7 +83,7 @@ public class CH_MychallengeNoticeDao {
 		try {
 			
 			pstmt=conn.prepareStatement(sql);	
-			pstmt.setString(1,no.getContent());
+			pstmt.setString(1,content);
 			
 			result=pstmt.executeUpdate();
 			
@@ -128,7 +128,7 @@ public class CH_MychallengeNoticeDao {
 		PreparedStatement pstmt=null;
 		int result=0;
 		
-		String sql = prop.getProperty("updateMychallengeNotice");
+		String sql = prop.getProperty("deleteMychallengeNotice");
 		
 		try {
 			
@@ -145,9 +145,5 @@ public class CH_MychallengeNoticeDao {
 		return result;
 		
 	}
-	
-	
-	
-	
 	
 }

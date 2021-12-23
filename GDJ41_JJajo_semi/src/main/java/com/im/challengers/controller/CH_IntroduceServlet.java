@@ -48,8 +48,20 @@ public class CH_IntroduceServlet extends HttpServlet {
 		Member m=null;
 		
 		if(session!=null) {
-			m=(Member)session.getAttribute("loginMember");
+			if(session.getAttribute("loginMember")!=null) {
+				m=(Member)session.getAttribute("loginMember");
+			}
+		}else if(session==null || m==null) {
+			
+			String msg="로그인 후, 이용해주세요! :(";
+			String loc="/";
+			
+			request.setAttribute("msg",msg);
+			request.setAttribute("loc", loc);
+			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+			return;
 		}
+		
 		int memberNo = m.getMemberNo();
 		
 	
