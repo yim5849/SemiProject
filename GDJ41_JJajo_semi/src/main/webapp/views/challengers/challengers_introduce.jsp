@@ -5,12 +5,14 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.im.challengers.model.vo.CH_Advertisement" %>
 <%@ page import="com.im.challengers.model.vo.CH_Challengers" %>
+<%@ page import="com.im.challengers.model.vo.CH_Mychallenge" %>
 
 <%
 
 	List<CH_Advertisement> adList = (List)request.getAttribute("advertisementList");
 	List<CH_Challengers> chList = (List)request.getAttribute("challengersList");
-	//	String pageBar = (String)request.getAttribute("pageBar");
+	List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");
+	
 	
 %>
 
@@ -119,7 +121,7 @@
               <img src="<%=request.getContextPath()%>/images/challengers/<%=ch.getFilepath()%>" class="card-img-top" alt="...">
               <div class="card-body">
                 <h5 class="card-title" style="text-align: center; color: #BCA9F5"><%=ch.getTitle() %></h5>
-                <p class="card-text" style="height: 100px;"><%=ch.getContent() %></p>
+                <p class="card-text" style="height: 110px;"><%=ch.getContent() %></p>
        		    <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %>
        		    <br>
        		    <br>
@@ -132,9 +134,17 @@
 		        <!-- 챌린지 마다 서로 다른 form태그의 아이디를 가져야 한다 => 모달창의 확인버튼으로 submit을 발동시키는데 form태그의 아이디값이 같다면 어떤 챌린지의 form태그를 실행시킬 지 알 수 없기 때문이다 -->
 		        <!-- form태그가 발동되면 get방식으로 로그인한 회원의 memberNo와 해당 challengersNo를 넘긴다 -->
 		        <form id="ch_startFrm<%=count%>" action="<%=request.getContextPath()%>/challengers/ch_start.do?memberNo=<%=loginMember.getMemberNo()%>&challengersNo=<%=ch.getChallengersNo()%>"
-		        method="post">  
-                <div style="text-align: center;"><a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#mychallenge-do-check<%=count%>" >도전하기</a></div>
-                
+		        method="post">
+		        <!-- 해당 멤버가 진행중인 chNo를 담은 리스트를 불러와 각 챌린져스 chNo를 비교하여 같으면 진행중인 상태를 표시하는 버튼을 생성한다 -->
+		        <%if(myList!=null&&!(myList.isEmpty())){ 
+		        			for(CH_Mychallenge my : myList){
+		        					if(my.getChallengersNo()==ch.getChallengersNo()){	%>
+		        					<div style="text-align: center;"><a class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#mychallenge-doing-alert" >진행중</a></div>
+		        			<%}else{%>
+		        				<div style="text-align: center;"><a class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#mychallenge-do-check<%=count%>" >도전하기</a></div>
+		        			<%}
+                				} 
+                				}%>
                 <!------------------------ 도전하기 여부 확인 모달 ------------------------->	
 			     <div class="modal fade" id="mychallenge-do-check<%=count%>" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
 				  <div class="modal-dialog modal-dialog-centered">
@@ -202,7 +212,25 @@
 	      </div>
 	    </div>
 	  </div>
-	</div> 
+	</div>
+	
+	<!-- 마이 챌린지 페이지 이동 여부 체크 모달 -->
+	<div class="modal fade" id="mychallenge-doing-alert" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >챌린지 진행중</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	        해당 챌린지는 현재 진행중입니다. 다른 챌린지를 선택해주세요!
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&ensp;네&ensp;</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>  
 	
     
 <%@ include file="/views/common/footer.jsp"%>    

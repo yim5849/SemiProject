@@ -356,6 +356,8 @@
       <br>
 
     <!--------------------------------------------------- 마이 챌린지 안내사항Modal ------------------------------------------------->
+    
+    <!-- 안내사항 출력 모달 -->
     <div class="modal fade" id="guide_text_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
         <div class="modal-content">
@@ -365,9 +367,17 @@
           </div>
           <div class="modal-body">
             
-            1. ㅎㅇ
+           <span style="color:#F7819F;">#안내사항 1)
+           		<%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %> 
+	           		<span class="badge rounded-pill bg-success" data-bs-toggle="modal" data-bs-target="#guide_update_modal">수정</span>
+	           		<span class="badge rounded-pill bg-danger" data-bs-toggle="modal" data-bs-target="#guide_delete_modal">삭제</span>
+           		<%} %>
+           </span>
+           <br>
+           ㅎㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㄹㄹㄹㄹㄹㄹㄹㄹㄹㄹㅇㅀㅇㅀㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ
             <br>
             <br>
+              
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -376,6 +386,42 @@
       </div>
     </div>
 
+	<!-- 안내사항 수정 모달 -->
+	 <div class="modal fade" id="guide_text_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    
+    <!-- 안내사항 삭제 모달 -->
+	 <div class="modal fade" id="guide_text_modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">My Challenge 안내사항</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+           
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
 </section>
 

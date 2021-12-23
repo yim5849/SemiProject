@@ -31,7 +31,7 @@ public class CH_MychallengeDao {
 		
 	}
 	
-/*============================== 챌린지 찾기 ============================== */	
+	/*=================== 챌린지 찾기(회원번호, 챌린져스 번호 사용) ================= */		
 	
 	public List<CH_Mychallenge> searchChallenge(Connection conn, int memberNo,int challengersNo){
 		
@@ -70,7 +70,43 @@ public class CH_MychallengeDao {
 				list.add(my);
 			}
 			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return list;
+		
+	}
+	
+/*=========================== 챌린지 찾기(회원번호 사용) ==================== */		
+	
+	public List<CH_Mychallenge> searchChallenge(Connection conn, int memberNo){
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		
+		CH_Mychallenge my = null;
+		
+		List<CH_Mychallenge> list = new ArrayList();
+		
+		String sql = prop.getProperty("searchMemberChallenge");
+		
+		try {
 			
+			pstmt=conn.prepareStatement(sql);
+			
+			pstmt.setInt(1, memberNo);
+			
+			rs=pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				my=CH_Mychallenge.builder().challengersNo(rs.getInt("CH_NO")).build();
+				
+				list.add(my);
+			}
 			
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -80,10 +116,8 @@ public class CH_MychallengeDao {
 		}
 		return list;
 		
-		
 	}
-	
-	
+		
 /*============================= 마이 챌린지 등록 ========================== */
 
 	public int startChallenge(Connection conn,int count,int memberNo,int challengersNo) {
