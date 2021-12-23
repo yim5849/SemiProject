@@ -38,7 +38,7 @@ public class NoticeDao {
 			
 			while(rs.next()) {
 				Notice n = Notice.builder().noticeNo(rs.getString("notice_no"))
-										.noticeTiltle(rs.getString("notice_title"))
+										.noticeTitle(rs.getString("notice_title"))
 										.noticeWriter(rs.getString("notice_writer"))
 										.noticeContent(rs.getString("notice_content"))
 										.noticeDate(rs.getDate("notice_date"))
@@ -80,6 +80,31 @@ public class NoticeDao {
 			close(pstmt);
 		}
 		return result;
+	}
+
+	public Notice searchNoticeOne(Connection conn, String noticeNo) {
+		PreparedStatement pstmt=null;
+		ResultSet rs = null;
+		Notice notice = null;
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("searchNoticeOne"));
+			pstmt.setString(1, noticeNo);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				notice = Notice.builder().noticeNo(rs.getString("notice_no"))
+						.noticeTitle(rs.getString("notice_title"))
+						.noticeWriter(rs.getString("notice_writer"))
+						.noticeContent(rs.getString("notice_content"))
+						.noticeDate(rs.getDate("notice_date"))
+						.filePath(rs.getString("filepath"))
+						.readCount(rs.getString("readcount"))
+						.build();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return notice;
 	}
 
 }
