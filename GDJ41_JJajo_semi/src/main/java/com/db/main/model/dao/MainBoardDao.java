@@ -54,15 +54,15 @@ public class MainBoardDao {
 				pstmt.setString(1, boardNo);
 				ResultSet rs2 = pstmt.executeQuery();
 				
-				List<String> noList =new ArrayList();
-				List<String> nameList = new ArrayList();
+				List<AttachedFile> imgList = new ArrayList();
+				
+				
 				while(rs2.next()) {
-	
-					noList.add(rs2.getString("image_no"));
-					nameList.add(rs2.getString("filename"));
+					AttachedFile file = AttachedFile.builder().imgNo(rs2.getString("image_no")).imgName(rs2.getString("filename")).build();
+					imgList.add(file);
 				}
 				
-				AttachedFile af = new AttachedFile(noList, nameList);
+				//AttachedFile af = new AttachedFile(noList, nameList);
 				MainBoard mb = MainBoard.builder().boardNo(boardNo)		
 									.boardTitle(rs.getString("board_title"))
 									.boardContent(rs.getString("board_content"))
@@ -71,7 +71,7 @@ public class MainBoardDao {
 									.updateDate(rs.getDate("update_date"))
 									.memberNo(rs.getString("member_no"))
 									.memberName(rs.getString("member_name"))
-									.attachedFile(af)
+									.attachedFileList(imgList)
 									.build();
 				close(rs2);
 				mbList.add(mb);

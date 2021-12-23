@@ -143,18 +143,28 @@
             
             let boardNo = info["boardNo"];
 
-            let idx = info["attachedFile"]["imgNoList"].indexOf("1");
-            console.log(idx);
-            let mainImgName;
-            console.log("이미지 이름 : " , info["attachedFile"]["imgNameList"][0] );
-            if(idx>=0){
-                mainImgName = "<%=request.getContextPath()%>/upload/attachedimg/"+info["attachedFile"]["imgNameList"][idx];
-               
-            }else{
-                mainImgName = "<%=request.getContextPath()%>/upload/attachedimg/ex1.png";
+            let imgList = info["attachedFileList"];
+            let mainImgName="";
+            for(let i=0; i<imgList.length;i++){
+                if(imgList[i]["imgNo"]==1){
+                    mainImgName = imgList[i]["imgName"];
+                    break;
+                }
             }
-            let mainImg = $("<img>").attr({src: mainImgName ,width:"300px",height:"180px"});
-            mainbox.append(mainImg);
+
+           // let idx = info["attachedFile"]["imgNoList"].indexOf("1");
+            //console.log(idx);
+            
+           // console.log("이미지 이름 : " , info["attachedFile"]["imgNameList"][0] );
+         
+            if(mainImgName.length<=0){
+                mainImgName = "ex1.png";
+            }
+
+            let mainImg = $("<img>").attr({src: "<%=request.getContextPath()%>/upload/attachedimg/"+mainImgName ,width:"300px",height:"180px"});
+             mainbox.append(mainImg);
+
+         
           
             let contentContainer = $("<div>").addClass("contentContainer");
             let title= $("<span>").append($("<strong>").html(info["boardTitle"]));

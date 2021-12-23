@@ -1,8 +1,7 @@
 package com.jm.market.model.vo;
 
 import java.util.Date;
-
-import com.jj.member.model.vo.Member;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -15,8 +14,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ProductBoard {	
 	private int productNo;
-	private String Title;
-	private String Category;
+	private String title;
+	private String category;
 	private String content;
 	private int price;
 	private String address;
@@ -25,6 +24,6 @@ public class ProductBoard {
 	private String isDelete;
 	private int memberNo; 
 	private String member_name;
-	private String fileName;
+	private List<AttachedFiles> fileName;
 	
 }

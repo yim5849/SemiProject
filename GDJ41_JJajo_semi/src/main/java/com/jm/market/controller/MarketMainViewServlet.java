@@ -39,6 +39,7 @@ public class MarketMainViewServlet extends HttpServlet {
 		//System.out.println(list);
 		//2.전체 리스트를 저장한다 
 		request.setAttribute("list", list);
+		System.out.println(list);
 		//3.JSP 화면으로 출력해준다 
 		request.getRequestDispatcher("/views/market/marketMainView.jsp").forward(request, response);
 	

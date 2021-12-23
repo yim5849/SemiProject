@@ -1,5 +1,7 @@
 package com.notice.model.dao;
 
+import static com.jj.common.JDBCTemplate.close;
+
 import java.io.FileReader;
 import java.io.IOException;
 import java.sql.Connection;
@@ -11,7 +13,6 @@ import java.util.List;
 import java.util.Properties;
 
 import com.notice.model.vo.Notice;
-import static com.jj.common.JDBCTemplate.close;
 
 public class NoticeDao {
 	private Properties prop = new Properties();
@@ -36,7 +37,17 @@ public class NoticeDao {
 			rs = pstmt.executeQuery();
 			
 			while(rs.next()) {
+				Notice n = Notice.builder().noticeNo(rs.getString("notice_no"))
+										.noticeTiltle(rs.getString("notice_title"))
+										.noticeWriter(rs.getString("notice_writer"))
+										.noticeContent(rs.getString("notice_content"))
+										.noticeDate(rs.getDate("notice_date"))
+										.filePath(rs.getString("filepath"))
+										.readCount(rs.getString("readcount"))
+										.build();
 				
+				list.add(n);
+			
 			}
 		}catch(SQLException e) {
 			e.printStackTrace();
@@ -46,7 +57,56 @@ public class NoticeDao {
 		}
 		
 		
-		return null;
+		return list;
+	}
+
+	public int searchNoticeAllCount(Connection conn) {
+		PreparedStatement pstmt = null;
+		ResultSet rs=null;
+		int result=0;
+		
+		try {
+			pstmt = conn.prepareStatement(prop.getProperty("searchNoticeAllCount"));
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()) {
+				result=rs.getInt(1);
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return result;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

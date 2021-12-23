@@ -43,7 +43,46 @@ public class NoticeListServlet extends HttpServlet {
 		
 		List<Notice> noticeList = new NoticeService().searchNoticeByPaging(curPage, numPerPage);
 		
+		int totalDataCount = new NoticeService().searchNoticeAllCount();
 		
+		int totalPage= (int)Math.ceil(totalDataCount/(double)numPerPage);
+		
+		int pageBarSize=5;
+		int pageStart=((curPage-1)/pageBarSize)*pageBarSize+1;
+		int pageEnd=pageStart+pageBarSize-1;
+		
+		String pageBar = "";
+		
+		if(pageStart==1) {
+			pageBar="<span>[이전]</span>";
+		}else {
+			pageBar="<a href='"+request.getContextPath()+"/notice/noticeList.do?cPage="+(pageStart-1)+"'>[이전]</a>";
+		}
+		
+		while(!(pageStart>pageEnd||pageStart>totalPage)) {
+			if(curPage==pageStart) {
+				pageBar+="<span>"+pageStart+"</sapn>";
+			}else {
+				pageBar+="<a href='"+request.getContextPath()+"/notice/noticeList.do?cPage="+pageStart+"'>"+pageStart+"</a>";
+			}
+			pageStart++;	
+		}
+		
+		if(pageStart>totalPage) {
+			pageBar+="<span>[다음]</span>";
+		}else {
+			pageBar+="<a href='"+request.getContextPath()+"/notice/noticeList.do?cPage="+pageStart+"'>[다음]</a>";
+		}
+		
+		
+		request.setAttribute("pageBar", pageBar);
+		
+		
+		request.setAttribute("noticeList", noticeList);
+		
+		request.getRequestDispatcher("/views/notice/noticeListView.jsp").forward(request, response);
+		
+	
 		
 	}
 

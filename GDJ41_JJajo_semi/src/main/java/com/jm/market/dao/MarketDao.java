@@ -11,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import com.jj.member.model.vo.Member;
+import com.jm.market.model.vo.AttachedFiles;
 import com.jm.market.model.vo.ProductBoard;
 
 public class MarketDao {
@@ -34,26 +34,48 @@ public class MarketDao {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
 		ProductBoard pb=null;
+		//AttachedFiles file=null;
 		List<ProductBoard> list = new ArrayList();
+		//List<AttachedFiles> files = new ArrayList();
 		String sql=prop.getProperty("allProduct");
+		String sql2=prop.getProperty("allAttachedfiles");
 		
-		try {
+		try { 
 			pstmt=conn.prepareStatement(sql);
 			rs=pstmt.executeQuery();
+			
+			pstmt.clearParameters();
+			
 			while(rs.next()) {
+				pstmt=conn.prepareStatement(sql2);
+				int productNo=rs.getInt("pd_no");
+				
+				pstmt.setInt(1,productNo);
+				ResultSet rs2=pstmt.executeQuery();
+				List<AttachedFiles> files = new ArrayList();
+				while(rs2.next()) {
+					AttachedFiles file=AttachedFiles.builder().fileName(rs2.getString("filename")).build();
+					files.add(file);
+					
+				}
+				
 				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
-										 .Title(rs.getString("pd_title"))
-										 .Category(rs.getString("pd_category"))
+										 .title(rs.getString("pd_title"))
+										 .category(rs.getString("pd_category"))
 										 .content(rs.getString("pd_content"))
 										 .price(rs.getInt("pd_price"))
 										 .address(rs.getString("pd_address"))
 										 .enrollDate(rs.getDate("pd_enrolldate"))
 										 .isSale(rs.getString("pd_sale"))
 										 .isDelete(rs.getString("pd_delete"))
-										 .memberNo(rs.getInt("member_no"))
+										 .memberNo(rs.getInt("member_no")) 
+										 .fileName(files)
 										 .build();
+				close(rs2);
 				list.add(pb);
+				pstmt.clearParameters();
 			}
+			
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -66,20 +88,62 @@ public class MarketDao {
 		
 	}
 	
+	
+	
+	
+//	public List<ProductBoard> allProduct(Connection conn){
+//		PreparedStatement pstmt=null;
+//		ResultSet rs=null;
+//		ProductBoard pb=null;
+//		List<ProductBoard> list = new ArrayList(); 
+//		String sql=prop.getProperty("allProduct"); 
+//		try { 
+//			pstmt=conn.prepareStatement(sql);
+//			rs=pstmt.executeQuery();
+//			while(rs.next()) {
+//				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
+//										 .title(rs.getString("pd_title"))
+//										 .category(rs.getString("pd_category"))
+//										 .content(rs.getString("pd_content"))
+//										 .price(rs.getInt("pd_price"))
+//										 .address(rs.getString("pd_address"))
+//										 .enrollDate(rs.getDate("pd_enrolldate"))
+//										 .isSale(rs.getString("pd_sale"))
+//										 .isDelete(rs.getString("pd_delete"))
+//										 .memberNo(rs.getInt("member_no")) 
+//										 .build();
+//				list.add(pb);
+//			}
+//			
+//		}catch(Exception e) {
+//			e.printStackTrace();
+//		}finally {
+//			close(rs);
+//			close(pstmt);
+//		}
+//		return list;
+//		
+//		
+//	}
+	
 	public ProductBoard searchProduct(Connection conn,int productNo) {
 		PreparedStatement pstmt=null;
 		ResultSet rs=null;
-		ProductBoard pb=null;  
+		List<AttachedFiles> list=new ArrayList();
+		ProductBoard pb=null; 
+		AttachedFiles file=null;
 		String sql=prop.getProperty("searchProduct");
 		
 		try {
 			pstmt=conn.prepareStatement(sql);
 			pstmt.setInt(1, productNo);
 			rs=pstmt.executeQuery();
-			if(rs.next()) {
+			while(rs.next()) {
+				file=AttachedFiles.builder().fileName(rs.getString("filename")).build();
+				list.add(file);
 				pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
-						 .Title(rs.getString("pd_title"))
-						 .Category(rs.getString("pd_category"))
+						 .title(rs.getString("pd_title"))
+						 .category(rs.getString("pd_category"))
 						 .content(rs.getString("pd_content"))
 						 .price(rs.getInt("pd_price"))
 						 .address(rs.getString("pd_address"))
@@ -87,10 +151,11 @@ public class MarketDao {
 						 .isSale(rs.getString("pd_sale"))
 						 .isDelete(rs.getString("pd_delete"))
 						 .memberNo(rs.getInt("member_no"))  
-						 .member_name(rs.getString("member_name"))
-						 .fileName(rs.getString("filename"))
+						 .member_name(rs.getString("member_name")) 
+						 .fileName(list)
 						 .build();  
 			}
+			 
 			
 		}catch(Exception e) {
 			e.printStackTrace();
@@ -102,6 +167,12 @@ public class MarketDao {
 		return pb;
 		
 	}
+	
+ 
+	
+	
+	 
+	
 
 
 		public int insertBoard(Connection conn,ProductBoard pb) {
@@ -117,7 +188,7 @@ public class MarketDao {
 				pstmt.setInt(4, pb.getPrice());
 				pstmt.setString(5, pb.getAddress());  
 				pstmt.setInt(6, pb.getMemberNo());  
-				result=pstmt.executeUpdate();
+				result = pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -130,14 +201,15 @@ public class MarketDao {
 	 
 	
 		
-		public int insertFile(Connection conn,ProductBoard pb,int pdno) {
+		public int insertFile(Connection conn,ProductBoard pb,int pdno,String filename) {
 			PreparedStatement pstmt=null; 
 			int result=0;  
 			String sql=prop.getProperty("insertFile");
 			try {
 				pstmt=conn.prepareStatement(sql); 
-				pstmt.setInt(1, pb.getMemberNo());
-				pstmt.setString(2, pb.getFileName());
+				pstmt.setInt(1, pdno);
+				pstmt.setInt(2, pb.getMemberNo());
+				pstmt.setString(3, filename);
 				result=pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -152,11 +224,11 @@ public class MarketDao {
 		
 	 
 		
-		public int maxCount(Connection conn,ProductBoard pb) {
+		public int maxCount(Connection conn) {
 			PreparedStatement pstmt=null; 
 			ResultSet rs=null;
 			int result=0;  
-			String sql=prop.getProperty("maxCount");
+			String sql=prop.getProperty("sequence");
 			try {
 				pstmt=conn.prepareStatement(sql);
 				rs=pstmt.executeQuery();
