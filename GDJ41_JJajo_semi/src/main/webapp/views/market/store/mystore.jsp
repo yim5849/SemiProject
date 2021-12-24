@@ -1,7 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<%@ page import="java.util.List,com.jm.market.model.vo.ProductBoard" %>
+<%
+	List<ProductBoard> list=(List)request.getAttribute("list");
 
+%>
 <style>
 	section>*{
 			margin: 0px 300px 0px 300px;
@@ -13,7 +17,7 @@
 	}
 	
 	.my-product{
-  		height: 300px;
+  		height: auto;
 		margin-top: 0px;
  		border: 2px solid black;
 	}
@@ -59,33 +63,33 @@
 	</div>
  
 	<div class="my-product">
-		<div id="product-line" style="display:inline-flex">
-			<div class="card" style="width: 18rem;">
-				 <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top"  >
-				 <div class="card-body">
-				    <h5 class="card-title">Card title</h5>
-				    <a href="<%=request.getContextPath()%>/productView.do" class="btn btn-primary">보러가기</a>
-				 </div>
-			</div>
-				
-			<div class="card" style="width: 18rem;">
-				 <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top"  >
-				 <div class="card-body">
-				    <h5 class="card-title">Card title</h5>
-				    <a href="<%=request.getContextPath()%>/productView.do" class="btn btn-primary">보러가기</a>
-				 </div>
-			</div>
-			
-			<div class="card" style="width: 18rem;">
-				 <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top"  >
-				 <div class="card-body">
-				    <h5 class="card-title">Card title</h5>
-				    <a href="<%=request.getContextPath()%>/productView.do" class="btn btn-primary">보러가기</a>
-				 </div>
-			</div>
-	 	</div>
+		 	 <%if(list!=null&&list.isEmpty()){%>
+			  		<p>등록된 게시물이 없습니다</p>
+			  <%}else{ %>        
+			   <div class="d-flex flex-wrap">
+			     <%for(ProductBoard pb : list) {%> 
+			        <div style="display:inline-block"> 
+					  <div class="card" style="width: 18rem;">
+					  	<%if(pb.getFileName().isEmpty()){ %>
+					 	   <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top">	
+					 	<%}else{ %>
+						  <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(0).getFileName()%>" height="150px" class="card-img-top">
+					 	<%} %>   
+					 	   <div class="card-body">
+					   	        <h5 class="card-title"><%=pb.getTitle()%> </h5>
+					     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
+					     	    <p class="card-text"><%=pb.getMember_name()%></p>
+					     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
+					    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
+					  	   </div>
+					   </div>            		
+			        </div>
+			      <%} %>
+			    </div>	       
+			   <%} %> 
  	</div>
  	<br>
+ 	
  	<div>
 		<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
 		<input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">

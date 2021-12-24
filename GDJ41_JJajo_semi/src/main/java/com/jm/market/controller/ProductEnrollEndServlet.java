@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONObject;
 
 import com.jm.market.model.vo.AttachedFiles;
 import com.jm.market.model.vo.ProductBoard;
@@ -91,13 +92,12 @@ public class ProductEnrollEndServlet extends HttpServlet {
 			msg="상품 등록 실패";
 			loc="/enrollproduct.do";
 		}
-		  
-		request.setAttribute("msg", msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		
-		
-		
+		   
+		JSONObject jo=new JSONObject();
+		jo.put("msg", msg);
+		jo.put("loc", loc);
+		response.setContentType("application/json;charset=UTF-8");
+		response.getWriter().print(jo);
 		
 		
 		

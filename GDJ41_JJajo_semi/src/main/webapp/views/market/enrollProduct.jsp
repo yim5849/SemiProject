@@ -9,10 +9,10 @@
 /* 오휴해결 */
 /* 오휴해결 */
    section>*{
-		margin: 0px 300px 20px 300px;
+		margin: 0px 200px 20px 500px; 
 	}
 
-  select>div{
+   select>div{
     display:inline;
   }
   
@@ -29,10 +29,17 @@
 	font-size:10px;
 	}
 	 
+	.main-section{
+
+		width: 1000px;
+
+	} 
+	
 </style>
 
-<section> 
-	<%--  <form action='<%=request.getContextPath()%>/enrollProductEnd.do' method="post" enctype="multipart/form-data">  --%>
+<section>  
+ 
+	<div class="main-section"> 
 	      <div style="border-bottom: black solid 3px">
 	       		 <label for="enrollTitle" class="enrollTitle">기본정보</label>
 	      </div>
@@ -86,14 +93,12 @@
 
 		 </div>
 		<!-- 버튼 --> 
-	    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-  			<!-- <input type="submit" class="btn btn-primary me-md-2" value="등록"> -->
+	    <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
   			<button id="upload" class="btn btn-primary me-md-2">등록</button> 	  			
-  			<!-- <input type="reset" class="btn btn-primary me-md-2" value="취소"> --> 			
 		</div>
-		
+	</div>	
 		 	
-<!--     </form> -->  
+    
 	
  
 	 
@@ -143,21 +148,21 @@
  		frm.append("title",$("#inputTitle").val());
  		frm.append("address",$("#inputAddress").val());
  		frm.append("price",$("#inputPrice").val());
- 		frm.append("category",$("#category").val());
+ 		frm.append("category",$("input[name=category]:checked").val());
  		frm.append("content",$("#boardContent").val());
  		frm.append("memberNo",$("#memberNo").val());
  		
- 		$.ajax({
+ 		 $.ajax({
  			url:"<%=request.getContextPath()%>/enrollProductEnd.do",
  			type:"post",
  			data:frm,
  			processData:false,
  			contentType:false,
  			success:data=>{
- 				alert("상품등록에 성공하였습니다");
- 				location.replace("<%=request.getContextPath()%>/marketMainView.do");
+ 				alert(data["msg"]);
+ 				location.replace("<%=request.getContextPath()%>"+data["loc"]);
  			}
- 		})
+ 		}) 
  	})
 	
  

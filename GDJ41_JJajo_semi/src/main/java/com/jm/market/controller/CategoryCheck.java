@@ -9,20 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.google.gson.Gson;
 import com.jm.market.model.vo.ProductBoard;
 import com.jm.market.service.MarketService;
 
 /**
- * Servlet implementation class MarketMyStoreServet
+ * Servlet implementation class CategoryCheck
  */
-@WebServlet("/myStore.do")
-public class MarketMyStoreServet extends HttpServlet {
+@WebServlet("/categoryCheck.do")
+public class CategoryCheck extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarketMyStoreServet() {
+    public CategoryCheck() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +32,23 @@ public class MarketMyStoreServet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 중고거래 내상점 화면으로 전환해주는 서블릿
-		String memberNo=request.getParameter("memberNo");
-		//System.out.println(memberNo);
-		List<ProductBoard> list= new MarketService().storeMain(memberNo);
 		
-		request.setAttribute("list", list); 
-		request.getRequestDispatcher("/views/market/store/mystore.jsp").forward(request, response);
+		//정렬할 카테고리 값을 가져온다 
+		
+		String category=request.getParameter("category");
+		//System.out.println(category);
+		List<ProductBoard> list =new MarketService().categoryMain(category);
+		//System.out.println(list);
+		
+		request.setAttribute("list", list);
+		request.getRequestDispatcher("/views/market/marketMainView.jsp").forward(request, response);
+		
+		//response.setContentType("application/json;charset=UTF-8");
+		//new Gson().toJson(list,response.getWriter());
+		
+		
+		
+		
 	}
 
 	/**
