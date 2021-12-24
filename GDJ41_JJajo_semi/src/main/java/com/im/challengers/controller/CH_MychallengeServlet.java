@@ -13,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import com.im.challengers.model.service.CH_MychallengeNoticeService;
 import com.im.challengers.model.service.CH_MychallengeService;
 import com.im.challengers.model.vo.CH_Challengers;
+import com.im.challengers.model.vo.CH_Mychallenge;
 import com.im.challengers.model.vo.CH_MychallengeNotice;
 import com.jj.member.model.vo.Member;
 
@@ -75,6 +76,30 @@ public class CH_MychallengeServlet extends HttpServlet {
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 			return;
 		}
+		
+		/* 사용자가 진행중인 챌린지 중, 사용자가 선택한(DropList) 마이챌린지에 표시할 챌린지 데이터 가져오기 */
+		int challengersNo;
+		if(request.getParameter("challengersNo")!=null) {		
+			challengersNo= Integer.parseInt(request.getParameter("challengersNo"));
+			
+			// 해당 챌린지의 데이터들 가져오기
+			List<CH_Mychallenge> chList = new CH_MychallengeService().searchChallenge(memberNo, challengersNo);
+			
+			// 해당 챌린지의 데이터를 저장
+			request.setAttribute("mychallengeList", chList);
+			
+			
+			int chNum=0;
+			if(chList!=null && !(chList.isEmpty())) {
+				chNum=chList.get(0).getChallengersNo();
+			}
+			request.setAttribute("chNum", chNum);
+			
+		}
+
+		//System.out.println("이거 불러올 수 있어? : "+request.getParameter("challengersNo"));
+		
+		
 		
 		/* 마이챌린지 안내사항 불러오기 */
 		List<CH_MychallengeNotice> noList = new CH_MychallengeNoticeService().searchAllNotice();

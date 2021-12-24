@@ -11,7 +11,8 @@
 
 	List<CH_Advertisement> adList = (List)request.getAttribute("advertisementList");
 	List<CH_Challengers> chList = (List)request.getAttribute("challengersList");
-	List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");
+
+		List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");
 	
 	
 %>
@@ -559,6 +560,19 @@
 	  
   }
   
+  // 챌린지 리스트 페이징 처리 (AJAX)
+<%--   function challengersListAjax(cPage,numPerPage){
+	  
+	  $.ajax({
+		  
+		  url:"<%=request.getContextPath()%>/Challengers/chListAjax.do",
+		  data:{cPage:cPage, numPerPage:numPerPage},
+		  success:data=>{
+			  $("#container").html(data);
+		  }
+	  });
+	  
+  } --%>
   
   
   

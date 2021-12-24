@@ -71,7 +71,22 @@ public class CH_MychallengeService {
 	}
 	
 	
-/*============================= 마이 챌린지 등록 ========================== */
+/*============================= 챌린지 결과 등록 ========================== */
+	
+	public int challengeResultEnroll(String myDay, int count, int chNo, int memberNo, String result) {
+		
+		Connection conn=getConnection();
+		int end = dao.challengeResultEnroll(conn,myDay,count,chNo,memberNo,result);
+		if(end>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+		return end;
+		
+	}
+	
+	
+	
+	
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */

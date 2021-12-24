@@ -185,8 +185,35 @@ public class CH_MychallengeDao {
 	}
 	
 	
+/*============================= 챌린지 결과 등록 ========================== */
 	
-/*============================= 마이 챌린지 등록 ========================== */
+	public int challengeResultEnroll(Connection conn, String myDay, int count, int chNo, int memberNo, String result) {
+		
+		PreparedStatement pstmt=null;
+		int end=0;
+		String sql=prop.getProperty("challengeResultEnroll");
+		sql=sql.replace("#COL", myDay);
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, result);
+			pstmt.setInt(2, count);
+			pstmt.setInt(3, chNo);
+			pstmt.setInt(4, memberNo);
+			end=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return end;
+		
+	}
+	
+	
+	
+	
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
