@@ -9,7 +9,7 @@ import lombok.Data;
 @Builder
 public class Notice {
 	private String noticeNo;
-	private String noticeTiltle;
+	private String noticeTitle;
 	private String noticeWriter;
 	private String noticeContent;
 	private Date noticeDate;

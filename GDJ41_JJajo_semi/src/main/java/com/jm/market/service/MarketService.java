@@ -52,17 +52,18 @@ public class MarketService {
 	}
  
 	
-//	public int insertFile(ProductBoard pb,int pdno) {
-//		Connection conn=getConnection();
-//		int result=dao.insertFile(conn,pb,pdno); 
-//		if(result>0) { 	
-//				commit(conn); 
-//		}else {
-//				rollback(conn);
-//		}
-//		close(conn);
-//		return result; 
-//	}
-	
+   public List<ProductBoard> categoryMain(String category){
+	   Connection conn=getConnection();
+	   List<ProductBoard> list=dao.categoryMain(conn, category);
+	   close(conn);
+	   return list;
+   }
+   
+   public List<ProductBoard> storeMain(String memberNo){
+	   Connection conn = getConnection();
+		List<ProductBoard> list = dao.storeMain(conn,memberNo);
+		close(conn);
+		return list;
+   }
 
 }

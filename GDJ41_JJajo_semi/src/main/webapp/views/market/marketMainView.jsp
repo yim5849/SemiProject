@@ -8,7 +8,7 @@
 %>
 <style> 
 	section>*{
-		margin: 0px 200px 20px 300px;
+		margin: 0px 200px 20px 500px;
     
 	}
 	section>h3{
@@ -18,6 +18,7 @@
 
    .dropdown{
 		margin:0px;
+		margin-left:30px;
 	} 
 	
 	.dropdown-toggle{
@@ -47,13 +48,17 @@
 <div class="container">
 	<div class="row" style="text-align: center;">
 	  <div class="col">
+	   <%if(loginMember==null) { %>
+	   	<a></a>
+	   <%}else{ %>
 		<a href="<%=request.getContextPath()%>/enrollproduct.do"><img src="<%=request.getContextPath()%>/images/market/cash.png" width="50px" height="40px" class="rounded"></a>
-	</div>
+		<%} %>
+	  </div>
 	  <div class="col" style="text-align: center;">
 		<h3>중고거래 최신매물</h3>
 	  </div>
 	  <div class="col" style="text-align: center;">
-		<a href="<%=request.getContextPath()%>/myStore.do"><img src="<%=request.getContextPath()%>/images/market/store.png" width="50px" height="45px"  class="rounded" ></a>
+		<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=loginMember.getMemberNo()%>"><img src="<%=request.getContextPath()%>/images/market/store.png" width="50px" height="45px"  class="rounded" ></a>
 	  </div>
 	</div>
   </div>
@@ -64,14 +69,14 @@
 	  </a>
 	   <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
 	    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/marketMainView.do">HOME</a></li>
-	    <li><a class="dropdown-item" href="#">헬스의류</a></li>
-	    <li><a class="dropdown-item" href="#">헬스기구</a></li>
-	    <li><a class="dropdown-item" href="#">운동간식</a></li>
-	    <li><a class="dropdown-item" href="#">기타</a></li>
+<!-- 	    <li><a class="dropdown-item" name="category" id="drop-cloth" href="javascript:void(0)">헬스의류</a></li> -->
+	    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/categoryCheck.do?category=헬스의류">헬스의류</a></li>
+	    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/categoryCheck.do?category=헬스기구">헬스기구</a></li>
+	    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/categoryCheck.do?category=운동간식">운동간식</a></li>
+	    <li><a class="dropdown-item" href="<%=request.getContextPath()%>/categoryCheck.do?category=기타용품">기타</a></li>
 	  </ul>
  	</div>
-
-<%-- <%=list.get(0).getFileName().get(0).getFileName()%> --%>
+ 
 	 
 	 <%if(list!=null&&list.isEmpty()){%>
 	  		<p>등록된 게시물이 없습니다</p>
@@ -88,46 +93,43 @@
 			 	   <div class="card-body">
 			   	        <h5 class="card-title"><%=pb.getTitle()%> </h5>
 			     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
+			     	    <p class="card-text"><%=pb.getMember_name()%></p>
 			     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
 			    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
 			  	   </div>
-			  </div>            		
+			   </div>            		
 	        </div>
 	      <%} %>
 	    </div>	       
 	   <%} %> 
 	   
-<%--   <%if(list!=null&&list.isEmpty()){%>
-	  		<p>등록된 게시물이 없습니다</p>
-	  <%}else{ %>        
-	   <div class="d-flex flex-wrap">
-	     <%for(ProductBoard pb : list) {%> 
-	        <div style="display:inline-block"> 
-			  <div class="card" style="width: 18rem;">
-				  <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(0).getFileName()%>" height="150px" class="card-img-top">
-			 	   <div class="card-body">
-			   	        <h5 class="card-title"><%=pb.getTitle()%> </h5>
-			     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
-			     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
-			    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
-			  	   </div>
-			  </div>            		
-	        </div>
-	      <%} %>
-	    </div>	       
-	   <%} %>   --%>  
-
-
-
-
-
-
+  
  
-
 
 
 </section>
 
+<script>
+
+<%-- $("a[name=category]").click(e=>{
+	$.ajax({
+		url:"<%=request.getContextPath()%>/categoryCheck.do",
+		dataType:"json",
+		data:{category:$(e.target).text()},
+		success:data=>{ 
+ 			for(let i=0; i<data.length;i++){
+			console.log(data[i]);  
+			}
+		}
+	})
+ 
+}) --%>
+
+
+
+
+
+</script>
 
 <%@ include file="/views/common/footer.jsp"%>    
     

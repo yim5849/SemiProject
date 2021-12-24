@@ -9,26 +9,29 @@
 <style> 
 
 	 section>*{
-		margin: 0px 300px 20px 300px;
+		margin: 0px 300px 200px 300px;
 	 }
 	 #myImage{
 		height:100px;
 		width:100px; 
 	}
 	
- 	.w-50{
+ 	.w-100{
 		width:0px;
 		height:400px;
 	}
 	.carousel-item{
 		margin-right:500px;
 	}
+	.carousel-inner{
+		height:400px;
+	}
 	 
 </style> 
  	
 <section>
 	 
-<form> 
+<form style="margin-left:500px;"> 
 
 
 <%--  	<div class="container">
@@ -45,31 +48,35 @@
   	  	</div>
 	</div>  --%> 
  
-	 <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-  		<div class="carousel-inner">
-   		 <%for(int i=0; i<pb.getFileName().size();i++) { %>
-   		 <div class="carousel-item active">
-     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(i).getFileName()%>" class="d-block w-50"  >
-   		 </div>
-   		 <%} %>
-    <%-- 	<div class="carousel-item">
-     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(1).getFileName()%>" class="d-block w-50"  >
-    	</div>
-   		 <div class="carousel-item">
-     		 <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(2).getFileName()%>" class="d-block w-50"  >
-    	 </div> --%>
- 	   </div>
-	  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-	    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-	    <span class="visually-hidden">Previous</span>
-	  </button>
-	  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-	    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-	    <span class="visually-hidden">Next</span>
-	  </button>
-	</div>
+
 		 
-		 
+<%-- 	 ------------------------------------------------------------------------------------------------------------------------------------------ --%>
+		
+		<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+		  <div class="carousel-indicators">
+		    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+		    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+		    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+		  </div>
+		  <div class="carousel-inner">
+		    <div class="carousel-item active" data-bs-interval="10000">
+		      <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(0).getFileName()%>"  class="d-block w-100"    >
+		    </div>
+		  <%for(int i=1; i<pb.getFileName().size();i++) { %>  
+		    <div class="carousel-item" data-bs-interval="2000">
+		      <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(i).getFileName()%>" class="d-block w-100"  >
+		    </div>
+		  <%} %>   
+		  </div>
+		  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+		    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Previous</span>
+		  </button>
+		  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+		    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+		    <span class="visually-hidden">Next</span>
+		  </button>
+		</div>
 	 
 	 
 	<br><br>	
@@ -77,7 +84,7 @@
  	<table class="product-table" style="margin-left: 30px;">
 		<tr>
 			<td>
-				<img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle">
+				<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle"></a>
 			</td>
 			<td rowspan="2" width="300px" border="1" style="padding-left: 30px;" >
 				<div>
@@ -95,7 +102,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td style="text-align:center;"><%=pb.getMember_name()%></td> 
+			<td style="text-align:center;"><%=pb.getMember_name()%> </td> 
 		</tr>
  
  	</table>
