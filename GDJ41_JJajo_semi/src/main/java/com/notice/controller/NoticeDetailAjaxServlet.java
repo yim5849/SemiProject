@@ -1,4 +1,4 @@
-package com.im.challengers.controller;
+package com.notice.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.im.challengers.model.service.CH_AdvertisementService;
+import com.google.gson.Gson;
+import com.notice.model.service.NoticeService;
+import com.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class CH_AdvertisementUpdateServlet
+ * Servlet implementation class NoticeDetailAjaxServlet
  */
-@WebServlet("/challengers/advertisement_update.do")
-public class CH_AdvertisementUpdateServlet extends HttpServlet {
+@WebServlet("/notice/noticeDetailAjax.do")
+public class NoticeDetailAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_AdvertisementUpdateServlet() {
+    public NoticeDetailAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,13 +31,15 @@ public class CH_AdvertisementUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		String noticeNo = request.getParameter("noticeNo");
+		
+		
+		Notice notice = new NoticeService().searchNoticeOne(noticeNo);
+		
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(notice,response.getWriter());
 	
-		int adNo= Integer.parseInt(request.getParameter("advertisementNo"));
-		
-		request.setAttribute("advertisement", new CH_AdvertisementService().searchAdvertisement(adNo));
-		
-		request.getRequestDispatcher("/views/challengers/challengers_advertisement_update.jsp").forward(request, response);
-		
 	}
 
 	/**

@@ -98,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='<%=request.getContextPath() %>/challengers/introduce.do'">&ensp;네&ensp;</button>
+        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='<%=request.getContextPath() %>/challengers/introduce.do?memberNo=<%=loginMember.getMemberNo()%>'">&ensp;네&ensp;</button>
       </div>
     </div>
   </div>
