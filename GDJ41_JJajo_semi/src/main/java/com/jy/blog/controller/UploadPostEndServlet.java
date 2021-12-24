@@ -15,7 +15,6 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import com.db.main.model.service.MainBoardService;
 import com.db.main.model.vo.AttachedFile;
-import com.db.main.model.vo.HashTag;
 import com.db.main.model.vo.MainBoard;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
@@ -59,30 +58,36 @@ public class UploadPostEndServlet extends HttpServlet {
 		MultipartRequest mr=new MultipartRequest(request, path, maxSize, encode,new DefaultFileRenamePolicy());
 		//다중으로 업로드된 파일명 가져오기
 		Enumeration<String> e=mr.getFileNames();//업로드된 파일들에 대한 파일명을 모두 가져옴
-		List<AttachedFile> afList=new ArrayList();
-		AttachedFile af=null;
+		List<AttachedFile> afList=new ArrayList<AttachedFile>();
+		AttachedFile af= null;
 		while(e.hasMoreElements()) {
 			af=AttachedFile.builder()
 							.imgName(mr.getFilesystemName(e.nextElement()))
 							.build();
+			System.out.println("Image name: "+ af.getImgName());
+			System.out.println("Image no: "+ af.getImgNo());
 			afList.add(af);
 		}
 		
-		System.out.println(afList);
+		System.out.println(afList.size());
 		
-		
+		System.out.println(mr);
 		//태그 리스트
-		List<String> htList=new ArrayList();
-		System.out.println(mr.getParameter("title"));
-		System.out.println(mr.getParameter("content"));
+		List<String> htList=new ArrayList<String>();
+		System.out.println("Mr Title: " + mr.getParameter("title"));
+		System.out.println("Mr Content: " +mr.getParameter("content"));
+		System.out.println("Mr Tag: " +mr.getParameter("tag"));
+		
 		String tag=mr.getParameter("tag");
 		System.out.println(tag);
-		String[] tags=tag.split("#");
-		System.out.println(tags);
-		for(int i=0; i<tags.length;i++) {
-			htList.add(tags[i]);
-		}
+		String[] tags=tag.split("#"); 
+		System.out.println(tags); 
+		for(int i=0; i<tags.length;i++) 
+		{ 
+			htList.add(tags[i]); 
+		} 
 		System.out.println(tag);
+		 
 		
 		String memberNo = request.getParameter("memberNo");
 		
@@ -90,10 +95,11 @@ public class UploadPostEndServlet extends HttpServlet {
 		MainBoard mb = MainBoard.builder()
 				.boardTitle(mr.getParameter("title"))
 				.boardContent(mr.getParameter("content"))
-				/* .attachedFileList(afList) */
+				.attachedFileList(afList)
 				.tagList(htList)
 				.build();
 		
+		System.out.println("Board titleeee: " + mb.getBoardTitle());
 		 int result=new MainBoardService().insertBoard(mb,memberNo);
 		 
 		 String msg="";

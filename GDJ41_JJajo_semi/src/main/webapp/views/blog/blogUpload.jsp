@@ -33,8 +33,11 @@
 			    	</div>	
 			    	<div class="row" style="margin: 0; padding: 0;">
 			    		<h4>사진등록</h4>
-			    		
-			    			<!-- <div class="col-md" id="drag-drop-area">
+			    		<div class="col";">
+			    			<input type="file" name="upfile" multiple>
+			    		</div>
+			    		<!-- 
+			    			<div class="col-md" id="drag-drop-area">
 		    		
 		    				</div> -->
 			    		
@@ -81,25 +84,25 @@
 
 
 <script>
-	$("#target").click(e=>{
+	/* $("#target").click(e=>{
 		$("input[name=upFile]").click();
 	})
+ */
 
-	
 	//multifile upload
 	$("#upload").click(e=>{
 		const frm=new FormData();
-		/* const fileInput=$("input[name=upfile]");
-		console.log(fileInput);
+		const fileInput=$("input[name=upfile]");
 		for(let i=0;i<fileInput[0].files.length;i++){
-			frm.append("imagefile"+i,fileInput[0].files[i]);
-		}	 */
-		frm.append("title",$("#post_title").val());
-		frm.append("content",$("#post_description").val());
-		frm.append("tag",$("#post_tag").val());
+			
+			frm.append("upfile"+i,fileInput[0].files[i]);
+			frm.append("title", $("#post_title").val());
+			frm.append("tag", $("#post_tag").val());
+			frm.append("content", $("#post_description").val());
+		}	 
 		
 		$.ajax({
-			url:"<%=request.getContextPath() %>/blog/uploadpostend.do",
+			url:"<%=request.getContextPath()%>/blog/uploadpostend.do",
 			type:"post",
 			data:frm,
 			processData:false,
@@ -111,15 +114,11 @@
 		});
 	
 	});
+
 	
-	
-	
-	
-	
-	
-	
-<%-- 	
-	var uppy = Uppy.Core({
+
+	//Uppy Library Upload
+	<%-- var uppy = Uppy.Core({
 		restrictions: {
 			maxNumberOfFiles: 3,
 			allowedFileTypes:['image/*']
@@ -136,8 +135,11 @@
     	console.log('업로드 성공!:', result.successful)
 	})
 	
- --%>
-	
+	uppy.on('file-added', (file) => {
+	  var addedFile = file;
+	  test = file;
+	})
+	 --%>
 	
 	
 	
