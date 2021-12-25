@@ -1,0 +1,173 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ include file="/views/common/header.jsp" %>
+<%@ page import="com.jm.market.model.vo.ProductBoard" %>
+<%
+
+ProductBoard pb=(ProductBoard)request.getAttribute("productBoard");
+
+%>
+<style>
+   section>*{
+		margin: 0px 200px 20px 500px; 
+	}
+
+   select>div{
+    display:inline;
+  }
+  
+
+   .enrollTitle{
+    font-size: 30px; 
+  }
+	  
+	#inputPrice{
+		width:300px;
+	}
+	
+	#category{
+	font-size:10px;
+	}
+	 
+	.main-section{
+
+	width: 1000px;
+
+	} 
+	
+</style>
+
+<section>  
+ 
+	<div class="main-section"> 
+	      <div style="border-bottom: black solid 3px">
+	       		 <label for="enrollTitle" class="enrollTitle">정보수정</label>
+	      </div>
+	      <br>
+	      <div class="col-12">
+		    	<label class="form-label" style="margin-right: 150px;">상품이미지</label> 
+		      	<img id="target" src="<%=request.getContextPath()%>/images/market/camera.png" width="100px" height="100px">
+				<input type="file" name="upFile"  accept="image/*" multiple style="display:none">			
+				
+				<span id="imageContainer">
+					<%for(int i=0;i<pb.getFileName().size();i++) {%>
+		      	   		<img id="target" src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(i).getFileName()%>" width="100px" height="100px">
+		      	  	<%} %> 
+				</span>
+		  </div>	
+			
+	      <div class="col-12">
+		      <label class="form-label">제목</label>
+		      <input type="text" class="form-control" name="boardTitle" id="inputTitle" value="<%=pb.getTitle()%>" required >
+	      </div>
+	      <br>
+	      <div class="col-12" >
+	     	  <label class="form-label">거래장소</label>
+	     	  <input type="text" class="form-control" name="address" id="inputAddress" value="<%=pb.getAddress()%>" required>
+	      </div>
+	      <br>
+	      <div class="col-12">
+	         <label class="form-label">가격</label>
+	         <input style="display:inline-flex;" type="text" name="price" class="form-control" id="inputPrice" value="<%=pb.getPrice()%>" required> 
+	         <span>원</span> 
+	      </div>
+	      <br>
+	      <div id="select-category">
+	          <label class="form-label" style="margin-right:30px">카테고리</label> 
+	          <label><input type="radio" id="category" name="category" value="헬스의류" <%=pb.getCategory().equals("헬스의류")?"checked":""%> >헬스의류</label>
+	          <label><input type="radio" id="category" name="category" value="헬스기구" <%=pb.getCategory().equals("헬스기구")?"checked":""%>>헬스기구</label>
+	          <label><input type="radio" id="category" name="category" value="운동간식" <%=pb.getCategory().equals("운동간식")?"checked":""%>>운동간식</label>
+	          <label><input type="radio" id="category" name="category" value="기타용품" <%=pb.getCategory().equals("기타용품")?"checked":""%>>기타용품</label>           
+	      </div>
+	      
+	      <div class="col-12" style="border-bottom: black solid 3px">
+	      	<label class="form-label">설명</label>
+	      	<textarea rows="5" cols="100" id="boardContent" class="form-control" ><%=pb.getContent()%></textarea>
+	      	<br>
+	      </div>
+	       <br>
+	      
+	    <!-- 뒤로가기버튼 -->
+		 <div>
+		    <img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
+		    <input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
+		 </div>
+		 
+		  <div>
+		 	<input type="hidden" id="memberNo" value=<%=loginMember.getMemberNo()%>>
+		 	<input type="hidden" id="productNo" value=<%=pb.getProductNo()%>>			
+		  </div>  
+		 
+		<!-- 버튼 --> 
+	    <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
+  			<button id="upload" class="btn btn-primary me-md-2">수정하기</button> 	  			
+		</div>
+	</div>	
+		 	
+ 
+
+</section>
+
+<script>
+	$("#target").click(e=>{
+		$("input[name=upFile]").click();
+	})
+
+	$("#target2").click(e=>{
+		$("input[name=back]").click();
+	})
+	
+	$("input[name=upFile]").change(e=>{
+		$("#imageContainer").text(""); 
+		for(let i=0; e.target.files.length; i++){
+			if(e.target.files[i].type.includes("image")){
+				let reader=new FileReader();
+				reader.onload=(e)=>{
+					const img=$("<img>").attr({
+						src:e.target.result,
+						width:"100px",
+						height:"100px"
+					});
+					$("#imageContainer").append(img); 
+				}
+				reader.readAsDataURL(e.target.files[i]);
+			}	
+		}
+	});
+	
+	
+	$("#upload").click(e=>{
+			const frm=new FormData();
+			const fileInput=$("input[name=upFile]");
+			console.log(fileInput);
+			for(let i=0;i<fileInput[0].files.length;i++){
+				frm.append("upfile"+i,fileInput[0].files[i]);
+			}
+			frm.append("productNo",$("#productNo").val());
+			frm.append("title",$("#inputTitle").val());
+			frm.append("address",$("#inputAddress").val());
+			frm.append("price",$("#inputPrice").val());
+			frm.append("category",$("input[name=category]:checked").val());
+			frm.append("content",$("#boardContent").val());
+			frm.append("memberNo",$("#memberNo").val());
+			
+			 $.ajax({
+				url:"<%=request.getContextPath()%>/updateProductEnd.do",
+				type:"post",
+				data:frm,
+				processData:false,
+				contentType:false,
+				success:data=>{
+					alert(data["msg"]);
+					location.replace("<%=request.getContextPath()%>"+data["loc"]);
+				}
+			}) 
+		})
+	
+	
+	
+
+
+</script>
+
+<%@ include file="/views/common/footer.jsp" %>

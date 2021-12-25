@@ -57,9 +57,13 @@
 	  <div class="col" style="text-align: center;">
 		<h3>중고거래 최신매물</h3>
 	  </div>
-	  <div class="col" style="text-align: center;">
-		<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=loginMember.getMemberNo()%>"><img src="<%=request.getContextPath()%>/images/market/store.png" width="50px" height="45px"  class="rounded" ></a>
-	  </div>
+	   <%if(loginMember==null) { %>
+	   	<a></a>
+	   <%}else{ %>
+	  	<div class="col" style="text-align: center;">
+			<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=loginMember.getMemberNo()%>"><img src="<%=request.getContextPath()%>/images/market/store.png" width="50px" height="45px"  class="rounded" ></a>
+	  	</div>
+	   <%} %>
 	</div>
   </div>
   
@@ -80,9 +84,10 @@
 	 
 	 <%if(list!=null&&list.isEmpty()){%>
 	  		<p>등록된 게시물이 없습니다</p>
-	  <%}else{ %>        
+	  <%}else{ %>         
 	   <div class="d-flex flex-wrap">
-	     <%for(ProductBoard pb : list) {%> 
+	     <%for(ProductBoard pb : list) {%>
+	     	<%if(pb.getIsSale().equals("Y")) {%> 
 	        <div style="display:inline-block"> 
 			  <div class="card" style="width: 18rem;">
 			  	<%if(pb.getFileName().isEmpty()){ %>
@@ -99,6 +104,7 @@
 			  	   </div>
 			   </div>            		
 	        </div>
+	        <%} %>
 	      <%} %>
 	    </div>	       
 	   <%} %> 

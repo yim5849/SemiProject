@@ -42,9 +42,7 @@
 	<br>
 	
 	<div class="btn-group" role="group" aria-label="Basic example"  style="margin-left: 700px;">
-	  <button type="button" class="btn btn-primary">판매내역</button>
-	  <button type="button" class="btn btn-primary">구매내역</button>
-	  <button type="button" class="btn btn-primary">관심상품</button>
+	  <button type="button" class="btn btn-primary">판매내역</button> 
 	  <button type="button" class="btn btn-primary">블로그</button>
 	</div>
 	<br>
@@ -52,10 +50,10 @@
 	
 	
 	<div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom:0px;">
-  	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/myStore.do")>판매상품</button>
+  	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/myStore.do?memberNo=<%=loginMember.getMemberNo()%>")>판매상품</button>
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/review.do")>후기</button> 
 	</div>
-  
+ 
   	<div class="my-product">
   	
   		 	<table class="product-table" style="margin:30px 0px 0px 30px;">

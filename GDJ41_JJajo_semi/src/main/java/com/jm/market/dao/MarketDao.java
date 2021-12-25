@@ -330,7 +330,110 @@ public class MarketDao {
 		}
 		
 		
+		public int updateBoard(Connection conn,ProductBoard pb) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("updateBoard");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setString(1, pb.getTitle() );
+				pstmt.setString(2, pb.getCategory());
+				pstmt.setString(3, pb.getContent());
+				pstmt.setInt(4, pb.getPrice());
+				pstmt.setString(5, pb.getAddress());  
+				pstmt.setInt(6, pb.getProductNo());  
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+			
+		}
+		
+		public int deleteFile(Connection conn,int productNo) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("deleteFile");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setInt(1,productNo);   
+				result = pstmt.executeUpdate();
+				System.out.println(result);
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+			
+		}
 		
 		
+		
+		
+		public int updateFile(Connection conn,ProductBoard pb) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("updateFile");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setString(1, pb.getTitle() );
+				pstmt.setString(2, pb.getCategory());
+				pstmt.setString(3, pb.getContent());
+				pstmt.setInt(4, pb.getPrice());
+				pstmt.setString(5, pb.getAddress());  
+				pstmt.setInt(6, pb.getProductNo());  
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+			
+		}
+		
+		
+		public int deleteProduct(Connection conn,int productNo) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("deleteProduct");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setInt(1, productNo);  
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		public int dealProduct(Connection conn,int productNo) {
+			PreparedStatement pstmt=null;  
+			int result=0;  
+			String sql=prop.getProperty("dealProduct");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setInt(1,productNo);   
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally { 
+				close(pstmt);
+			}
+			return result;
+		}
 		
 }//클래스 종료
