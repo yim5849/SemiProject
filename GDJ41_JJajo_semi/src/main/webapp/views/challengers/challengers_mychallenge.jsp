@@ -96,15 +96,15 @@
           <div class="col-4">
           
           </div>
-          <div class="col">
+<%--           <div class="col">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/back-arrow.png" id="back_arrow_image">
-          </div>
+          </div> --%>
           <div class="col" style="padding-top: 2px; font-size: 25px;">
-            <%=my.getCount() %> 회차
+            <%=my.getCount() %> 회차<br><br><%=request.getAttribute("pageBar") %>
           </div>
-          <div class="col">
+       <%--    <div class="col">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/forward-arrow.png" id="forward_arrow_image">
-          </div>
+          </div> --%>
           <div class="col-4">
           
           </div>
@@ -136,37 +136,37 @@
  	
                 <tr>
                   <th scope="row"><br><br>1주차<br><br><br></th>
-          		  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay1().equals("Y")?"pass.png": my.getDay1().equals("N")?"fail.png":"noresult.png"%>"  id="1day" data-day="MY_1DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay2().equals("Y")?"pass.png": my.getDay2().equals("N")?"fail.png":"noresult.png"%>" id="2day" data-day="MY_2DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay3().equals("Y")?"pass.png": my.getDay3().equals("N")?"fail.png":"noresult.png"%>" id="3day" data-day="MY_3DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay4().equals("Y")?"pass.png": my.getDay4().equals("N")?"fail.png":"noresult.png"%>" id="4day" data-day="MY_4DAY" data-count="<%=my.getCount()%>" ></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay5().equals("Y")?"pass.png": my.getDay5().equals("N")?"fail.png":"noresult.png"%>" id="5day" data-day="MY_5DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay6().equals("Y")?"pass.png": my.getDay6().equals("N")?"fail.png":"noresult.png"%>" id="6day" data-day="MY_6DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay7().equals("Y")?"pass.png": my.getDay7().equals("N")?"fail.png":"noresult.png"%>" id="7day" data-day="MY_7DAY" data-count="<%=my.getCount()%>"></td> 
+          		  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay1().equals("Y")?"pass.png": my.getDay1().equals("N")?"fail.png":"noresult.png"%>"  id="1day" data-day="MY_1DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay2().equals("Y")?"pass.png": my.getDay2().equals("N")?"fail.png":"noresult.png"%>" id="2day" data-day="MY_2DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay3().equals("Y")?"pass.png": my.getDay3().equals("N")?"fail.png":"noresult.png"%>" id="3day" data-day="MY_3DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay4().equals("Y")?"pass.png": my.getDay4().equals("N")?"fail.png":"noresult.png"%>" id="4day" data-day="MY_4DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay5().equals("Y")?"pass.png": my.getDay5().equals("N")?"fail.png":"noresult.png"%>" id="5day" data-day="MY_5DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay6().equals("Y")?"pass.png": my.getDay6().equals("N")?"fail.png":"noresult.png"%>" id="6day" data-day="MY_6DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay7().equals("Y")?"pass.png": my.getDay7().equals("N")?"fail.png":"noresult.png"%>" id="7day" data-day="MY_7DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
                   <td id="1week-total"></td>
                 </tr>
  
               <tr>
               <th scope="row"><br><br>2주차<br><br><br></th>
-          		  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay8().equals("Y")?"pass.png": my.getDay8().equals("N")?"fail.png":"noresult.png"%>"    id="8day" data-day="MY_8DAY" data-count="<%=my.getCount()%>" ></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay9().equals("Y")?"pass.png": my.getDay9().equals("N")?"fail.png":"noresult.png"%>"    id="9day" data-day="MY_9DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay10().equals("Y")?"pass.png": my.getDay10().equals("N")?"fail.png":"noresult.png"%>" id="10day" data-day="MY_10DAY" data-count="<%=my.getCount()%>" ></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay11().equals("Y")?"pass.png": my.getDay11().equals("N")?"fail.png":"noresult.png"%>"   id="11day" data-day="MY_11DAY" data-count="<%=my.getCount()%>" ></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay12().equals("Y")?"pass.png": my.getDay12().equals("N")?"fail.png":"noresult.png"%>"  id="12day" data-day="MY_12DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay13().equals("Y")?"pass.png": my.getDay13().equals("N")?"fail.png":"noresult.png"%>"  id="13day" data-day="MY_13DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay14().equals("Y")?"pass.png": my.getDay14().equals("N")?"fail.png":"noresult.png"%>"  id="14day" data-day="MY_14DAY" data-count="<%=my.getCount()%>"></td> 
+          		  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay8().equals("Y")?"pass.png": my.getDay8().equals("N")?"fail.png":"noresult.png"%>"    id="8day" data-day="MY_8DAY" data-count="<%=my.getCount()%>"  data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay9().equals("Y")?"pass.png": my.getDay9().equals("N")?"fail.png":"noresult.png"%>"    id="9day" data-day="MY_9DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay10().equals("Y")?"pass.png": my.getDay10().equals("N")?"fail.png":"noresult.png"%>" id="10day" data-day="MY_10DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay11().equals("Y")?"pass.png": my.getDay11().equals("N")?"fail.png":"noresult.png"%>"   id="11day" data-day="MY_11DAY" data-count="<%=my.getCount()%>"  data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay12().equals("Y")?"pass.png": my.getDay12().equals("N")?"fail.png":"noresult.png"%>"  id="12day" data-day="MY_12DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay13().equals("Y")?"pass.png": my.getDay13().equals("N")?"fail.png":"noresult.png"%>"  id="13day" data-day="MY_13DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay14().equals("Y")?"pass.png": my.getDay14().equals("N")?"fail.png":"noresult.png"%>"  id="14day" data-day="MY_14DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
                   <td id="2week-total"></td>
                 </tr>
                 
                 <tr>
                   <th scope="row"><br><br>3주차<br><br><br></th>
-              	  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay15().equals("Y")?"pass.png": my.getDay15().equals("N")?"fail.png":"noresult.png"%>"  id="15day" data-day="MY_15DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay16().equals("Y")?"pass.png": my.getDay16().equals("N")?"fail.png":"noresult.png"%>"  id="16day" data-day="MY_16DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay17().equals("Y")?"pass.png": my.getDay17().equals("N")?"fail.png":"noresult.png"%>"  id="17day" data-day="MY_17DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay18().equals("Y")?"pass.png": my.getDay18().equals("N")?"fail.png":"noresult.png"%>"  id="18day" data-day="MY_18DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay19().equals("Y")?"pass.png": my.getDay19().equals("N")?"fail.png":"noresult.png"%>"  id="19day" data-day="MY_19DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay20().equals("Y")?"pass.png": my.getDay20().equals("N")?"fail.png":"noresult.png"%>"  id="20day" data-day="MY_20DAY" data-count="<%=my.getCount()%>"></td> 
-                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay21().equals("Y")?"pass.png": my.getDay21().equals("N")?"fail.png":"noresult.png"%>"  id="21day" data-day="MY_21DAY" data-count="<%=my.getCount()%>"></td> 
+              	  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay15().equals("Y")?"pass.png": my.getDay15().equals("N")?"fail.png":"noresult.png"%>"  id="15day" data-day="MY_15DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay16().equals("Y")?"pass.png": my.getDay16().equals("N")?"fail.png":"noresult.png"%>"  id="16day" data-day="MY_16DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay17().equals("Y")?"pass.png": my.getDay17().equals("N")?"fail.png":"noresult.png"%>"  id="17day" data-day="MY_17DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay18().equals("Y")?"pass.png": my.getDay18().equals("N")?"fail.png":"noresult.png"%>"  id="18day" data-day="MY_18DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay19().equals("Y")?"pass.png": my.getDay19().equals("N")?"fail.png":"noresult.png"%>"  id="19day" data-day="MY_19DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay20().equals("Y")?"pass.png": my.getDay20().equals("N")?"fail.png":"noresult.png"%>"  id="20day" data-day="MY_20DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
+                  <td><img src="<%=request.getContextPath()%>/images/challengers/mychallenge/<%=my.getDay21().equals("Y")?"pass.png": my.getDay21().equals("N")?"fail.png":"noresult.png"%>"  id="21day" data-day="MY_21DAY" data-count="<%=my.getCount()%>" data-date=" <%=my.getEnrolldate() %>"></td> 
                   <td id="3week-total"></td>
                 </tr>
                 
@@ -228,14 +228,14 @@
           </div>
         </div>
       </div>
+		
+		<br>
+		<div style="text-align:center;"> <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#mychallenge-go-check" style="font-size:20px;">완료하기</button></div>
 
   		<%} 
  		}%> 
  	<!-- 전체 성공률을 구하기 위해 주차별 성공 횟수를 저장해놓는 곳 -->	
- 	<input type="hidden" id="1week-total" value="">
- 	<input type="hidden" id="2week-total" value="">
- 	<input type="hidden" id="3week-total" value="">
- 	<input type="hidden" id="4week-total" value="">
+
       <br>
       <br>
       <br>
@@ -247,7 +247,7 @@
       <br>
 
       <div class="container" id="my_ch_introduce" >
-        <span style="color:lightseagreen">여러분들의 도전 기록을 사진으로 남겨보세요!</span> <span style="color: hotpink;">(※리스트-회차별, 최대 30장까지 등록가능합니다※)</span>
+        <span style="color:lightseagreen">여러분들의 도전 기록을 사진으로 남겨보세요!</span> <span style="color: hotpink;">(※각 챌린지마다 최대 30장까지 등록가능합니다※)</span>
       </div>
       <br>
 
@@ -275,7 +275,7 @@
 
         <br>
 
-        <div class="row">
+     	 <div class="row"> 
           <div class="col-2">
            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
           </div>
@@ -294,7 +294,7 @@
           <div class="col-2">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
           </div>
-        </div>
+     	</div> 
 
         <br>
 
@@ -528,13 +528,10 @@
 	// 결과 등록 이미지를 클릭 시, 진행중인 회차수와 등록하고자 하는 날짜에 대한 정보가 모달창으로 넘어간다
 	$(document).on("click", "#mychallenge-table>tbody>tr>td>img", function () { 
 	  	
-		$("#mychallenge_result_enroll").off();
-		
 		let date = $(this).data('date');
 		let days = $(this).data('day');
 		let count = $(this).data('count');
 		
-		console.log(days);
 		
 		let today = new Date();
 	
@@ -550,24 +547,45 @@
 		let enrollDate = new Date(dateArr[0],dateArr[1],dateArr[2]);
 		let endDate = new Date(year,month,day);
 		
-		
 		let intervalMs = endDate.getTime()-enrollDate.getTime();
-		console.log('이거찍혀?');
+
 
 		let intervalDay = intervalMs/(1000*60*60*24);
 		
-		console.log(intervalDay);
-		console.log(intervalDay+27);
 
+		<%if(loginMember!=null && !(loginMember.getMemberId().equals("admin"))){%>
 		switch(days){
 			
-		case "MY_2DAY": if(intervalDay<1) alert("아직 등록할 수 없습니다. 해당 날짜에 등록 부탁드립니다"); return;
-		//case "MY_28DAY": if(intervalDay<27) alert("아직 등록할 수 없습니다."+(27-intervalDay)+"일후에 등록 부탁드립니다");  return;
-		case "MY_28DAY": if(intervalDay<27)alert("아직 등록할 수 없습니다."+(27-intervalDay)+"일후에 등록 부탁드립니다");return; 
-		
+			case "MY_2DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(1-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_3DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(2-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_4DAY": if(intervalDay<3)alert("아직 등록할 수 없습니다."+(3-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_5DAY": if(intervalDay<4)alert("아직 등록할 수 없습니다."+(4-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_6DAY": if(intervalDay<5)alert("아직 등록할 수 없습니다."+(5-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_7DAY": if(intervalDay<6)alert("아직 등록할 수 없습니다."+(6-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_8DAY": if(intervalDay<7)alert("아직 등록할 수 없습니다."+(7-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_9DAY": if(intervalDay<8)alert("아직 등록할 수 없습니다."+(8-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_10DAY": if(intervalDay<9)alert("아직 등록할 수 없습니다."+(9-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_11DAY": if(intervalDay<10)alert("아직 등록할 수 없습니다."+(10-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_12DAY": if(intervalDay<11)alert("아직 등록할 수 없습니다."+(11-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_13DAY": if(intervalDay<12)alert("아직 등록할 수 없습니다."+(12-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_14DAY": if(intervalDay<13)alert("아직 등록할 수 없습니다."+(13-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_15DAY": if(intervalDay<14)alert("아직 등록할 수 없습니다."+(14-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_16DAY": if(intervalDay<15)alert("아직 등록할 수 없습니다."+(15-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_17DAY": if(intervalDay<16)alert("아직 등록할 수 없습니다."+(16-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_18DAY": if(intervalDay<17)alert("아직 등록할 수 없습니다."+(17-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_19DAY": if(intervalDay<18)alert("아직 등록할 수 없습니다."+(18-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_20DAY": if(intervalDay<19)alert("아직 등록할 수 없습니다."+(19-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_21DAY": if(intervalDay<20)alert("아직 등록할 수 없습니다."+(20-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_22DAY": if(intervalDay<21)alert("아직 등록할 수 없습니다."+(21-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_23DAY": if(intervalDay<22)alert("아직 등록할 수 없습니다."+(22-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_24DAY": if(intervalDay<23)alert("아직 등록할 수 없습니다."+(23-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_25DAY": if(intervalDay<24)alert("아직 등록할 수 없습니다."+(24-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_26DAY": if(intervalDay<25)alert("아직 등록할 수 없습니다."+(25-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_27DAY": if(intervalDay<26)alert("아직 등록할 수 없습니다."+(26-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_28DAY": if(intervalDay<27)alert("아직 등록할 수 없습니다."+(27-intervalDay)+"일후에 등록 부탁드립니다");return; 
 
 		} 
-		
+		<%}%>
 		
 		console.log('이거찍혀?');
 		
@@ -586,9 +604,9 @@
 		$("#select_day").val(days); 
 		$("#challenge_count").val(count);	
 	  	   	 	
-	});
+	});											/* 개선해야할 부분 : 모달 속성을 먼저 부여하면 alert경고창 이후 모달이 뜨게됨  / 위 방식대로 하면 처음에는 무조건 2번 클릭을 해야함 =>(생각하기...)*/
 	
-    // 마이챌린지 테이블에서 noresult.png(결과등록을 해야하는 부분) 이미지에 모달 속성을 전체적으로 부여
+    // 마이챌린지 테이블에서 noresult.png(결과등록을 해야하는 부분) 이미지에 모달 속성을 전체적으로 부여 (%%보류중인 방법%%)
   <%--   $(()=>{
  
 	    let attrObj={
@@ -635,7 +653,7 @@
     // 드롭 리스트에서 목록 선택 후, 화면 전환 시 선택했던 리스트를 selected로 고정해 주는 로직
     $(()=>{
     		
-	    	$('#doing_ch_list').val(<%=chNum%>).attr("selected","selected");
+    	$('#doing_ch_list').val(<%=chNum%>).attr("selected","selected");
     	
 	});
     	

@@ -82,8 +82,76 @@ public class CH_MychallengeServlet extends HttpServlet {
 		if(request.getParameter("challengersNo")!=null) {		
 			challengersNo= Integer.parseInt(request.getParameter("challengersNo"));
 			
+			int cPage;
+			
+			try {
+				cPage=Integer.parseInt(request.getParameter("cPage"));
+			}catch(NumberFormatException e) {
+				cPage=1;
+			}
+			int numPerPage=1;//페이지당 출력 데이터수
+			
 			// 해당 챌린지의 데이터들 가져오기
-			List<CH_Mychallenge> chList = new CH_MychallengeService().searchChallenge(memberNo, challengersNo);
+			List<CH_Mychallenge> chList = new CH_MychallengeService().searchAllChallenge(cPage,numPerPage,memberNo, challengersNo);
+			
+			/* 페이지바 작성하기 */
+			int totalData = new CH_MychallengeService().searchAllChallengeCount(memberNo,challengersNo);
+			
+			// 전체 페이지 수
+			int totalPage=(int)Math.ceil((double)totalData/numPerPage); // 소수점이 있다면 올림처리!!
+			
+			// 페이지에 출력할 페이지 수의 갯수
+			int pageBarSize=5;
+			
+			// 페이지 숫자의 시작값을 설정
+			int pageNo=((cPage-1)/pageBarSize)*pageBarSize+1;
+			
+			// 페이지 숫자의 끝 값을 설정
+			int pageEnd= pageNo+pageBarSize-1;
+			
+			String pageBar="<nav aria-label=\"Page navigation example\"><ul class=\"pagination justify-content-center\"><li class=\"page-item\">";
+			
+			// 이전 버튼 만들기
+			if(pageNo==1) {
+//				pageBar="<span>[이전]</span>";
+				pageBar+="<a class=\"page-link\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
+			}else {
+//				pageBar="<a href=' "+request.getContextPath()+"/challengers/introduce.do?cPage="+(pageNo-1)+" '>[이전]</a>";
+				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+(pageNo-1)
+									+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
+			}
+			
+			
+			while(!(pageNo>pageEnd || pageNo>totalPage)) {
+				if(cPage==pageNo) {
+//					pageBar+="<span>"+pageNo+"</span>";
+					pageBar+="<li class=\"page-item\"><a class=\"page-link\">"+pageNo+"</a></li>";
+				}else {
+//					pageBar+="<a href=' "+request.getContextPath()+"/challengers/introduce.do?cPage="+pageNo+" '> "+pageNo+"</a>";
+					pageBar+="<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\"> "+pageNo+"</a></li>";
+				}
+				pageNo++;
+			}
+			
+			pageBar+="<li class=\"page-item\">";
+			
+			if(pageNo>totalPage) {
+//				pageBar+="<span>[다음]</span>";
+				pageBar+="<a class=\"page-link\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
+			}else {
+//				pageBar+="<a href= ' "+request.getContextPath()+"/challengers/introduce.do?cPage="+pageNo+" '>[다음]</a> ";
+				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
+			}
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			request.setAttribute("pageBar", pageBar);
 			
 			// 해당 챌린지의 데이터를 저장
 			request.setAttribute("mychallengeList", chList);
@@ -97,7 +165,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 			
 		}
 
-		//System.out.println("이거 불러올 수 있어? : "+request.getParameter("challengersNo"));
+	
 		
 		
 		

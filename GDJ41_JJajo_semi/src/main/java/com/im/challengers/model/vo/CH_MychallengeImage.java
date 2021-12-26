@@ -8,8 +8,7 @@ import lombok.Data;
 public class CH_MychallengeImage {
 
 	private int ch_imgNo;
-	private String imageOriginalFilename;
-	private String imageRenamedFilename;
+	private String filepath;
 	private int challengersNo;
 	private int memberNo;
 	
