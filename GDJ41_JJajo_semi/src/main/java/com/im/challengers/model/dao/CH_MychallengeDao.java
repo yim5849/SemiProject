@@ -33,7 +33,7 @@ public class CH_MychallengeDao {
 	}
 	
 	
-	/*=================== 챌린지 찾기(회원번호, 챌린져스 번호 사용) / 페이징 ================= */		
+	/*=================== 챌린지 찾기(회원번호, 챌린져스 번호 사용)================= */		
 	
 	public List<CH_Mychallenge> searchChallenge(Connection conn, int memberNo, int challengersNo){
 		
@@ -102,11 +102,12 @@ public class CH_MychallengeDao {
 			
 			pstmt=conn.prepareStatement(sql);
 			
-			pstmt.setInt(1, (cPage-1)*numPerPage+1);
-			pstmt.setInt(2, cPage*numPerPage);
-			pstmt.setInt(3, memberNo);
-			pstmt.setInt(4, challengersNo);
-			
+			pstmt.setInt(1, memberNo);
+			pstmt.setInt(2, challengersNo);
+			pstmt.setInt(3, (cPage-1)*numPerPage+1);
+			pstmt.setInt(4, cPage*numPerPage);
+
+
 			rs=pstmt.executeQuery();
 			
 			while(rs.next()) {
@@ -122,7 +123,7 @@ public class CH_MychallengeDao {
 						.day21(rs.getString("MY_21DAY")).day22(rs.getString("MY_22DAY")).day23(rs.getString("MY_23DAY")).day24(rs.getString("MY_24DAY"))
 						.day25(rs.getString("MY_25DAY")).day26(rs.getString("MY_26DAY")).day27(rs.getString("MY_27DAY")).day28(rs.getString("MY_28DAY"))
 						.checkdo(rs.getString("MY_CHECKDO")).build();
-				
+
 				list.add(my);
 			}
 			

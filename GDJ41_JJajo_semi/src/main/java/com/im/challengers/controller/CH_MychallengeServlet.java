@@ -81,7 +81,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 		int challengersNo;
 		if(request.getParameter("challengersNo")!=null) {		
 			challengersNo= Integer.parseInt(request.getParameter("challengersNo"));
-			
+
 			int cPage;
 			
 			try {
@@ -93,7 +93,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 			
 			// 해당 챌린지의 데이터들 가져오기
 			List<CH_Mychallenge> chList = new CH_MychallengeService().searchAllChallenge(cPage,numPerPage,memberNo, challengersNo);
-			
+			System.out.println("전달받은 chList : "+chList);
 			/* 페이지바 작성하기 */
 			int totalData = new CH_MychallengeService().searchAllChallengeCount(memberNo,challengersNo);
 			
@@ -113,10 +113,8 @@ public class CH_MychallengeServlet extends HttpServlet {
 			
 			// 이전 버튼 만들기
 			if(pageNo==1) {
-//				pageBar="<span>[이전]</span>";
 				pageBar+="<a class=\"page-link\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
 			}else {
-//				pageBar="<a href=' "+request.getContextPath()+"/challengers/introduce.do?cPage="+(pageNo-1)+" '>[이전]</a>";
 				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+(pageNo-1)
 									+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
 			}
@@ -124,10 +122,8 @@ public class CH_MychallengeServlet extends HttpServlet {
 			
 			while(!(pageNo>pageEnd || pageNo>totalPage)) {
 				if(cPage==pageNo) {
-//					pageBar+="<span>"+pageNo+"</span>";
 					pageBar+="<li class=\"page-item\"><a class=\"page-link\">"+pageNo+"</a></li>";
 				}else {
-//					pageBar+="<a href=' "+request.getContextPath()+"/challengers/introduce.do?cPage="+pageNo+" '> "+pageNo+"</a>";
 					pageBar+="<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\"> "+pageNo+"</a></li>";
 				}
 				pageNo++;
@@ -136,20 +132,12 @@ public class CH_MychallengeServlet extends HttpServlet {
 			pageBar+="<li class=\"page-item\">";
 			
 			if(pageNo>totalPage) {
-//				pageBar+="<span>[다음]</span>";
 				pageBar+="<a class=\"page-link\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 			}else {
-//				pageBar+="<a href= ' "+request.getContextPath()+"/challengers/introduce.do?cPage="+pageNo+" '>[다음]</a> ";
 				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 			}
 			
-			
-			
-			
-			
-			
-			
-			
+
 			
 			request.setAttribute("pageBar", pageBar);
 			
@@ -162,10 +150,10 @@ public class CH_MychallengeServlet extends HttpServlet {
 				chNum=chList.get(0).getChallengersNo();
 			}
 			request.setAttribute("chNum", chNum);
-			
+	
 		}
 
-	
+
 		
 		
 		

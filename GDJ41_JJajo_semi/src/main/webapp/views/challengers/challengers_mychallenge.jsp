@@ -83,10 +83,7 @@
         </div>
       </div>
 
-      <br>
-      <br>
-      <br>
-      
+    
       
 
 <%if(myList!=null){ 
@@ -96,23 +93,19 @@
           <div class="col-4">
           
           </div>
-<%--           <div class="col">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/back-arrow.png" id="back_arrow_image">
-          </div> --%>
+
           <div class="col" style="padding-top: 2px; font-size: 25px;">
-            <%=my.getCount() %> 회차<br><br><%=request.getAttribute("pageBar") %>
+            <p id="ch_head_title" style="color:#A901DB"></p><br><%=my.getCount() %> 회차<br><br><%=request.getAttribute("pageBar") %>
           </div>
-       <%--    <div class="col">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/forward-arrow.png" id="forward_arrow_image">
-          </div> --%>
+   
           <div class="col-4">
           
           </div>
         </div>
       </div>
 
-      <br>
-      <br>
+     
+    
 
       <div class="container">
         <div class="row">
@@ -230,7 +223,8 @@
       </div>
 		
 		<br>
-		<div style="text-align:center;"> <button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#mychallenge-go-check" style="font-size:20px;">완료하기</button></div>
+		<div style="text-align:center;"> <button type="button"  id="mychallenge_finish_btn"  data-mNo="<%=loginMember.getMemberNo()%>" data-chNo="<%=my.getChallengersNo() %>" data-count="<%=my.getCount() %>"
+		class="btn btn-outline-info"  data-finish="N"  style="font-size:20px;">진행중</button></div>
 
   		<%} 
  		}%> 
@@ -251,7 +245,7 @@
       </div>
       <br>
 
-      <div class="container">
+ <%--      <div class="container">
         <div class="row">
           <div class="col-2">
            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
@@ -342,8 +336,110 @@
           </div>
         </div>
 
-      </div>
+      </div> --%>
 
+
+<!-- =================================================== 갤러리 테스트 구역 ==================================================================== -->
+
+
+ <div class="container">
+        <div class="row">
+        <% %>
+          <div class="col-2">
+           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+        </div>
+
+        <br>
+
+     	 <div class="row"> 
+          <div class="col-2">
+           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+     	</div> 
+
+        <br>
+
+        <div class="row">
+          <div class="col-2">
+           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+        </div>
+
+        <br>
+
+        <div class="row">
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+           	<img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+          <div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
+        </div>
+
+      </div> 
+
+
+
+
+<!-- ========================================================================================================================================= -->
       <br>
       <br>
       <br>
@@ -385,7 +481,9 @@
               
           </div>
           <div class="modal-footer">
+            <%if(loginMember!=null && loginMember.getMemberId().equals("admin")){ %> 
             <button type="button" class="btn btn-primary"  data-bs-dismiss="modal"  data-bs-toggle="modal" data-bs-target="#chNotice_enroll_modal">&ensp;등록&ensp;</button>
+            <%} %>
             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
           </div>
     	</div>
@@ -526,7 +624,7 @@
 <script>
 
 	// 결과 등록 이미지를 클릭 시, 진행중인 회차수와 등록하고자 하는 날짜에 대한 정보가 모달창으로 넘어간다
-	$(document).on("click", "#mychallenge-table>tbody>tr>td>img", function () { 
+	$(document).on("click", "#mychallenge-table>tbody>tr>td>img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/noresult.png']", function () { 
 	  	
 		let date = $(this).data('date');
 		let days = $(this).data('day');
@@ -557,7 +655,7 @@
 		switch(days){
 			
 			case "MY_2DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(1-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_3DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(2-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_3DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(2-intervalDay)+"일후에 등록 부탁드립니다");return;
 			case "MY_4DAY": if(intervalDay<3)alert("아직 등록할 수 없습니다."+(3-intervalDay)+"일후에 등록 부탁드립니다");return; 
 			case "MY_5DAY": if(intervalDay<4)alert("아직 등록할 수 없습니다."+(4-intervalDay)+"일후에 등록 부탁드립니다");return; 
 			case "MY_6DAY": if(intervalDay<5)alert("아직 등록할 수 없습니다."+(5-intervalDay)+"일후에 등록 부탁드립니다");return; 
@@ -655,6 +753,10 @@
     		
     	$('#doing_ch_list').val(<%=chNum%>).attr("selected","selected");
     	
+    	let text = $("#doing_ch_list option:checked").text()
+
+    	$('#ch_head_title').text(text);    	
+    	
 	});
     	
     // 리스트 드롭 선택 시, 해당 챌린지 데이터를 가져오기 위해 서블릿으로 전송
@@ -694,7 +796,62 @@
   		$("#mychallenge_avg").text(avg+"%");
   		$("#mychallenge_avg").css("width",avg+"%");
   		
+ 		
   	});
+    
+    
+    // 페이지 로드시, 미등록한 결과가 있는지 확인하고 없다면 하단에 진행중 버튼을 완료하기 버튼으로 바꾸는 로직
+    $(()=>{
+    	
+    	let count=0;
+    	let arr=new Array();
+    	
+    	for(let j=1; j<29; j++){
+    		arr.push($("#"+j+"day").attr('src'));
+      	}
+    	
+    	
+ 		for(let i=0; i<arr.length; i++){
+  			if(arr[i]=='<%=request.getContextPath()%>/images/challengers/mychallenge/noresult.png')count++;		
+  		};
+    	
+    	if(count==0){
+    		
+    	    let attrObj={
+        			"data-bs-toggle": "modal",
+        			"data-bs-target":"#mychallenge_finish_enroll"
+        	};
+    		
+    		$("#mychallenge_finish_btn").attr(attrObj);
+    		$("#mychallenge_finish_btn").text('');
+    		$("#mychallenge_finish_btn").text('완료하기');
+    		$("#mychallenge_finish_btn").removeClass('btn-outline-info');
+    		$("#mychallenge_finish_btn").addClass('btn-danger');
+    		
+    	}
+  		
+  		
+    	
+    });
+    
+
+    
+  
+    
+		$(()=>{
+		
+		    let attrObj={
+	    			"data-bs-toggle": "modal",
+	    			"data-bs-target":"#mychallenge_result_enroll"
+	    	};
+
+			$("img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']").attr(attrObj);
+    	
+    	
+    	})
+    
+    
+    
    
     
     

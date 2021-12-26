@@ -18,7 +18,7 @@ public class CH_MychallengeService {
 	private CH_MychallengeDao dao = new CH_MychallengeDao();
 	
 
-/*================= 챌린지 찾기(회원번호, 챌린져스 번호 사용 / 페이징) =============== */	
+/*================= 챌린지 찾기(회원번호, 챌린져스 번호 사용) =============== */	
 	
 	public List<CH_Mychallenge> searchChallenge(int memberNo, int challengersNo){
 		
@@ -37,7 +37,7 @@ public class CH_MychallengeService {
 	public List<CH_Mychallenge> searchAllChallenge(int cPage, int numPerPage, int memberNo, int challengersNo){
 		
 		Connection conn=getConnection();
-		List<CH_Mychallenge> list = dao.searchAllChallenge(conn, memberNo, challengersNo,cPage,numPerPage);
+		List<CH_Mychallenge> list = dao.searchAllChallenge(conn ,cPage,numPerPage,memberNo, challengersNo);
 	
 		close(conn);
 		
