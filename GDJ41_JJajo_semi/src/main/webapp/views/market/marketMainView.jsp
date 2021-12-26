@@ -27,10 +27,10 @@
 		padding: 0%;
 	}
 
-   .dropdown{
+     .dropdown{
 		margin:0px;
-		margin-left:30px;
-	} 
+		margin-left:20px;
+	}  
 	
 	.dropdown-toggle{
 		background-color: #FBFBEF;
@@ -96,7 +96,7 @@
 
  
   
-	<div class="dropdown">
+	<div class="dropdown container">
 	  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
 	    CATEGORY
 	  </a>

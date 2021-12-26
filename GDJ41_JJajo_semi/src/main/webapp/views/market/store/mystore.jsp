@@ -9,24 +9,21 @@
 %>
 <style>
 	section>*{
-			margin: 0px 300px 0px 300px;
-	    	font-family: 'Gowun Batang', serif;
-		}
+	  margin: 0px 300px 0px 300px;
+	  font-family: 'Gowun Batang', serif;
+   }
 	#myImage{
 		height:100px;
 		width:100px; 
-	}
-	
+	} 
 	.my-product{
   		height: auto;
 		margin-top: 0px;
  		border: 2px solid black;
-	}
-	
+	} 
 	.btn btn-light{
 		border:1px blue;
-	}
-	
+	} 
 	.card{
 		margin:30px;
 	}
@@ -36,10 +33,10 @@
 
   
 <section>  
- 	<div class="text-center">
+ 	<div class="text-center container">
 	  <img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle">
 	  <br>
-	  <span><%=list. get(0).getMember_name()%></span> 
+	  <span><%=loginMember.getMemberName()%></span> 
 	</div>
 	<br>
 	<%if(loginMember==null){ %>
@@ -50,7 +47,7 @@
 	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 970px;">
 	  <button type="button" class="btn btn-primary">블로그</button>
 <%-- 	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/sellList.do")>판매내역</button> --%>
-	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do")>구매내역</button>
+	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do?memberNo=<%=loginMember.getMemberNo()%>")>구매내역</button>
 	</div>
 	
 	<%} %>
@@ -58,12 +55,12 @@
   
 	
 	
-	<div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom:0px;">
+	<div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-left:400px;">
   	<button type="button" class="btn btn-outline-primary"  >판매상품 
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/review.do")>후기</button> 
 	</div>
  
-	<div class="my-product">
+	<div class="my-product container">
 		 	 <%if(list!=null&&list.isEmpty()){%>
 			  		<p>등록된 게시물이 없습니다</p>
 			  <%}else{ %>        
@@ -175,7 +172,7 @@
  	</div>
  	<br>
  	
- 	<div>
+ 	<div class="container">
 		<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
 		<input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
 	</div>
