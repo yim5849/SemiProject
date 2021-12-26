@@ -31,6 +31,7 @@ public class CH_AdvertisementDeleteServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
 		// 삭제하기 위해 광고번호를 쿼리스트링 방식으로 받아옴
+
 		int adNo= Integer.parseInt(request.getParameter("advertisementNo"));
 		
 		int result = new CH_AdvertisementService().deleteAdvertisement(adNo);

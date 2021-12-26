@@ -1,7 +1,6 @@
-package com.jm.market.controller;
+package com.notice.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,20 +8,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jm.market.model.vo.ProductBoard;
-import com.jm.market.service.MarketService;
+import com.google.gson.Gson;
+import com.notice.model.service.NoticeService;
+import com.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class MarketMyStoreServet
+ * Servlet implementation class NoticeDetailAjaxServlet
  */
-@WebServlet("/myStore.do")
-public class MarketMyStoreServet extends HttpServlet {
+@WebServlet("/notice/noticeDetailAjax.do")
+public class NoticeDetailAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MarketMyStoreServet() {
+    public NoticeDetailAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,13 +31,15 @@ public class MarketMyStoreServet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 중고거래 내상점 화면으로 전환해주는 서블릿
-		String memberNo=request.getParameter("memberNo");
-		//System.out.println(memberNo);
-		List<ProductBoard> list= new MarketService().storeMain(memberNo);
 		
-		request.setAttribute("list", list); 
-		request.getRequestDispatcher("/views/market/store/mystore.jsp").forward(request, response);
+		String noticeNo = request.getParameter("noticeNo");
+		
+		
+		Notice notice = new NoticeService().searchNoticeOne(noticeNo);
+		
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(notice,response.getWriter());
+	
 	}
 
 	/**

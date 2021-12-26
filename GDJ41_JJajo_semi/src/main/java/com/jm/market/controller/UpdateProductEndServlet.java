@@ -21,16 +21,16 @@ import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class ProductEnrollEndServlet
+ * Servlet implementation class UpdateProductEndServlet
  */
-@WebServlet("/enrollProductEnd.do")
-public class ProductEnrollEndServlet extends HttpServlet {
+@WebServlet("/updateProductEnd.do")
+public class UpdateProductEndServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ProductEnrollEndServlet() {
+    public UpdateProductEndServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,7 +39,6 @@ public class ProductEnrollEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 상품등록화면에서 얻어온 데이터 변수명에 대입하기
 		if(!ServletFileUpload.isMultipartContent(request)) {
 			request.setAttribute("msg", "잘못된 요청입니다 관리자에게 문의하세요 XD");
 			request.setAttribute("loc", "/board/enrollBoard.do");
@@ -63,43 +62,34 @@ public class ProductEnrollEndServlet extends HttpServlet {
 		}
 		System.out.println(filenames);
 		
-		ProductBoard pb=ProductBoard.builder().title(mr.getParameter("title"))
+		ProductBoard pb=ProductBoard.builder().productNo(Integer.parseInt(mr.getParameter("productNo")))
+											  .title(mr.getParameter("title"))
 				                              .address(mr.getParameter("address"))
 				                              .price(Integer.parseInt(mr.getParameter("price")))
 				                              .category(mr.getParameter("category"))
-				                              .content(mr.getParameter("content"))
+				                              .content(mr.getParameter("content")) 
 				                              .memberNo(Integer.parseInt(mr.getParameter("memberNo")))
 				                              .fileName(filenames)
 				                              .build();
-		
-	  
-		System.out.println(pb);
-		//System.out.println(pb.getFileName().get(1));
-		int result=new MarketService().insertBoard(pb);
-		 
-		
-		//int pdno=new MarketService().maxCount(pb);
-		//System.out.println(pdno);
-//		int result2=new MarketService().insertFile(pb,pdno);
+		System.out.println(pb);		
+				
+		int result =new MarketService().updateBoard(pb);
 		
 		
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="상품 등록 성공";
+			msg="상품 수정 성공";
 			loc="/marketMainView.do";
 		}else {
-			msg="상품 등록 실패";
+			msg="상품 수정 실패";
 			loc="/enrollproduct.do";
 		}
-		   
 		JSONObject jo=new JSONObject();
 		jo.put("msg", msg);
 		jo.put("loc", loc);
 		response.setContentType("application/json;charset=UTF-8");
 		response.getWriter().print(jo);
-		
-		
 		
 	}
 

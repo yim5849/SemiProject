@@ -27,4 +27,11 @@ public class NoticeService {
 		
 	}
 
+	public Notice searchNoticeOne(String noticeNo) {
+		Connection conn = getConnection();
+		Notice notice = dao.searchNoticeOne(conn,noticeNo);
+		close(conn);
+		return notice;
+	}
+
 }

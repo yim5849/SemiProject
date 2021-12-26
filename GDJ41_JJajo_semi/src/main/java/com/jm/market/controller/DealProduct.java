@@ -1,4 +1,4 @@
-package com.im.challengers.controller;
+package com.jm.market.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -7,17 +7,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jm.market.service.MarketService;
+
 /**
- * Servlet implementation class CH_ChallengersEnrollServlet
+ * Servlet implementation class DealProduct
  */
-@WebServlet("/challengers/ch_enroll.do")
-public class CH_ChallengersEnrollServlet extends HttpServlet {
+@WebServlet("/dealProduct.do")
+public class DealProduct extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_ChallengersEnrollServlet() {
+    public DealProduct() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,10 +28,26 @@ public class CH_ChallengersEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 거래완료료 변경해주는 서블릿 pd_sale 'Y'=>'N'으로변경
 		
-		request.getRequestDispatcher("/views/challengers/challengers_list_enroll.jsp")
-		.forward(request, response);
+		int productNo =Integer.parseInt(request.getParameter("productNo"));
+		String memberNo=request.getParameter("memberNo"); 
 		
+		int result = new MarketService().dealProduct(productNo);
+
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="거래완료로 변경 되었습니다";
+			loc="/myStore.do?memberNo="+memberNo;
+		}else {
+			msg="거래완료에 실패했습니다";
+			loc="/myStore.do?memberNo="+memberNo;
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**

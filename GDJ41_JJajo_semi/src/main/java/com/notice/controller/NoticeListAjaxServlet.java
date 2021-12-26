@@ -15,16 +15,16 @@ import com.notice.model.service.NoticeService;
 import com.notice.model.vo.Notice;
 
 /**
- * Servlet implementation class NoticeListServlet
+ * Servlet implementation class NoticeListAjaxServlet
  */
-@WebServlet("/notice/noticeList.do")
-public class NoticeListServlet extends HttpServlet {
+@WebServlet("/notice/noticeListAjax.do")
+public class NoticeListAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public NoticeListServlet() {
+    public NoticeListAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,7 +33,7 @@ public class NoticeListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		int curPage;
+int curPage;
 		
 		try {
 			curPage = Integer.parseInt(request.getParameter("pageNo"));
@@ -86,13 +86,11 @@ public class NoticeListServlet extends HttpServlet {
 		}
 		
 		
-		request.setAttribute("pageBar", pageBar);		
-		request.setAttribute("noticeList", noticeList);
 		
-		request.getRequestDispatcher("/views/notice/noticeListView.jsp").forward(request, response);
+		Map<String, Object> param = Map.of("pageBar",pageBar,"list",noticeList);
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(param,response.getWriter());
 		
-	
-
 	}
 
 	/**

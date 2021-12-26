@@ -53,7 +53,7 @@ public class CH_ChallengersUpdateEndServlet extends HttpServlet {
 												encode,new DefaultFileRenamePolicy());
 		
 		CH_Challengers ch=CH_Challengers.builder()
-											.challengersNo(Integer.parseInt(mr.getParameter("ch_challengersNo")))
+											.challengersNo(Integer.parseInt(mr.getParameter("challengersNo")))
 											.title(mr.getParameter("ch_title"))
 											.content(mr.getParameter("ch_content"))
 											.build();

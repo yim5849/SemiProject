@@ -1,23 +1,26 @@
-package com.im.challengers.controller;
+package com.jm.market.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jm.market.service.MarketService;
+
 /**
- * Servlet implementation class CH_AdvertisementEnrollServlet
+ * Servlet implementation class UpdateProductServlet
  */
-@WebServlet("/challengers/advertisement_enroll.do")
-public class CH_AdvertisementEnrollServlet extends HttpServlet {
+@WebServlet("/updateProduct.do")
+public class UpdateProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_AdvertisementEnrollServlet() {
+    public UpdateProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,11 +29,9 @@ public class CH_AdvertisementEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		request.getRequestDispatcher("/views/challengers/challengers_advertisement_enroll.jsp")
-		.forward(request, response);
-	
-	
+		int productNo =Integer.parseInt(request.getParameter("productNo"));
+		request.setAttribute("productBoard", new MarketService().searchProduct(productNo));
+		request.getRequestDispatcher("/views/market/store/updateProduct.jsp").forward(request, response);
 	}
 
 	/**
