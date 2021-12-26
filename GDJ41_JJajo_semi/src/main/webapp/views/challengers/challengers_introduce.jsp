@@ -509,7 +509,7 @@
 	  	
 	  	$("#up_ch_title_").val(title); 
 	  	$("#chImg").val(img); 
-	  	$("#up_ch_orifile_").val(img); 
+	  	$("#up_ch_orifile").val(img); 
 	  	$("#up_ch_content_").val(content); 
 	  	$("#up_ch_no").val(no); 
 	  	   	 	
