@@ -65,5 +65,49 @@ public class MarketService {
 		close(conn);
 		return list;
    }
+   
+   public int updateBoard(ProductBoard pb) {
+	   Connection conn=getConnection();
+		int result=dao.updateBoard(conn,pb); 
+		if(result>0) {
+				dao.deleteFile(conn,pb.getProductNo());
+				
+				for(int i=0; i<pb.getFileName().size();i++) {
+					dao.insertFile(conn,pb,pb.getProductNo(),pb.getFileName().get(i).getFileName());
+				}
+				commit(conn); 
+		}else {
+				rollback(conn);
+		}
+		close(conn);
+		return result; 
+   }
 
+   
+   public int deleteProduct(int productNo) {
+	   Connection conn=getConnection();
+	    int result=dao.deleteFile(conn,productNo);
+		if(result>0) {
+			     dao.deleteProduct(conn,productNo);  
+				 commit(conn); 				 
+	   }else {
+				rollback(conn);
+		}
+		close(conn); 
+		return result;
+  }
+   
+   public int dealProduct(int productNo) {
+	   Connection conn=getConnection();
+		int result=dao.dealProduct(conn,productNo); 
+		if(result>0) {  
+				commit(conn); 
+		}else {
+				rollback(conn);
+		}
+		close(conn);
+		return result;  
+   }
+
+   
 }
