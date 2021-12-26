@@ -3,10 +3,8 @@ package com.db.main.model.service;
 import static com.jj.common.JDBCTemplate.close;
 import static com.jj.common.JDBCTemplate.commit;
 import static com.jj.common.JDBCTemplate.rollback;
-import static com.jj.common.JDBCTemplate.close;
 import static com.jj.common.JDBCTemplate.getConnection;
-import static com.jj.common.JDBCTemplate.commit;
-import static com.jj.common.JDBCTemplate.rollback;
+
 
 import java.sql.Connection;
 import java.util.List;
@@ -29,9 +27,16 @@ public class MainBoardService {
 	//JY
 	public int insertBoard(MainBoard mb, String memberNo) {
 		Connection conn=getConnection();
-		int result=dao.insertMainBoard(conn, mb, memberNo);
-		if(result>0) commit(conn);
-		else rollback(conn);
+		int result=dao.insertBoard(conn, mb, memberNo);
+		String boardNo=dao.getBoardNo(conn);
+		if(result>0&&boardNo!=null) {
+			int result2=dao.insertImageFile(conn,mb,boardNo);//board_no 같이 넘기기
+			if(result2>0) {
+				int result3=dao.insertTag(conn, mb,boardNo);
+				if(result3>0) result=1;
+				else rollback(conn);
+			}else rollback(conn);
+		}else rollback(conn);	
 		close(conn);
 		return result;		 
 	}

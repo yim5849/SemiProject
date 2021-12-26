@@ -74,21 +74,22 @@ public class UploadPostEndServlet extends HttpServlet {
 		System.out.println(mr);
 		//태그 리스트
 		List<String> htList=new ArrayList<String>();
-		System.out.println("Mr Title: " + mr.getParameter("title"));
-		System.out.println("Mr Content: " +mr.getParameter("content"));
-		System.out.println("Mr Tag: " +mr.getParameter("tag"));
+		/*
+		 * System.out.println("mr.title: " + mr.getParameter("title"));
+		 * System.out.println("mr.content: " + mr.getParameter("content"));
+		 * System.out.println("mr.tag: " + mr.getParameter("tag"));
+		 */
 		
-		String tag=mr.getParameter("tag");
+		String tag=mr.getParameter("tag");  
 		System.out.println(tag);
-		String[] tags=tag.split("#"); 
+		String[] tags=tag.split("#"); //조건문 수정필요 -> #으로 시작, 띄어쓰기X, _(언더바)만 사용가능
 		System.out.println(tags); 
 		for(int i=0; i<tags.length;i++) 
 		{ 
 			htList.add(tags[i]); 
 		} 
-		System.out.println(tag);
 		 
-		
+		//멤버넘버 -> 개인블로그주소 구분짓기 위함(blog+memberNo)
 		String memberNo = request.getParameter("memberNo");
 		
 		// DB에 저장할 데이터 가져오기
@@ -99,7 +100,7 @@ public class UploadPostEndServlet extends HttpServlet {
 				.tagList(htList)
 				.build();
 		
-		System.out.println("Board titleeee: " + mb.getBoardTitle());
+		System.out.println("Board title: " + mb.getBoardTitle());
 		 int result=new MainBoardService().insertBoard(mb,memberNo);
 		 
 		 String msg="";

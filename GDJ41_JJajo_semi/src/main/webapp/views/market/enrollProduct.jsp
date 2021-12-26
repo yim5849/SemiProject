@@ -3,11 +3,6 @@
 <%@ include file="/views/common/header.jsp" %>
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
-/* 오휴해결 */
-/* 오휴해결 */
-/* 오휴해결 */
-/* 오휴해결 */
-/* 오휴해결 */
    section>*{
 		margin: 0px 200px 20px 500px; 
 	}
@@ -31,7 +26,7 @@
 	 
 	.main-section{
 
-		width: 1000px;
+	width: 1000px;
 
 	} 
 	
@@ -122,6 +117,24 @@
 	
 	
 	$("input[name=upFile]").change(e=>{
+		$("#imageContainer").text(""); 
+		for(let i=0; e.target.files.length; i++){
+			if(e.target.files[i].type.includes("image")){
+				let reader=new FileReader();
+				reader.onload=(e)=>{
+					const img=$("<img>").attr({
+						src:e.target.result,
+						width:"100px",
+						height:"100px"
+					});
+					$("#imageContainer").append(img); 
+				}
+				reader.readAsDataURL(e.target.files[i]);
+			}	
+		}
+	});
+	
+/* 	$("input[name=upFile]").change(e=>{
 		if(e.target.files[0].type.includes("image")){
 			let reader=new FileReader();
 			reader.onload=(e)=>{
@@ -136,7 +149,7 @@
 		}	
 		
 	});
-	
+	 */
 	//다중파일 업로드하기
  	$("#upload").click(e=>{
  		const frm=new FormData();

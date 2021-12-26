@@ -20,6 +20,7 @@
 		  <div class="card-body">
 		    <h5 class="card-title">Card title</h5>
 		     <p class="card-text">2021-12-19</p>
+		     
 		   	 <div class="btn-group" role="group" aria-label="Basic outlined example">
   				<button type="button" class="btn btn-outline-primary">수정</button>
   				<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#product-delete">삭제</button>

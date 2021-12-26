@@ -38,17 +38,17 @@
  	<div class="text-center">
 	  <img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle">
 	  <br>
-	  <span>user_id</span> 
+	  <span><%=list. get(0).getMember_name()%></span> 
 	</div>
 	<br>
 	<%if(loginMember==null){ %>
-	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 810px;">
+	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 970px;">
 	  <button type="button" class="btn btn-primary">블로그</button> 
 	</div>
 	<%}else { %>
-	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 720px;">
+	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 970px;">
 	  <button type="button" class="btn btn-primary">블로그</button>
-	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/sellList.do")>판매내역</button>
+<%-- 	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/sellList.do")>판매내역</button> --%>
 	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do")>구매내역</button>
 	</div>
 	
@@ -58,7 +58,7 @@
 	
 	
 	<div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom:0px;">
-  	<button type="button" class="btn btn-outline-primary"  >판매상품</button>
+  	<button type="button" class="btn btn-outline-primary"  >판매상품 
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/review.do")>후기</button> 
 	</div>
  
@@ -80,7 +80,67 @@
 					     	    <p class="card-text" style="color:cornflowerblue;">#<%=pb.getCategory()%></p>
 					     	    <p class="card-text"><%=pb.getMember_name()%></p>
 					     	    <p class="card-text"><%=pb.getEnrollDate()%></p>
+					     	    <%if(pb.getIsSale().equals("Y")){ %>
 					    		<a href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>" class="btn btn-primary">보러가기</a>
+					    		<%}else{ %>
+					    		<button type="button" class="btn btn btn-danger">거래완료</button>
+					    		<%} %>
+					    		<!-- 내상점일때만 보이는 추가버튼 -->
+					    	<% if(loginMember!=null&&loginMember.getMemberName().equals(pb.getMember_name())) { %>
+						     	  <div class="btn-group" role="group" aria-label="Basic outlined example">
+					    		<%if(pb.getIsSale().equals("Y")){ %>
+					  				<button type="button" class="btn btn-outline-primary" onclick="location.assign('<%=request.getContextPath()%>/updateProduct.do?productNo=<%=pb.getProductNo()%>')">수정</button>
+					  			    <button type="button" class="btn btn-outline-primary" onclick="location.replace('<%=request.getContextPath()%>/deleteProduct.do?productNo=<%=pb.getProductNo()%>')">삭제</button>
+					  		        <button type="button" class="btn btn-outline-primary" onclick="location.assign('<%=request.getContextPath()%>/dealProduct.do?productNo=<%=pb.getProductNo()%>&&memberNo=<%=pb.getMemberNo()%>')">거래완료</button>
+					  			 <%} %>
+<%-- 				  				<!-- 삭제 모달 Button trigger modal -->
+								<button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">삭제</button> 
+								<!-- 삭제하기 Modal -->
+								<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+								    <div class="modal-content">
+								      <div class="modal-header">
+								        <h5 class="modal-title" id="staticBackdropLabel">게시글 삭제</h5>
+								        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+								      </div>
+								      <div class="modal-body">
+								        정말 게시글을 삭제하시겠습니까?
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니요</button>
+								        <button type="button" class="btn btn-primary" onclick="location.assign('<%=request.getContextPath()%>/deleteProduct.do?productNo=<%=pb.getProductNo()%>&&memberNo=<%=pb.getMemberNo()%>')">네</button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
+								
+								<!-- 거래완료 Button trigger modal -->
+								<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">거래완료</button>
+										
+								<!-- 거래완료 Modal -->
+								<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+								  <div class="modal-dialog">
+									 <div class="modal-content">
+										 <div class="modal-header">
+										    <h5 class="modal-title" id="exampleModalLabel">거래완료</h5>
+										       <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+										  </div>
+										  <div class="modal-body">
+									      ...
+										  </div>
+										  <div class="modal-footer">
+											     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+										     <button type="button" class="btn btn-primary" onclick="location.assign('<%=request.getContextPath()%>/dealProduct.do?productNo=<%=pb.getProductNo()%>&&memberNo=<%=pb.getMemberNo()%>')">네</button>
+										   </div>
+									  </div>
+								  </div>
+						       	</div>
+
+ --%>
+								
+							 </div>
+							<%} %> 
+							
 					  	   </div>
 					   </div>            		
 			        </div>
