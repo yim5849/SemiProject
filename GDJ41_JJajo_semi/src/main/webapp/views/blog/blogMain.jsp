@@ -3,7 +3,7 @@
 <%@ page import="java.util.List,com.db.main.model.vo.MainBoard" %>
 <%@ include file="/views/common/header.jsp"%>
 <%
-	List<MainBoard> mbList=(List)request.getAttribute("mainBoardList");
+	List<MainBoard> ubList=(List)request.getAttribute("userBoardList");
 %>
 
 
@@ -62,7 +62,7 @@
 							</div>
 	        		 	</div>
 						<div class="row">
-		                	<div class="col">
+		                	<div class="col" id="modal_board_title">
 		                        title
 		                    </div>
 		                    <div class="col">
@@ -70,7 +70,7 @@
 		                    </div>
 						</div>
 		                <div class="row">
-		                    <div class="col">
+		                    <div class="col" id="modal_board_tag">
 		                        #tags
 		                    </div>
 		                </div>
@@ -82,7 +82,7 @@
 									<div class="col-sm-auto" style="float:left;">
 										<img class="rounded-circle" style="height: 80px; width: 80px; object-fit: cover;" src="https://images.pexels.com/photos/4588031/pexels-photo-4588031.jpeg" alt="프로필사진">	
 									</div>
-									<div class="col-md" style="margin:auto">
+									<div class="col-md" style="margin:auto" id="modal_board_userName">
 										<p>user_name</p>
 									</div>
 			                    	<div class="col-sm" style="text-align:right;">
@@ -94,7 +94,7 @@
 								</div>
 		                	</div>
 	                		<div class="row">
-			                    <div class="col">
+			                    <div class="col" id="modal_board_content">
 			                        description
 			                    </div>
 			                </div>
@@ -110,7 +110,7 @@
 		                        comment input
 		                    	</div>
 			                    <div class="col">
-			                        <buttontype="button"class="btn">Send</button>
+			                        <button type="button" class="btn">Send</button>
 			                    </div>
 			                </div>
 			            </div>
@@ -174,14 +174,20 @@
 	<div class="main">	
 		<!-- Portfolio Gallery Grid -->	
  		<div class="row">
-		  <%System.out.println(mbList);
-		  if(mbList!=null&&!(mbList.isEmpty())){ 
-		  	for(MainBoard mb : mbList){   %>		
+		  <%System.out.println(ubList);
+		  if(ubList!=null&&!(ubList.isEmpty())){ 
+		  	for(MainBoard mb : ubList){   
+		  	System.out.println("TAGSSSS - "+mb.getTag());%>		
 			   <div class="column">
-			    <div class="content">
+			    <div class="content" id="board_click_modal" data-bs-toggle="modal" data-bs-target="#myModal" 
+			    data-userName="<%=mb.getMemberName() %>"
+			    data-title="<%=mb.getBoardTitle() %>" 
+			    data-content="<%=mb.getBoardContent() %>" 
+			    data-tag="<%=mb.getTag() %>"
+			    data-image="<%=mb.getAttachedFileList() %>">
 			      <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/picture-seal.jpg" alt="1" style="width:100%">
 			      <h3><%=mb.getBoardTitle() %></h3>
-			      <p class="tag">#해쉬태그</p>
+			      <p class="tag"><%=mb.getTag() %></p>
 			      <p><%=mb.getBoardContent() %></p>
 			    </div>
 			  </div> 
@@ -193,81 +199,7 @@
 				 <%
 			 	}%>
 		  
-  		 <!--  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/goat-picture.jpg" alt="3" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/lynx-picture.jpg" alt="4" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/goat-picture.jpg" alt="3" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/lynx-picture.jpg" alt="4" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="2" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/goat-picture.jpg" alt="3" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div>
-		  <div class="column">
-		    <div class="content">
-		    <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/lynx-picture.jpg" alt="4" style="width:100%">
-		      <h3>title</h3>
-		      <p class="tag">#해쉬태그</p>
-		      <p>Lorem ipsum dolor sit amet, tempor prodesset eos no. Temporibus necessitatibus sea ei, at tantas oporteat nam. Lorem ipsum dolor sit amet, tempor prodesset eos no.</p>
-		    </div>
-		  </div> -->
-		  
+  		
 		  
 		</div>
 	</div>
@@ -306,8 +238,26 @@
 	
 	
 	
-	
-	
+	//게시물 클릭시 해당 모달 보여줌
+	$(document).on("click","#board_click_modal",function(){
+		
+		
+		let userName=$(this).data('userName');
+		let title=$(this).data('title');
+		let content=$(this).data('content');
+		let tag=$(this).data('tag');
+		let image=$(this).data('image'); //리스트
+		
+		console.log($(this).data('tag'));
+		console.log($(this).data('title'));
+		
+		$("#modal_board_userName").text(userName);
+		$("#modal_board_title").text(title);
+		$("#modal_board_content").text(content);
+		$("#modal_board_tag").text(tag);
+		
+		
+	});
 	
 	
 	
