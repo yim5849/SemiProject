@@ -11,12 +11,12 @@
 
    select>div{
     display:inline;
-  }
+   }
   
 
    .enrollTitle{
     font-size: 30px; 
-  }
+     }
 	  
 	#inputPrice{
 		width:300px;
@@ -136,22 +136,7 @@
 		}
 	});
 	
-/* 	$("input[name=upFile]").change(e=>{
-		if(e.target.files[0].type.includes("image")){
-			let reader=new FileReader();
-			reader.onload=(e)=>{
-				const img=$("<img>").attr({
-					src:e.target.result,
-					width:"100px",
-					height:"100px"
-				});
-				$("#imageContainer").append(img); 
-			}
-			reader.readAsDataURL(e.target.files[0]);
-		}	
-		
-	});
-	 */
+ 
 	//다중파일 업로드하기
  	$("#upload").click(e=>{
  		const frm=new FormData();

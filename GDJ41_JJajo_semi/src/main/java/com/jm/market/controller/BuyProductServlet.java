@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jm.market.model.vo.ProductBoard;
 import com.jm.market.service.MarketService;
 
 /**
- * Servlet implementation class ReviewEnrollServlet
+ * Servlet implementation class BuyProductServlet
  */
-@WebServlet("/reviewEroll.do")
-public class StoreReviewEnrollServlet extends HttpServlet {
+@WebServlet("/buyProduct.do")
+public class BuyProductServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreReviewEnrollServlet() {
+    public BuyProductServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +29,29 @@ public class StoreReviewEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 리뷰작성페이지로 화면전환
-		int productNo=Integer.parseInt(request.getParameter("productNo"));
-		ProductBoard pb=new MarketService().reviewBoard(productNo);
-		request.setAttribute("pb", pb);
-		request.getRequestDispatcher("/views/market/store/reviewEnroll.jsp").forward(request, response);
+		//구매하기버튼 클릭시 해당 pd_no를 PD_BUY테이블에 추가하는 서블릿
+		
+		String productNo=request.getParameter("productNo");
+		String memberNo=request.getParameter("memberNo");
+		System.out.println(productNo);
+		System.out.println(memberNo);
+		
+		int result=new MarketService().buyProduct(productNo,memberNo);
+		
+		
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="성공적으로 구매 되었습니다";
+			loc="/marketMainView.do";
+		}else {
+			msg="구매에 실패 했습니다";
+			loc="/productView.do?productNo="+productNo;
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 	}
 
 	/**

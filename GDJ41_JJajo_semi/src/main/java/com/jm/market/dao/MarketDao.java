@@ -180,7 +180,7 @@ public class MarketDao {
 						 .build();  
 			}
 			 
-			System.out.println(pb);
+			//System.out.println(pb);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -265,7 +265,6 @@ public class MarketDao {
 				close(rs);
 				close(pstmt);
 			}
-			System.out.println(result);
 			return result;
 		}
 		
@@ -315,7 +314,7 @@ public class MarketDao {
 					list.add(pb);
 					pstmt.clearParameters();
 				}
-				System.out.println(list);
+				//System.out.println(list);
 				
 			}catch(Exception e) {
 				e.printStackTrace();
@@ -373,7 +372,24 @@ public class MarketDao {
 		}
 		
 		
-		
+		public int deleteBuyList(Connection conn,int productNo) {
+			PreparedStatement pstmt=null; 
+			int result=0;  
+			String sql=prop.getProperty("deleteBuyList");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setInt(1,productNo);  
+				result=pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(pstmt);
+			}
+			return result;
+			
+			
+		}
 		
 		public int updateFile(Connection conn,ProductBoard pb) {
 			PreparedStatement pstmt=null; 
@@ -408,8 +424,7 @@ public class MarketDao {
 			try {
 				pstmt=conn.prepareStatement(sql);  
 				pstmt.setInt(1, productNo);  
-				result = pstmt.executeUpdate();
-				System.out.println(result);
+				result = pstmt.executeUpdate(); 
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -435,4 +450,97 @@ public class MarketDao {
 			return result;
 		}
 		
+		public int buyProduct(Connection conn,String productNo,String memberNo) {
+			PreparedStatement pstmt=null;  
+			int result=0;  
+			String sql=prop.getProperty("buyProduct");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setString(1,productNo);   
+				pstmt.setString(2,memberNo);   
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally { 
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		public int updateBuyBoard(Connection conn,String productNo) {
+			PreparedStatement pstmt=null;  
+			int result=0;  
+			String sql=prop.getProperty("updateBuyProduct");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setString(1,productNo);    
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally { 
+				close(pstmt);
+			}
+			return result;
+			 
+		}
+		
+		public List<ProductBoard> buyList(Connection conn,String memberNo) {
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			ProductBoard pb=null; 
+			List<ProductBoard> list = new ArrayList(); 
+			String sql=prop.getProperty("buyList");
+			String sql2=prop.getProperty("allAttachedfiles");
+			
+			try { 
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, memberNo);
+				rs=pstmt.executeQuery();
+				
+				pstmt.clearParameters();
+				
+				while(rs.next()) {
+					pstmt=conn.prepareStatement(sql2);
+					int productNo=rs.getInt("pd_no");
+					
+					pstmt.setInt(1,productNo);
+					ResultSet rs2=pstmt.executeQuery();
+					List<AttachedFiles> files = new ArrayList();
+					while(rs2.next()) {
+						AttachedFiles file=AttachedFiles.builder().fileName(rs2.getString("filename")).build();
+						files.add(file);
+						
+					} 
+					pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
+											 .title(rs.getString("pd_title"))
+											 .category(rs.getString("pd_category"))
+											 .content(rs.getString("pd_content"))
+											 .price(rs.getInt("pd_price"))
+											 .address(rs.getString("pd_address"))
+											 .enrollDate(rs.getDate("pd_enrolldate"))
+											 .isSale(rs.getString("pd_sale"))
+											 .isDelete(rs.getString("pd_delete"))
+											 .memberNo(rs.getInt("member_no")) 
+											 //.member_name(rs.getString("member_name"))
+											 .fileName(files)
+											 .build();
+					close(rs2);
+					list.add(pb);
+					pstmt.clearParameters();
+				}
+				//System.out.println(list);
+				
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return list;
+		}
+		
+		
+		 
 }//클래스 종료

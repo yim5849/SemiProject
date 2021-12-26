@@ -96,6 +96,9 @@ public class MarketService {
 	   	if(pb!=null&&!pb.getFileName().isEmpty()) {
 	   		dao.deleteFile(conn,productNo);	   		
 	   	}
+	   //	if(pb!=null&&pb.getIsDelete().equals("Y")) {
+	   //		dao.deleteBuyList(conn,productNo);
+	   //	}
 	   	int result=dao.deleteProduct(conn,productNo);  
 	   	if(result>0) {
 	   			commit(conn); 				 
@@ -119,5 +122,40 @@ public class MarketService {
 		return result;  
    }
 
+   //----------------------------상품 구매하기-------------------------------------
    
+   
+   public int buyProduct(String productNo,String memberNo) {
+	   Connection conn=getConnection();
+		int result=dao.buyProduct(conn,productNo,memberNo); 
+		if(result>0) {  
+			int result2=dao.updateBuyBoard(conn,productNo);
+			if(result>0) {
+					commit(conn); 
+			}else {
+				rollback(conn);
+		}
+		close(conn);
+   }
+		return result; 
+   }
+   
+   
+   //--------------------------구매 리스트-----------------------------------------
+   
+   public List<ProductBoard> buyList(String memberNo){
+	   Connection conn = getConnection();
+		List<ProductBoard> list = dao.buyList(conn,memberNo);
+		close(conn);
+		return list;
+   }
+   
+   //-------------------------리뷰쓰기-------------------------------------------
+   
+   public ProductBoard reviewBoard(int productNo) {
+	   Connection conn = getConnection();
+	   ProductBoard pb = dao.searchProduct(conn,productNo);
+		close(conn);
+		return pb;
+   }
 }
