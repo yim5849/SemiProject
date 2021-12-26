@@ -17,6 +17,7 @@ public class MarketService {
 	
 	public MarketDao dao =new MarketDao();
 	
+//---------------------------------메인 조회하기---------------------------------
 	public List<ProductBoard> allProduct(){
 		Connection conn = getConnection();
 		List<ProductBoard> list = dao.allProduct(conn);
@@ -25,6 +26,7 @@ public class MarketService {
 	}
 	
 	
+//---------------------------------상품 조회하기----------------------------------	
 	public ProductBoard searchProduct(int productNo) {
 		Connection conn = getConnection();
 		//조회할 product_no값으로 ProductBoard값을 가져온다
@@ -33,7 +35,7 @@ public class MarketService {
 		return pb;
 	}
 	
-	
+//---------------------------------게시물 추가하기----------------------------------	
 	public int insertBoard(ProductBoard pb) {
 		Connection conn=getConnection();
 		int result=dao.insertBoard(conn,pb); 
@@ -51,7 +53,7 @@ public class MarketService {
 		return result; 
 	}
  
-	
+//------------------------------------카테고리------------------------------------
    public List<ProductBoard> categoryMain(String category){
 	   Connection conn=getConnection();
 	   List<ProductBoard> list=dao.categoryMain(conn, category);
@@ -59,6 +61,7 @@ public class MarketService {
 	   return list;
    }
    
+//---------------------------------내상점 메인화면가기--------------------------------
    public List<ProductBoard> storeMain(String memberNo){
 	   Connection conn = getConnection();
 		List<ProductBoard> list = dao.storeMain(conn,memberNo);
@@ -66,6 +69,8 @@ public class MarketService {
 		return list;
    }
    
+   
+//---------------------------------게시물 수정하기----------------------------------
    public int updateBoard(ProductBoard pb) {
 	   Connection conn=getConnection();
 		int result=dao.updateBoard(conn,pb); 
@@ -83,20 +88,25 @@ public class MarketService {
 		return result; 
    }
 
-   
+//---------------------------------게시물 삭제하기----------------------------------   
    public int deleteProduct(int productNo) {
 	   Connection conn=getConnection();
-	    int result=dao.deleteFile(conn,productNo);
-		if(result>0) {
-			     dao.deleteProduct(conn,productNo);  
-				 commit(conn); 				 
-	   }else {
-				rollback(conn);
-		}
+	   	ProductBoard pb=dao.searchProduct(conn, productNo);
+	   	//System.out.println(pb);
+	   	if(pb!=null&&!pb.getFileName().isEmpty()) {
+	   		dao.deleteFile(conn,productNo);	   		
+	   	}
+	   	int result=dao.deleteProduct(conn,productNo);  
+	   	if(result>0) {
+	   			commit(conn); 				 
+	   	}else {
+	   			rollback(conn);
+	   	}
+	   	System.out.println(result);
 		close(conn); 
 		return result;
   }
-   
+ //---------------------------------거래완료로 변경하기--------------------------------   
    public int dealProduct(int productNo) {
 	   Connection conn=getConnection();
 		int result=dao.dealProduct(conn,productNo); 
