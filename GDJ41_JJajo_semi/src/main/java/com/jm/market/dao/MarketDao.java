@@ -180,7 +180,7 @@ public class MarketDao {
 						 .build();  
 			}
 			 
-			
+			System.out.println(pb);
 		}catch(Exception e) {
 			e.printStackTrace();
 		}finally {
@@ -297,8 +297,7 @@ public class MarketDao {
 						AttachedFiles file=AttachedFiles.builder().fileName(rs2.getString("filename")).build();
 						files.add(file);
 						
-					}
-					
+					} 
 					pb=ProductBoard.builder().productNo(rs.getInt("pd_no"))
 											 .title(rs.getString("pd_title"))
 											 .category(rs.getString("pd_category"))
@@ -361,9 +360,8 @@ public class MarketDao {
 			
 			try {
 				pstmt=conn.prepareStatement(sql);  
-				pstmt.setInt(1,productNo);   
-				result = pstmt.executeUpdate();
-				System.out.println(result);
+				pstmt.setInt(1,productNo);  
+				result=pstmt.executeUpdate();
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {
@@ -411,6 +409,7 @@ public class MarketDao {
 				pstmt=conn.prepareStatement(sql);  
 				pstmt.setInt(1, productNo);  
 				result = pstmt.executeUpdate();
+				System.out.println(result);
 			}catch(Exception e) {
 				e.printStackTrace();
 			}finally {

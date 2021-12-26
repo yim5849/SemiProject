@@ -1,12 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 <%@ page import="com.jm.market.model.vo.ProductBoard" %> 
 <%
 	ProductBoard pb=(ProductBoard)request.getAttribute("productBoard"); 
  
  %>
 <style> 
+	*{
+		list-style: none;
+		text-decoration: none; 
+		margin: 0px;
+		padding: 0px;
+		color: black;
+		font-family: 'Gowun Batang', serif;
+
+	}
 
 	 section>*{
 		margin: 0px 300px 200px 300px;
@@ -27,14 +37,17 @@
 		height:400px;
 	}
 	 
+	.content{
+		height:400px;
+		background: none;
+	}
+	 
 </style> 
  	
 <section>
 	 
 <form style="margin-left:500px;"> 
-
-  
-		
+ 
 		<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
 		  <div class="carousel-indicators">
 		    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -70,34 +83,45 @@
 			<td>
 				<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle"></a>
 			</td>
-			<td rowspan="2" width="300px" border="1" style="padding-left: 30px;" >
+			<td rowspan="2" width="400px" border="1" style="padding-left: 30px;" >
 				<div>
-					<h3><%=pb.getTitle()%></h3>
+					<h1><%=pb.getMember_name()%></h1>
+					<%-- <h1><%=pb.getTitle()%></h1> --%>
 				</div>
-				<div>
-					<p style="margin-bottom: 0px;"><%=pb.getPrice()%>원</p>
-				</div>
+				<%-- <div>
+					<p style="margin-bottom: 0px; font-size:30px; font-weight: bolder; "><%=pb.getPrice()원</p>
+				</div>  --%>
 				<div>
 					<p><%=pb.getAddress()%></p>
 				</div> 
-				<div>
+			<%--	<div>
 					<p style="color: cornflowerblue;">#<%=pb.getCategory()%></p>
-				</div>
+				</div>--%>
 			</td>
 		</tr>
 		<tr>
-			<td style="text-align:center;"><%=pb.getMember_name()%> </td> 
+			<%-- <td style="text-align:center;"><%=pb.getMember_name()%> </td> --%>
 		</tr>
  
  	</table>
  	
  		<br>
- 	
- 	
- 	  <div class="col-12" style="border-bottom: black solid 3px"> 
-	      	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" readonly ><%=pb.getContent()%></textarea>
+ 	 	 <div style="border-top: gray 1px solid; padding-top:20px;">
+			 <h1 style="font-weight: 700;"><%=pb.getTitle()%></h1>
+		 </div>
+		 <div>
+					<p style="color: cornflowerblue;">#<%=pb.getCategory()%></p>
+		</div>
+	     <div>
+		     <p style="margin-bottom: 0px; font-size:30px; font-weight: bolder; "><%=pb.getPrice()%>원</p>
+		 </div>	
+ 	<br>
+ 	  <div class="col-12 content" style="border-bottom: black solid 3px;   font-size:25px; padding:0px;"> 
+ 	  	  <%=pb.getContent()%>
+	      <%-- 	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" readonly ><%=pb.getContent()%></textarea> --%>
 	      	<br>
 	  </div>
+	  
 	  <br>
 	  <div>
 			<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">

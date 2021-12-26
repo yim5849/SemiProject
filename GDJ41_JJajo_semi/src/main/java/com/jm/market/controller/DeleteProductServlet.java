@@ -34,6 +34,7 @@ public class DeleteProductServlet extends HttpServlet {
 		int productNo =Integer.parseInt(request.getParameter("productNo"));
 		String memberNo=request.getParameter("memberNo");
 		System.out.println(productNo);
+		System.out.println(memberNo);
 		
 		int result = new MarketService().deleteProduct(productNo);
 		System.out.println(result);

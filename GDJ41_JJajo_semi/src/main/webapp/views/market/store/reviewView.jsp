@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 <style>
 	section>*{
 			margin: 0px 300px 20px 300px;
-	    
+	    	font-family: 'Gowun Batang', serif;
 		}
 	#myImage{
 		height:100px;
@@ -41,9 +41,9 @@
 	
 	<br>
 	
-	<div class="btn-group" role="group" aria-label="Basic example"  style="margin-left: 700px;">
-	  <button type="button" class="btn btn-primary">판매내역</button> 
+	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 970px;">
 	  <button type="button" class="btn btn-primary">블로그</button>
+	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do")>구매내역</button>
 	</div>
 	<br>
   
