@@ -19,5 +19,5 @@ public class MainBoard {
 	private String memberNo;
 	private String memberName;
 	private List<AttachedFile> attachedFileList;
-	private List<String> tagList;
+	private String tag;
 }

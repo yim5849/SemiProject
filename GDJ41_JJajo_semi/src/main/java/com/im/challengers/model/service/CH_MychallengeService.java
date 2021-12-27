@@ -17,10 +17,10 @@ public class CH_MychallengeService {
 	
 	private CH_MychallengeDao dao = new CH_MychallengeDao();
 	
+
+/*================= 챌린지 찾기(회원번호, 챌린져스 번호 사용) =============== */	
 	
-/*=================== 챌린지 찾기(회원번호, 챌린져스 번호 사용) ================= */	
-	
-	public List<CH_Mychallenge> searchChallenge(int memberNo,int challengersNo){
+	public List<CH_Mychallenge> searchChallenge(int memberNo, int challengersNo){
 		
 		Connection conn=getConnection();
 		List<CH_Mychallenge> list = dao.searchChallenge(conn, memberNo, challengersNo);
@@ -28,6 +28,33 @@ public class CH_MychallengeService {
 		close(conn);
 		
 		return list;
+		
+	}	
+	
+	
+/*================= 챌린지 찾기(회원번호, 챌린져스 번호 사용 / 페이징) =============== */	
+	
+	public List<CH_Mychallenge> searchAllChallenge(int cPage, int numPerPage, int memberNo, int challengersNo){
+		
+		Connection conn=getConnection();
+		List<CH_Mychallenge> list = dao.searchAllChallenge(conn ,cPage,numPerPage,memberNo, challengersNo);
+	
+		close(conn);
+		
+		return list;
+		
+	}
+	
+/*=============================== 챌린지 갯수 출력 ============================ */	
+	
+	public int searchAllChallengeCount(int memberNo, int challengersNo){
+		
+		Connection conn=getConnection();
+		int result = dao.searchAllChallengeCount(conn, memberNo, challengersNo);
+	
+		close(conn);
+		
+		return result;
 		
 	}
 	
@@ -71,7 +98,22 @@ public class CH_MychallengeService {
 	}
 	
 	
-/*============================= 마이 챌린지 등록 ========================== */
+/*============================= 챌린지 결과 등록 ========================== */
+	
+	public int challengeResultEnroll(String myDay, int count, int chNo, int memberNo, String result) {
+		
+		Connection conn=getConnection();
+		int end = dao.challengeResultEnroll(conn,myDay,count,chNo,memberNo,result);
+		if(end>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+		return end;
+		
+	}
+	
+	
+	
+	
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */

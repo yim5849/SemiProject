@@ -64,43 +64,35 @@ public class UploadPostEndServlet extends HttpServlet {
 			af=AttachedFile.builder()
 							.imgName(mr.getFilesystemName(e.nextElement()))
 							.build();
-			System.out.println("Image name: "+ af.getImgName());
-			System.out.println("Image no: "+ af.getImgNo());
 			afList.add(af);
 		}
 		
-		System.out.println(afList.size());
-		
-		System.out.println(mr);
-		//태그 리스트
-		List<String> htList=new ArrayList<String>();
+		//태그 리스트 - List<String> tagList 이제 안써서 필요없음
+		/* List<String> htList=new ArrayList<String>(); */
 		/*
 		 * System.out.println("mr.title: " + mr.getParameter("title"));
 		 * System.out.println("mr.content: " + mr.getParameter("content"));
 		 * System.out.println("mr.tag: " + mr.getParameter("tag"));
 		 */
 		
-		String tag=mr.getParameter("tag");  
-		System.out.println(tag);
-		String[] tags=tag.split("#"); //조건문 수정필요 -> #으로 시작, 띄어쓰기X, _(언더바)만 사용가능
-		System.out.println(tags); 
-		for(int i=0; i<tags.length;i++) 
-		{ 
-			htList.add(tags[i]); 
-		} 
+		/*
+		 * String tag=mr.getParameter("tag"); System.out.println(tag); String[]
+		 * tags=tag.split("#"); //조건문 수정필요 -> #으로 시작, 띄어쓰기X, _(언더바)만 사용가능
+		 * System.out.println(tags); for(int i=0; i<tags.length;i++) {
+		 * htList.add(tags[i]); }
+		 */
 		 
 		//멤버넘버 -> 개인블로그주소 구분짓기 위함(blog+memberNo)
-		String memberNo = request.getParameter("memberNo");
-		
+		String memberNo = mr.getParameter("memberNo");
+
 		// DB에 저장할 데이터 가져오기
 		MainBoard mb = MainBoard.builder()
 				.boardTitle(mr.getParameter("title"))
 				.boardContent(mr.getParameter("content"))
+				.tag(mr.getParameter("tag"))
 				.attachedFileList(afList)
-				.tagList(htList)
 				.build();
 		
-		System.out.println("Board title: " + mb.getBoardTitle());
 		 int result=new MainBoardService().insertBoard(mb,memberNo);
 		 
 		 String msg="";

@@ -8,27 +8,21 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import com.im.challengers.model.service.CH_AdvertisementService;
 import com.im.challengers.model.service.CH_ChallengersService;
-import com.im.challengers.model.service.CH_MychallengeService;
-import com.im.challengers.model.vo.CH_Advertisement;
 import com.im.challengers.model.vo.CH_Challengers;
-import com.im.challengers.model.vo.CH_Mychallenge;
-import com.jj.member.model.vo.Member;
 
 /**
- * Servlet implementation class CH_IntroduceServlet
+ * Servlet implementation class CH_ChallengersListAjaxServlet
  */
-@WebServlet("/challengers/introduce.do")
-public class CH_IntroduceServlet extends HttpServlet {
+@WebServlet("/Challengers/chListAjax.do")
+public class CH_ChallengersListAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_IntroduceServlet() {
+    public CH_ChallengersListAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,37 +31,6 @@ public class CH_IntroduceServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		/* 등록된 광고 데이터 가져오기 */
-		
-		List<CH_Advertisement> adlist = new CH_AdvertisementService().searchAllAdvertisement();
-		
-		/* 챌린져스 진행여부 체크 */
-		
-		HttpSession session = request.getSession(false);
-		
-		Member m=null;
-		
-		if(session!=null) {
-			if(session.getAttribute("loginMember")!=null) {
-				m=(Member)session.getAttribute("loginMember");
-			}
-		}else if(session==null || m==null) {
-			
-			String msg="로그인 후, 이용해주세요! :(";
-			String loc="/";
-			
-			request.setAttribute("msg",msg);
-			request.setAttribute("loc", loc);
-			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-			return;
-		}
-		
-		int memberNo = m.getMemberNo();
-		
-	
-		List<CH_Mychallenge> mylist = new CH_MychallengeService().searchChallenge(memberNo);
-		
 		
 		/* 챌린져스 리스트 페이징 처리 */
 		
@@ -132,15 +95,9 @@ public class CH_IntroduceServlet extends HttpServlet {
 		}
 
 		
-		request.setAttribute("advertisementList", adlist);
-
-		request.setAttribute("mychallengeList", mylist);
 		
-		request.setAttribute("challengersList", chlist);
 		
-		request.setAttribute("pageBar", pageBar);
 		
-		request.getRequestDispatcher("/views/challengers/challengers_introduce.jsp").forward(request, response);
 		
 	}
 

@@ -22,6 +22,14 @@ public class MainBoardService {
 		close(conn);
 		return mbList;
 	}
+	
+	public List<MainBoard> getUserBlog (int curPosition, int numPerOnce, String memberNo){
+		Connection conn = getConnection();
+		List<MainBoard> ubList = dao.getUserBlog(conn, memberNo, curPosition, numPerOnce); //member_no 필수
+		close(conn);
+
+		return ubList;
+	}
 
 	
 	//JY
@@ -30,11 +38,10 @@ public class MainBoardService {
 		int result=dao.insertBoard(conn, mb, memberNo);
 		String boardNo=dao.getBoardNo(conn);
 		if(result>0&&boardNo!=null) {
-			int result2=dao.insertImageFile(conn,mb,boardNo);//board_no 같이 넘기기
+			int result2=dao.insertImageFile(conn,mb,boardNo);
 			if(result2>0) {
-				int result3=dao.insertTag(conn, mb,boardNo);
-				if(result3>0) result=1;
-				else rollback(conn);
+				/* int result3=dao.insertTag(conn, mb,boardNo); */
+				result=1;
 			}else rollback(conn);
 		}else rollback(conn);	
 		close(conn);

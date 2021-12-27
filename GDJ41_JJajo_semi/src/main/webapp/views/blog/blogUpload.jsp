@@ -68,7 +68,7 @@
 			<h4>내용</h4>
 		  	<textarea class="form-control" id="post_description" name="content" rows="10" placeholder="내용을 입력해주세요" style="resize:none;"></textarea>
 		</div>
-		
+		<input class="form-control" type="hidden" id="post_memberNo" name="memberNo" value="<%=loginMember.getMemberNo()%>">
 		<hr class="line_break">
 		<div id="upload_btn">
 		<button type="button" class="btn btn-primary" id="upload">등록하기</button>
@@ -93,8 +93,10 @@
 	$("#upload").click(e=>{
 		const frm=new FormData();
 		const fileInput=$("input[name=upfile]");
+		const num = $("input[name=memberNo]").val(); 
+
 		for(let i=0;i<fileInput[0].files.length;i++){
-			
+			frm.append("memberNo", num);
 			frm.append("upfile"+i,fileInput[0].files[i]);
 			frm.append("title", $("#post_title").val());
 			frm.append("tag", $("#post_tag").val());
@@ -117,29 +119,7 @@
 
 	
 
-	//Uppy Library Upload
-	<%-- var uppy = Uppy.Core({
-		restrictions: {
-			maxNumberOfFiles: 3,
-			allowedFileTypes:['image/*']
-		}
-	})
-    .use(Uppy.Dashboard, {
-      inline: true,
-      target: '#drag-drop-area',
-      height:'100px'
-    })
-    .use(Uppy.Tus, {endpoint: '<%=request.getContextPath()%>/blog/uploadpostend.do'})
 
-	uppy.on('complete', (result) => {
-    	console.log('업로드 성공!:', result.successful)
-	})
-	
-	uppy.on('file-added', (file) => {
-	  var addedFile = file;
-	  test = file;
-	})
-	 --%>
 	
 	
 	
