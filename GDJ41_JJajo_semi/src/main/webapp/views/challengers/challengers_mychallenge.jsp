@@ -12,6 +12,7 @@
 	List<CH_MychallengeNotice> noList = (List)request.getAttribute("mychallengeNoticeList"); // 마이 챌린지 안내사항들이 담겨있는 리스트
 	List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");						// 드롭리스트에서 챌린지를 선택 시, 해당 챌린지의 데이터들이 담겨있는 리스트
 	
+
 	// 드롭 리스트를 통해 챌린지를 선책하면 화면이동이 이루어지는데 이때 드롭리스트에 표시되는 챌린지가 초기화가 되기에
 	// 이를 페이지 갱신되었을 때 드롭리스트에 해당 챌린지를 고정 해주기 위해서 가져오는 데이터!
    	int chNum=0;
@@ -74,36 +75,33 @@
         <div class="col-2" style="padding-left: 20px;">
             <button type="button" class="btn btn-warning btn-sm" onclick="location.assign('<%=request.getContextPath()%>/challengers/introduce.do')"><span style="color: white;">◁ 리스트 보기</span></button>
           </div>
-          <div class="col-5">
-    
-          </div>
-          <div class="col-5">
-
-          </div>
         </div>
       </div>
 
     
       
 
-<%if(myList!=null){ 
+<%	
+if(myList!=null && !(myList.isEmpty())){ 
+				
  					for(CH_Mychallenge my : myList){%> 
       <div class="container" style="text-align: center;">
         <div class="row">
-          <div class="col-4">
-          
-          </div>
-
           <div class="col" style="padding-top: 2px; font-size: 25px;">
-            <p id="ch_head_title" style="color:#A901DB"></p><br><%=my.getCount() %> 회차<br><br><%=request.getAttribute("pageBar") %>
-          </div>
-   
-          <div class="col-4">
-          
+            <p id="ch_head_title" style="color:#A901DB"></p>
+            <span style="color:#045FB4; text-align:center;">(<%=my.getCount() %> 회차)</span>
           </div>
         </div>
       </div>
 
+
+	   <div class="container" style="text-align: center;">
+        <div class="row">
+          <div class="col" style="padding-top: 2px; font-size: 25px;">
+          <%=request.getAttribute("pageBar") %>
+          </div>
+        </div>
+      </div>
      
     
 
@@ -223,12 +221,92 @@
       </div>
 		
 		<br>
-		<div style="text-align:center;"> <button type="button"  id="mychallenge_finish_btn"  data-mNo="<%=loginMember.getMemberNo()%>" data-chNo="<%=my.getChallengersNo() %>" data-count="<%=my.getCount() %>"
-		class="btn btn-outline-info"  data-finish="N"  style="font-size:20px;">진행중</button></div>
+		<div style="text-align:center;">
+		 	<button type="button"  id="mychallenge_finish_btn"  data-mygetno="<%=my.getMychallengeNo()%>"  data-mygetmo="<%=loginMember.getMemberNo() %>" data-bom="<%=my.getChallengersNo() %>" class="btn btn-outline-info"  data-finish="<%=my.getCheckdo() %>"  data-countbt="<%=my.getCount() %>"  style="font-size:20px;">진행중</button>
+		 </div>
 
-  		<%} 
- 		}%> 
- 	<!-- 전체 성공률을 구하기 위해 주차별 성공 횟수를 저장해놓는 곳 -->	
+		
+  		<% } 
+	}else{%>
+
+		<!-- Drop리스트에서 리스트 선택(공백 데이터 부분)시 빈 테이블을 출력해준다  -->
+		 <div class="container">
+		<div class="row">
+		 <div class="col">
+		 
+		   <table class="table table-bordered border-info align-middle"  id="mychallenge-table" style="text-align: center;">
+		     <thead>
+		       <tr>
+		         <th scope="col">#</th>
+		         <th scope="col">1일차</th>
+		         <th scope="col">2일차</th>
+		         <th scope="col">3일차</th>
+		         <th scope="col">4일차</th>
+		         <th scope="col">5일차</th>
+		         <th scope="col">6일차</th>
+		         <th scope="col">7일차</th>
+		         <th scope="col">TOTAL</th>
+		       </tr>
+		     </thead>
+		     <tbody>
+		
+		       <tr>
+		         <th scope="row"><br><br>1주차<br><br><br></th>
+		 		  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+		         <td ></td>
+		       </tr>
+		
+		        <tr>
+		         <th scope="row"><br><br>2주차<br><br><br></th>
+		 		  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+		         <td ></td>
+		       </tr>
+		       
+		        <tr>
+		         <th scope="row"><br><br>3주차<br><br><br></th>
+		 		  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+		         <td ></td>
+		       </tr>
+		       
+		        <tr>
+		         <th scope="row"><br><br>4주차<br><br><br></th>
+		 		  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+					  <td></td> 
+		         <td ></td>
+		       </tr>
+		  
+		     </tbody>
+		   </table>
+		
+		 </div>
+		</div>
+		</div>
+		
+		
+		<%} %> 
 
       <br>
       <br>
@@ -346,7 +424,7 @@
         <div class="row">
         <% %>
           <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail"  data-mNo=""  data-chNo="" alt="..." style="width: 200px; height: 200px;">
+           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail"  data-imMemberNo="<%=loginMember.getMemberNo() %>"  data-imchallengersNo="<%=chNum%>" alt="..." style="width: 200px; height: 200px;">
           </div>
           <div class="col-2">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
@@ -630,22 +708,14 @@
 	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 	      </div>
 	      <div class="modal-body">
-	
 		<div style="text-align: center; font-size: 15px; color: lightsalmon;">고생하셨습니다. 해당 챌린지를 완료하시겠습니까?</div>
-	
-	    <form action='<%=request.getContextPath()%>/challengers/mychallenge_finish_submit.do'
-			method="post" enctype="multipart/form-data"  id="myfinishFrm">
-	
+	    <form action='<%=request.getContextPath()%>/challengers/mychallenge_finish_submit.do' id="mychallengefinishFrm">
 			<input type="hidden" id="my_finish_check" name="my_finish_N" value="N">	
-			<input type="hidden" id="my_finish_mNo" name="my_finish_memberNo">	
-			<input type="hidden" id="my_finish_chNo" name="my_finish_challengersNo">	
-			<input type="hidden" id="my_finish_count" name="finish_count">	
-	              	
+			<input type="hidden" id="my_finish_myNo" name="my_finish_myNo" >	        	
 	 	</form>
-	
 	      </div>
 	      <div class="modal-footer">
-	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="return ChValidation();">&ensp;완료&ensp;</button>
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="document.getElementById('mychallengefinishFrm').submit();">&ensp;완료&ensp;</button>
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
 	      </div>
 	    </div>
@@ -653,7 +723,29 @@
 	</div>
     
     
-    
+       <!-- 마이 챌린지 재시작 제출 모달 -->
+	<div class="modal fade" id="mychallenge_restart_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >챌린지 재도전</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">해당 챌린지를 재도전 하시겠습니까?</div>
+	    <form action='<%=request.getContextPath()%>/challengers/ch_start.do'
+			method="post"  id="myReStartFrm">
+			<input type="hidden" id="my_finish_mNo" name="memberNo">	
+			<input type="hidden" id="my_finish_chNo" name="challengersNo">	   	
+	 	</form>
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="myRestartFunction();">재도전</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">&ensp;취소&ensp;</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
     
     
     
@@ -672,19 +764,19 @@
 	      <br>
 	      <br>
 	    <form action='<%=request.getContextPath()%>/challengers/galary_submit.do'
-			method="post" enctype="multipart/form-data"  id="chFrm">
+			method="post" enctype="multipart/form-data"  id="myChImageFrm">
 
 		    <div>갤러리 이미지</div>
 		   <input class="form-control"  name="galary_upfile" type="file" id="galFile">
 		    <br>
-			<input type="hidden" id="gal_member_no" name="galary_memberNo">	
-			<input type="hidden" id="gal_ch_no" name="galary_challengersNo">	
+			<input type="hidden" id="gal_member_no" name="galary_memberNo" value="<%=loginMember.getMemberNo()%>">	
+			<input type="hidden" id="gal_ch_no" name="galary_challengersNo" value="<%=chNum%>">	
 	              	
 	 	</form>
 	
 	      </div>
 	      <div class="modal-footer">
-	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="return ChValidation();">&ensp;등록&ensp;</button>
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="document.getElementById('myChImageFrm').submit();">&ensp;등록&ensp;</button>
 	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
 	      </div>
 	    </div>
@@ -868,6 +960,11 @@
     		arr.push($("#"+j+"day").attr('src'));
       	}
     	
+    	let chDo = $("#mychallenge_finish_btn").data('finish');
+    	console.log(chDo);
+    	
+    	let classname = $("#mychallenge_finish_btn").attr('class');
+    	console.log(classname);
     	
  		for(let i=0; i<arr.length; i++){
   			if(arr[i]=='<%=request.getContextPath()%>/images/challengers/mychallenge/noresult.png')count++;		
@@ -875,30 +972,93 @@
     	
     	if(count==0){
     		
-    	    let attrObj={
-        			"data-bs-toggle": "modal",
-        			"data-bs-target":"#mychallenge_finish_enroll"
-        	};
+    		if(chDo==='Y'){
+	    	    let attrObj={
+	        			"data-bs-toggle": "modal",
+	        			"data-bs-target":"#mychallenge_finish_enroll"
+	        	};
+	    		
+	    		$("#mychallenge_finish_btn").attr(attrObj);
+	    		$("#mychallenge_finish_btn").text('');
+	    		$("#mychallenge_finish_btn").text('완료하기');
+	    		$("#mychallenge_finish_btn").removeClass('btn-outline-info');
+	    		$("#mychallenge_finish_btn").addClass('btn-danger');
+	    		
+    		}else{
+    			
+    	  	  	if($("#total_ch_count").val()!=$("#mychallenge_finish_btn").data('countbt')){
+        	    	$("#mychallenge_finish_btn").removeAttr("data-bs-toggle");
+        	    	$("#mychallenge_finish_btn").removeAttr("data-bs-target");
+        			$("#mychallenge_finish_btn").text('');
+        			$("#mychallenge_finish_btn").text('완료');
+        			$("#mychallenge_finish_btn").removeClass('btn-outline-info');
+        			$("#mychallenge_finish_btn").addClass('btn-outline-dark');
+    	  	  		return;
+    	  	  		
+    	  	  	}
+    			
+    			
+    			console.log("이거찍힘?");
+    	    	$("#mychallenge_finish_btn").removeAttr("data-bs-toggle");
+    	    	$("#mychallenge_finish_btn").removeAttr("data-bs-target");
+    			$("#mychallenge_finish_btn").text('');
+    			$("#mychallenge_finish_btn").text('재도전');
+    			$("#mychallenge_finish_btn").removeClass('btn-danger');
+    			$("#mychallenge_finish_btn").addClass('btn-outline-success');
+    			$("#mychallenge_finish_btn").addClass('chalrestart');
+    			
+    			
+    			let attrObj={
+    		    		"data-bs-toggle": "modal",
+    		    		"data-bs-target":"#mychallenge_restart_modal"
+    		   	};
+    			
+    			$("#mychallenge_finish_btn").attr(attrObj);
+    		  	console.log("이것도찍힘?");
+    			
+    		}
     		
-    		$("#mychallenge_finish_btn").attr(attrObj);
-    		$("#mychallenge_finish_btn").text('');
-    		$("#mychallenge_finish_btn").text('완료하기');
-    		$("#mychallenge_finish_btn").removeClass('btn-outline-info');
-    		$("#mychallenge_finish_btn").addClass('btn-danger');
     		
     	}
 
     });
     
+    $(document).on("click",".chalrestart", function () { 
+	  	
+		console.log("이거 찍힘? ㄹㅇ?");
+		let remygetno=$(this).data('bom');
+		let remygetmo=$(this).data('mygetmo');
+		console.log(remygetno);
+		console.log(remygetmo);
+		
+		$("#my_finish_chNo").val(remygetno); 
+		$("#my_finish_mNo").val(remygetmo); 
+		
+	});
     
-    // 마이 챌린지 완료제출 모달에서 완료하기 버튼을 눌렀을 때 발동하는 로직
-    const myFinishFunction= ()=>{
-  	  
-  	
-  	  
-  	  $("#myfinishFrm").submit();
-  	  
-    }
+    
+    
+	    // 마이 챌린지 완료버튼 클릭시, 모달로 데이터를 전송하는 로직
+		$(document).on("click","#mychallenge_finish_btn", function () { 
+	  	
+			let myNo3=$(this).data('mygetno');
+
+			$("#my_finish_myNo").val(myNo3); 
+
+		});
+    
+    
+    
+		const myRestartFunction=()=>{
+			  
+			$("#mychallenge_finish_btn").addClass('finish_challenge_');
+			$("#mychallenge_finish_btn").remove('.finish_challenge_');
+			
+			$('#myReStartFrm').submit();
+			
+	  }
+    
+    
     
 
     	// 온로드 될때, 사진등록되지 않은 부분에 갤러리 등록 모달로 연결할 수 있도록 모달 속성을 부여
@@ -916,15 +1076,18 @@
     
     
     // 갤러리 사진 등록 이미지를 클릭하면 모달창으로 데이터를 전송해주는 로직
-	$(document).on("click", "img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']", function () { 
+<%-- 	$(document).on("click", "img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']", function () { 
 	  	
-		let check = $(this).data('check');
+		let imMno = $(this).data('imMemberNo');
+		let imCno = $(this).data('imChallengersNo');
 
+		$("#gal_member_no").val(imMno); 
+		$("#gal_ch_no").val(imCno); 
 		$("#ch_result_submit_button").val(check); 
 		
-		document.getElementById('ch_resultSubmitFrm').submit();
+		document.getElementById('ch_resultSubmitFrm').submit(); 
 	  	   	 	
-		});
+		}); --%>
     
     
    

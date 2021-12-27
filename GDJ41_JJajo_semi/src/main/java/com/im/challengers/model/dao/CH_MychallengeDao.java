@@ -302,9 +302,35 @@ public class CH_MychallengeDao {
 	}
 	
 	
+/*=============================== 챌린지 완료 ============================*/
+	
+	public int finishChallenge(Connection conn, String check, int myNo) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String sql=prop.getProperty("finishChallenge");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, check);
+			pstmt.setInt(2, myNo);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+		
+	}
 	
 	
-/*============================= 마이 챌린지 등록 ========================== */
+	
+	
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */

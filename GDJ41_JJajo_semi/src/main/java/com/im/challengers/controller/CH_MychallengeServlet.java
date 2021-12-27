@@ -121,7 +121,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 			if(pageNo==1) {
 				pageBar+="<a class=\"page-link\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
 			}else {
-				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+(pageNo-1)
+				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+(pageNo-1)
 									+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
 			}
 			
@@ -130,7 +130,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 				if(cPage==pageNo) {
 					pageBar+="<li class=\"page-item\"><a class=\"page-link\">"+pageNo+"</a></li>";
 				}else {
-					pageBar+="<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\"> "+pageNo+"</a></li>";
+					pageBar+="<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+pageNo+"\"> "+pageNo+"</a></li>";
 				}
 				pageNo++;
 			}
@@ -140,7 +140,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 			if(pageNo>totalPage) {
 				pageBar+="<a class=\"page-link\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 			}else {
-				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
+				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 			}
 			
 

@@ -111,10 +111,24 @@ public class CH_MychallengeService {
 		
 	}
 	
+		
+/*=============================== 챌린지 완료 ============================ */
+	
+	public int finishChallenge(String check, int myNo) {
+		
+		Connection conn=getConnection();
+		int result = dao.finishChallenge(conn,check,myNo);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+	}
 	
 	
 	
-/*============================= 마이 챌린지 등록 ========================== */
+	
+	
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
 /*============================= 마이 챌린지 등록 ========================== */
