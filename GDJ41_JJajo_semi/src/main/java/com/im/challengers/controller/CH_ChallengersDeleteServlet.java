@@ -37,10 +37,10 @@ public class CH_ChallengersDeleteServlet extends HttpServlet {
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="관리자님! 광고삭제가 정상적으로 완료되었습니다! :)";
+			msg="관리자님! 챌린져스 삭제가 정상적으로 완료되었습니다! :)";
 			loc="/challengers/introduce.do";
 		}else {
-			msg="관리자님! 광고삭제 프로세스에 문제가 발생하였습니다 :(";
+			msg="관리자님! 챌린져스 삭제 프로세스에 문제가 발생하였습니다 :(";
 			loc="/challengers/advertisement_enroll.do";
 		}
 		request.setAttribute("msg",msg);

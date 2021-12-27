@@ -8,19 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.im.challengers.model.service.CH_AdvertisementService;
+import com.im.challengers.model.service.CH_MychallengeNoticeService;
 
 /**
- * Servlet implementation class CH_AdvertisementUpdateServlet
+ * Servlet implementation class CH_MychallengeNoticeSubmitServlet
  */
-@WebServlet("/challengers/advertisement_update.do")
-public class CH_AdvertisementUpdateServlet extends HttpServlet {
+@WebServlet("/challengers/notice_submit.do")
+public class CH_MychallengeNoticeSubmitServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_AdvertisementUpdateServlet() {
+    public CH_MychallengeNoticeSubmitServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,12 +29,26 @@ public class CH_AdvertisementUpdateServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		int adNo= Integer.parseInt(request.getParameter("advertisementNo"));
 		
-		request.setAttribute("advertisement", new CH_AdvertisementService().searchAdvertisement(adNo));
 		
-		request.getRequestDispatcher("/views/challengers/challengers_advertisement_update.jsp").forward(request, response);
+		String content = request.getParameter("chNotice_content");
+		System.out.println(content);
+		
+		int result = new CH_MychallengeNoticeService().insertMychallengeNotice(content);
+		
+		String msg="";
+		String loc="";
+		
+		if(result>0) {
+			msg="관리자님! 마이챌린지 안내사항 등록이 완료되었습니다 :)";
+		}else {
+			msg="관리자님! 마이챌린지 안내사항 등록에 문제가 발생하였습니다 :(";
+		}
+		loc="/challengers/mychallenge.do";
+		
+		request.setAttribute("msg",msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 		
 	}
 

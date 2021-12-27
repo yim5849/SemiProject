@@ -1,5 +1,7 @@
 package com.jj.member.model.service;
 
+import static com.jj.common.JDBCTemplate.commit;
+import static com.jj.common.JDBCTemplate.rollback;
 import static com.jj.common.JDBCTemplate.close;
 import static com.jj.common.JDBCTemplate.getConnection;
 
@@ -29,5 +31,53 @@ public class MemberService {
 		// 조회된 멤버를 반환한다!
 		return m;
 	}
+
+	public int insertMember(Member m) {
+		Connection conn=getConnection();
+		int result=dao.insertMember(conn,m);
+		//DML구문은 트렌젝션처리를 해야함.
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		
+		return result; // int result=dao.insertMember(conn,m);을 담는다
+				
+	}
 	
+	public Member checkIdDuplicate(String memberId) {
+		Connection conn=getConnection();
+		Member m=dao.checkIdDuplicate(conn,memberId);
+		close(conn);
+		return m;
+	}
+	
+	
+	public int updateMember(Member m) {
+		Connection conn=getConnection();
+		int result=dao.updateMember(conn,m);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		
+		return result;
+	}
+	
+	
+	public int updatePassword(String password, String newPassword) {
+		Connection conn=getConnection();
+		int result=dao.updatePassword(conn,password);
+		if(result>0) {
+			commit(conn);
+		}else {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
 }
+
+
+	

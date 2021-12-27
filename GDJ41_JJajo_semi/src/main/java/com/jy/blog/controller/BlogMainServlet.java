@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.db.main.model.service.MainBoardService;
 import com.db.main.model.vo.MainBoard;
+import com.google.gson.Gson;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
  * Servlet implementation class BlogMainServlet
@@ -39,14 +42,20 @@ public class BlogMainServlet extends HttpServlet {
 			curPosition=1;
 		}
 		
-		int numPerOnce=20;
 		
-		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
-		System.out.println(mbList);
-		request.setAttribute("mainBoardList", mbList);
+		int numPerOnce=20;
+		//String memberNo= request.getParameter(getServletName());
+		
+		List<MainBoard> ubList = new MainBoardService().getUserBlog(curPosition, numPerOnce, "3"); //member_no 보내야해
+
+		//new Gson().toJson(ubList,response.getWriter());
+		
+		request.setAttribute("userBoardList", ubList);
 		
 		request.getRequestDispatcher("/views/blog/blogMain.jsp")
 		.forward(request, response);
+		
+		
 	}
 
 	/**

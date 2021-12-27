@@ -3,8 +3,18 @@
 <%@ page import="com.jj.member.model.vo.Member" %>
     
 <%
-	Member loginMember = (Member)session.getAttribute("loginMember"); 
-%>   
+    Member loginMember = (Member) session.getAttribute("loginMember");
+    String saveId = null;
+    Cookie[] cookies = request.getCookies();
+    if (cookies != null) {
+    	for (Cookie c : cookies) {
+    		if (c.getName().equals("saveId")) {
+    	saveId = c.getValue();
+    	break;
+    		}
+    	}
+    }
+    %>   
    
     
 <!doctype html>
@@ -103,7 +113,8 @@
           </div>
       
           <div class="col">
-            <input type="text" class="form-control" placeholder="아이디" name="memberId">
+            <input type="text" class="form-control" placeholder="아이디" name="memberId" 
+            value="<%=saveId!=null?saveId:"" %>"/>
           </div>
 
           <div class="col" style="padding-left:0px">
@@ -114,6 +125,7 @@
             <button type="button" class="btn btn-outline-warning" onclick="loginDo()">로그인</button>
           </div>
       
+      	  	
         </div>
       </form>
       
@@ -160,8 +172,8 @@
      		</div>
      		
      		<div class="col"  style="padding-left:0px; padding-right:0px; padding-top:12px ">
-	     		<button type="button" class="btn btn-outline-success">내정보 보기</button>
-	     		<button type="button" class="btn btn-outline-danger">로그아웃</button>
+	     		<button type="button" class="btn btn-outline-success" onclick="memberView();">내정보 보기</button>
+	     		<button type="button" class="btn btn-outline-danger" onclick="location.replace('<%=request.getContextPath()%>/logout.do');"]>로그아웃</button>
      		</div>
      		
  
@@ -186,12 +198,17 @@
 		
           </div>
           <div class="col-6">
-              <button type="button" class="btn btn-outline-success" > 회원가입 </button>
+              <button type="button" class="btn btn-outline-success" 
+              onclick="location.assign('<%=request.getContextPath()%>/member/enrollMember.do')">회원가입</button>
+              <!-- onclick부분은 띄어쓰지 말고 한줄로 쭉 쓸것 --> 
+              
+              
               &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               <button type="button" class="btn btn-outline-success">ID / PW 찾기</button>
               &nbsp;
-              <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off">
-              <label class="btn btn-outline-primary" for="btn-check-outlined">아이디 저장</label>
+              <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off"
+              name="saveId" <%=saveId!=null?"checked":"" %>>
+              <label class="btn btn-outline-primary" for="saveId">아이디 저장</label>
             </div>
         </div>
       </div>
@@ -207,3 +224,10 @@
 	
 	
 </header>
+
+	<script>
+	/* 회원정보 보여주는 servlet호출 */
+	const memberView=()=>{
+	location.assign("<%=request.getContextPath()%>/member/memberView.do?userId=<%=loginMember!=null?loginMember.getMemberId():""%>")
+			}
+	</script>	

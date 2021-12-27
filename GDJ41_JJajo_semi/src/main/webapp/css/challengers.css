@@ -108,10 +108,60 @@
 
       }
 
-      .card-img-top img{
-        height: 190px;
+ /*========================================================마이 챌린지=======================================*/ 		
+ 
+ 
+   #my_ch_title{
+        text-align: center;
+        font-size: 50px;
+        color: #01DFD7;
+      }
+
+      #my_ch_galary{
+        text-align: center;
+        font-size: 50px;
+        color:coral;
+      }
+
+      #my_ch_introduce{
+        text-align: center;
+        font-size: 20px;
+      }
+
+      #guide_image, #success_rate_image, #challenge_date_image,
+      #back_arrow_image, #forward_arrow_image{
+        height: 39px;
+        width: 39px;
+      }
+
+      #guide_title{
+        text-align: center;
+        padding-right: 0;
+        color:slategray; 
+      }
+
+      #guide_click_button{
+        padding-left: 0; 
+        padding-top: 7px;
+      }
+
+      #list_drop{
+        background-color:whitesmoke; 
+        text-align: center;
+        color:#848484;
+      }
+
+      .my-photo{
+        height: 400px;
+        width: 200px;
       }
       
-      
-      
- /*=================================================================================================*/ 		
+      #mychallenge-table>tbody>tr>td>img{
+	width:50px; 
+	height:50px;
+}
+
+ 
+ 
+ 
+ 

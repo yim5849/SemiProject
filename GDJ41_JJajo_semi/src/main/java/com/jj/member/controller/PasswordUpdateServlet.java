@@ -1,4 +1,4 @@
-package com.im.challengers.controller;
+package com.jj.member.controller;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class CH_AdvertisementEnrollServlet
+ * Servlet implementation class PasswordUpdateServlet
  */
-@WebServlet("/challengers/advertisement_enroll.do")
-public class CH_AdvertisementEnrollServlet extends HttpServlet {
+@WebServlet("/member/passwordUpdate.do")
+public class PasswordUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_AdvertisementEnrollServlet() {
+    public PasswordUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,9 @@ public class CH_AdvertisementEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 
-		request.getRequestDispatcher("/views/challengers/challengers_advertisement_enroll.jsp")
+		request.getRequestDispatcher("/views/member/updatePassword.jsp")
 		.forward(request, response);
 	
 	

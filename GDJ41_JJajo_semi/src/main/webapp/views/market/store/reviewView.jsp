@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
-
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 <style>
 	section>*{
 			margin: 0px 300px 20px 300px;
-	    
+	    	font-family: 'Gowun Batang', serif;
 		}
 	#myImage{
 		height:100px;
@@ -41,11 +41,9 @@
 	
 	<br>
 	
-	<div class="btn-group" role="group" aria-label="Basic example"  style="margin-left: 700px;">
-	  <button type="button" class="btn btn-primary">판매내역</button>
-	  <button type="button" class="btn btn-primary">구매내역</button>
-	  <button type="button" class="btn btn-primary">관심상품</button>
+	<div class="btn-group" role="group" aria-label="Basic example" style="margin-left: 970px;">
 	  <button type="button" class="btn btn-primary">블로그</button>
+	  <button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do")>구매내역</button>
 	</div>
 	<br>
   
@@ -55,7 +53,7 @@
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/myStore.do")>판매상품</button>
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/review.do")>후기</button> 
 	</div>
-  
+ 
   	<div class="my-product">
   	
   		 	<table class="product-table" style="margin:30px 0px 0px 30px;">
