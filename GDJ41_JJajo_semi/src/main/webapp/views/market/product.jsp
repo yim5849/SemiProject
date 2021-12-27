@@ -81,7 +81,7 @@
  	<table class="product-table" style="margin-left: 30px;">
 		<tr>
 			<td>
-				<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle"></a>
+				<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>&&productNo=<%=pb.getProductNo()%>"><img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle"></a>
 			</td>
 			<td rowspan="2" width="400px" border="1" style="padding-left: 30px;" >
 				<div>

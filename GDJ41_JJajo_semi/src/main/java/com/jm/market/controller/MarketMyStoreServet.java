@@ -33,9 +33,12 @@ public class MarketMyStoreServet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 중고거래 내상점 화면으로 전환해주는 서블릿
 		String memberNo=request.getParameter("memberNo");
-		//System.out.println(memberNo);
 		List<ProductBoard> list= new MarketService().storeMain(memberNo);
-		
+		if(request.getParameter("productNo")!=null) {
+			int productNo=Integer.parseInt(request.getParameter("productNo"));
+			ProductBoard pb=new MarketService().searchProduct(productNo);
+			request.setAttribute("productBoard", pb);
+		}
 		request.setAttribute("list", list); 
 		request.getRequestDispatcher("/views/market/store/mystore.jsp").forward(request, response);
 	}

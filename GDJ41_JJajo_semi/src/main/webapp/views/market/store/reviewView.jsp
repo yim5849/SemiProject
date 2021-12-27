@@ -50,7 +50,7 @@
 	
 	
 	<div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-bottom:0px;">
-  	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/myStore.do?memberNo=<%=loginMember.getMemberNo()%>")>판매상품</button>
+  	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/myStore.do")>판매상품</button>
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/review.do")>후기</button> 
 	</div>
  

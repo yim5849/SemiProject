@@ -5,6 +5,7 @@
 <%@ page import="java.util.List,com.jm.market.model.vo.ProductBoard" %>
 <%
 	List<ProductBoard> list=(List)request.getAttribute("list");
+	ProductBoard pBoard=(ProductBoard)request.getAttribute("productBoard");
 
 %>
 <style>
@@ -36,7 +37,11 @@
  	<div class="text-center container">
 	  <img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle">
 	  <br>
-	  <span><%=loginMember.getMemberName()%></span> 
+	  <%if(loginMember!=null&&pBoard==null){ %>
+	  	<span><%=loginMember.getMemberName()%></span>
+	  <%}else{ %> 
+	    <span><%=pBoard.getMember_name()%></span>
+	  <%} %>
 	</div>
 	<br>
 	<%if(loginMember==null){ %>
@@ -53,8 +58,7 @@
 	<%} %>
 	<br>
   
-	
-	
+	 
 	<div class="btn-group" role="group" aria-label="Basic outlined example" style="margin-left:400px;">
   	<button type="button" class="btn btn-outline-primary"  >판매상품 
   	<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/review.do")>후기</button> 
@@ -84,8 +88,8 @@
 					    			<button type="button" class="btn btn btn-danger">거래완료</button>
 					    			
 					    		<%} %>
-					    		<!-- 내상점일때만 보이는 추가버튼 -->
-					    	<% if(loginMember!=null&&loginMember.getMemberName().equals(pb.getMember_name())) { %>
+					    		<!-- 내상점일때만 보이는 추가버튼 -->  
+					    		<% if(loginMember!=null&&loginMember.getMemberNo()==pb.getMemberNo()) { %>
 						     	  <div class="btn-group" role="group" aria-label="Basic outlined example">
 					    		<%if(pb.getIsSale().equals("Y")){ %>
 					  				<button type="button" class="btn btn-outline-primary" onclick="location.assign('<%=request.getContextPath()%>/updateProduct.do?productNo=<%=pb.getProductNo()%>')">수정</button>

@@ -48,9 +48,7 @@ public class ReviewEnrollEndServlet extends HttpServlet {
 		String memberNo=mr.getParameter("memberNo");
 		String productNo=mr.getParameter("productNo");
 		String content=mr.getParameter("content");
-		System.out.println(memberNo);
-		System.out.println(productNo);
-		System.out.println(content);
+	 
 	}
 
 	/**

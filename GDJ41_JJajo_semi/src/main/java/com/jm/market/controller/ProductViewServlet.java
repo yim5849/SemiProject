@@ -36,8 +36,7 @@ public class ProductViewServlet extends HttpServlet {
 		int productNo=Integer.parseInt(request.getParameter("productNo"));
 		//2.조회할 BOARDNO 게시글 가져오기
 		ProductBoard pb=new MarketService().searchProduct(productNo);
-		
-		System.out.println(pb);
+		 
 		//3.저장하기
 		request.setAttribute("productBoard", pb);
 		
