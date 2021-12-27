@@ -346,7 +346,7 @@
         <div class="row">
         <% %>
           <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail"  data-mNo=""  data-chNo="" alt="..." style="width: 200px; height: 200px;">
           </div>
           <div class="col-2">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
@@ -621,6 +621,78 @@
     </div> 
     
     
+   <!-- 마이 챌린지 완료 제출 모달 -->
+	<div class="modal fade" id="mychallenge_finish_enroll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >마이챌린지 완료하기</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">고생하셨습니다. 해당 챌린지를 완료하시겠습니까?</div>
+	
+	    <form action='<%=request.getContextPath()%>/challengers/mychallenge_finish_submit.do'
+			method="post" enctype="multipart/form-data"  id="myfinishFrm">
+	
+			<input type="hidden" id="my_finish_check" name="my_finish_N" value="N">	
+			<input type="hidden" id="my_finish_mNo" name="my_finish_memberNo">	
+			<input type="hidden" id="my_finish_chNo" name="my_finish_challengersNo">	
+			<input type="hidden" id="my_finish_count" name="finish_count">	
+	              	
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="return ChValidation();">&ensp;완료&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    
+    
+    
+    
+    
+    
+	<!-- 갤러리 사진 등록 모달 -->
+	<div class="modal fade" id="galary_enroll" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >갤러리 사진 등록</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">갤러리 사진 등록을 진행합니다!!</div>
+	      <br>
+	      <br>
+	    <form action='<%=request.getContextPath()%>/challengers/galary_submit.do'
+			method="post" enctype="multipart/form-data"  id="chFrm">
+
+		    <div>갤러리 이미지</div>
+		   <input class="form-control"  name="galary_upfile" type="file" id="galFile">
+		    <br>
+			<input type="hidden" id="gal_member_no" name="galary_memberNo">	
+			<input type="hidden" id="gal_ch_no" name="galary_challengersNo">	
+	              	
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      	<button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="return ChValidation();">&ensp;등록&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+    
+    
+    
 <script>
 
 	// 결과 등록 이미지를 클릭 시, 진행중인 회차수와 등록하고자 하는 날짜에 대한 정보가 모달창으로 넘어간다
@@ -654,7 +726,7 @@
 		<%if(loginMember!=null && !(loginMember.getMemberId().equals("admin"))){%>
 		switch(days){
 			
-			case "MY_2DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(1-intervalDay)+"일후에 등록 부탁드립니다");return; 
+			case "MY_2DAY": if(intervalDay<1)alert("아직 등록할 수 없습니다."+(1-intervalDay)+"일후에 등록 부탁드립니다");return; 
 			case "MY_3DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(2-intervalDay)+"일후에 등록 부탁드립니다");return;
 			case "MY_4DAY": if(intervalDay<3)alert("아직 등록할 수 없습니다."+(3-intervalDay)+"일후에 등록 부탁드립니다");return; 
 			case "MY_5DAY": if(intervalDay<4)alert("아직 등록할 수 없습니다."+(4-intervalDay)+"일후에 등록 부탁드립니다");return; 
@@ -695,27 +767,13 @@
 
 		$(this).attr(attrObj);
 		
-
-		
-//		$(this).removeAttr('data-bs-target');
 		
 		$("#select_day").val(days); 
 		$("#challenge_count").val(count);	
 	  	   	 	
-	});											/* 개선해야할 부분 : 모달 속성을 먼저 부여하면 alert경고창 이후 모달이 뜨게됨  / 위 방식대로 하면 처음에는 무조건 2번 클릭을 해야함 =>(생각하기...)*/
+	});										
+
 	
-    // 마이챌린지 테이블에서 noresult.png(결과등록을 해야하는 부분) 이미지에 모달 속성을 전체적으로 부여 (%%보류중인 방법%%)
-  <%--   $(()=>{
- 
-	    let attrObj={
-    			"data-bs-toggle": "modal",
-    			"data-bs-target":"#mychallenge_result_enroll"
-    	};
-    	
-    	$("#mychallenge-table>tbody>tr>td>img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/noresult.png']").attr(attrObj); 
-    	
-    	
-    }); --%>
 	
 	
 	// 챌린지 성공/실패 여부를 전달받아 해당 데이터를 모달창에 전송해주고 결과적으로 submit을 발동시켜주는 로직
@@ -829,26 +887,32 @@
     		$("#mychallenge_finish_btn").addClass('btn-danger');
     		
     	}
-  		
-  		
-    	
+
     });
     
+    
+    // 마이 챌린지 완료제출 모달에서 완료하기 버튼을 눌렀을 때 발동하는 로직
+    const myFinishFunction= ()=>{
+  	  
+  	
+  	  
+  	  $("#myfinishFrm").submit();
+  	  
+    }
+    
 
-    
-  
-    
-		$(()=>{
+    	// 온로드 될때, 사진등록되지 않은 부분에 갤러리 등록 모달로 연결할 수 있도록 모달 속성을 부여
+	$(()=>{
 		
-		    let attrObj={
+	    let attrObj={
 	    			"data-bs-toggle": "modal",
-	    			"data-bs-target":"#mychallenge_result_enroll"
-	    	};
+	    			"data-bs-target":"#galary_enroll"
+	   	};
 
-			$("img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']").attr(attrObj);
+		$("img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']").attr(attrObj);
     	
     	
-    	})
+    })
     
     
     

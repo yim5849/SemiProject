@@ -35,14 +35,7 @@ public class CH_MychallengeResultEnrollServlet extends HttpServlet {
 		int chNo=Integer.parseInt(request.getParameter("challengers_No"));
 		int memberNo=Integer.parseInt(request.getParameter("member_No"));
 		String result=request.getParameter("chResult");
-		
-		System.out.println("===================================");
-		System.out.println("나의 컬럼은 : "+myDay);
-		System.out.println("나의 회차는 : "+count);
-		System.out.println("나의 챌린져스 번호는 : "+chNo);
-		System.out.println("나의 멤버번호는 : "+memberNo);
-		System.out.println("나의 결과는 : "+result);
-		
+			
 		int end = new CH_MychallengeService().challengeResultEnroll(myDay, count, chNo, memberNo, result);
 		
 		String msg="";
