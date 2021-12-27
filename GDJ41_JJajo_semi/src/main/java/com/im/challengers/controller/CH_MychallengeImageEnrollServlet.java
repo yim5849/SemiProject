@@ -70,10 +70,10 @@ public class CH_MychallengeImageEnrollServlet extends HttpServlet {
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="관리자님! 챌린져스 수정이 정상적으로 완료되었습니다! :)";
-			loc="/challengers/introduce.do?challengersNo="+im.getChallengersNo();
+			msg="사진 등록이 정상적으로 완료되었습니다! :)";
+			loc="/challengers/mychallenge.do?challengersNo="+im.getChallengersNo();
 		}else {
-			msg="관리자님! 챌린져스 수정에 문제가 발생하였습니다 :(";
+			msg="사진 등록에 문제가 발생하였습니다 :(";
 			loc="/challengers/mychallenge.do";
 		}
 		request.setAttribute("msg",msg);

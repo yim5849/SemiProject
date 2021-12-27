@@ -52,7 +52,7 @@ public class CH_MychallengeImageDao {
 			
 			rs=pstmt.executeQuery();
 			
-			if(rs.next()) {
+			while(rs.next()) {
 				
 				im=CH_MychallengeImage.builder()
 						.ch_imgNo(rs.getInt("IM_NO"))
@@ -63,7 +63,7 @@ public class CH_MychallengeImageDao {
 				list.add(im);
 				
 			}
-			
+			System.out.println("사진 리스트는 바로 : "+list);
 			
 		}catch(SQLException e) {
 			e.printStackTrace();

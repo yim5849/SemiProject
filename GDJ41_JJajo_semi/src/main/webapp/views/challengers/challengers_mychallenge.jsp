@@ -421,34 +421,13 @@ if(myList!=null && !(myList.isEmpty())){
 
 <!-- =================================================== 갤러리 테스트 구역 ==================================================================== -->
 
-
- <div class="container">
+<%System.out.println("아임 : "+imList); %>
+<%--  <div class="container">
         <div class="row">
-        <%	int imCount=0;
-        if(imList!=null){ 
-        					for(CH_MychallengeImage im : imList){		%>
-          <div class="col-2">
-          	<%if(im.getFilepath()==null){%>
-          	 <img src="<%=request.getContextPath()%>/upload/challengers/add-image.PNG" class="img-thumbnail"  data-imageNo="<%=im.getCh_imgNo() %>"  alt="..." style="width: 200px; height: 200px;">
-          	 <%}else{ %>
-          	 <img src="<%=request.getContextPath()%>/upload/challengers/<%=im.getFilepath()%>" class="img-thumbnail"  data-imageNo="<%=im.getCh_imgNo() %>"  alt="..." style="width: 200px; height: 200px;"> 	 
-          	  <%} %>
-          </div> 
-          	<%imCount++;
-          		if(imCount%6==0){%>
-          			 </div>
-          			 <%if(imCount==30){%>
-          			  </div>
-          			  <%}return; %>
-        			<br>
-					<div class="row"> 	
-          		<% }
-        		}
-        	} %>
-        	
-        	
-        	
-        	<%-- 
+      
+    	<div class="col-2">
+            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+          </div>
           <div class="col-2">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
           </div>
@@ -535,10 +514,19 @@ if(myList!=null && !(myList.isEmpty())){
           </div>
         </div>
 
-      </div>  --%>
-	
-
-
+      </div> --%>
+	 <div class="container">
+	 
+	 <% int imCount=0;
+	 if(imList!=null){ 
+	 		for(CH_MychallengeImage im : imList){	%>
+ 			<img src="<%=request.getContextPath()%>/upload/challengers/<%=im.getFilepath()%>" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+			<%imCount++;} 
+				for(int i=0; i<30-imCount; i++){%>
+			 <img src="<%=request.getContextPath()%>/upload/challengers/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+			<%}
+			} %>
+	</div>
 <!-- ========================================================================================================================================= -->
       <br>
       <br>
@@ -1091,11 +1079,16 @@ if(myList!=null && !(myList.isEmpty())){
 	    			"data-bs-target":"#galary_enroll"
 	   	};
 
-		$("img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']").attr(attrObj);
+		$("img[src='<%=request.getContextPath()%>/upload/challengers/add-image.PNG']").attr(attrObj);
     	
     	
     })
     
+
+    	
+    
+    	
+    	
     
     // 갤러리 사진 등록 이미지를 클릭하면 모달창으로 데이터를 전송해주는 로직
 <%-- 	$(document).on("click", "img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']", function () { 
