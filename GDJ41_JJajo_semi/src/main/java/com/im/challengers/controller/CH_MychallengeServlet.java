@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.im.challengers.model.service.CH_MychallengeImageService;
 import com.im.challengers.model.service.CH_MychallengeNoticeService;
 import com.im.challengers.model.service.CH_MychallengeService;
 import com.im.challengers.model.vo.CH_Challengers;
@@ -160,10 +161,10 @@ public class CH_MychallengeServlet extends HttpServlet {
 			
 			/*==================================== 갤러리 가져오기  ==================================*/
 			
-//			List<CH_MychallengeImage> imList = new CH_MychallengeService().earchAllImage(memberNo,chNum);
+			List<CH_MychallengeImage> imList = new CH_MychallengeImageService().searchAllMyImage(memberNo,chNum);
 			
-			// 이미지 리스트를 저장
-		//	request.setAttribute("mychallengeImageList", imList);
+		//이미지 리스트를 저장
+		request.setAttribute("mychallengeImageList", imList);
 			
 	
 		} // if(챌린져스 번호 null값처리 끝부분)

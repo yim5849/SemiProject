@@ -5,12 +5,14 @@
 <%@ page import="com.im.challengers.model.vo.CH_Challengers" %>
 <%@ page import="com.im.challengers.model.vo.CH_MychallengeNotice" %>
 <%@ page import="com.im.challengers.model.vo.CH_Mychallenge" %>
+<%@ page import="com.im.challengers.model.vo.CH_MychallengeImage" %>
 
 <%
 
 	List<CH_Challengers> dropList = (List)request.getAttribute("mychallengeDropList"); 				// 멤버번호를 통해 진행중인 챌린지들이 담겨있는 리스트 (드롭 리스트에 출력하기 위해)
 	List<CH_MychallengeNotice> noList = (List)request.getAttribute("mychallengeNoticeList"); // 마이 챌린지 안내사항들이 담겨있는 리스트
 	List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");						// 드롭리스트에서 챌린지를 선택 시, 해당 챌린지의 데이터들이 담겨있는 리스트
+	List<CH_MychallengeImage> imList = (List)request.getAttribute("mychallengeImageList");						// 이미지 리스트
 	
 
 	// 드롭 리스트를 통해 챌린지를 선책하면 화면이동이 이루어지는데 이때 드롭리스트에 표시되는 챌린지가 초기화가 되기에
@@ -422,10 +424,31 @@ if(myList!=null && !(myList.isEmpty())){
 
  <div class="container">
         <div class="row">
-        <% %>
+        <%	int imCount=0;
+        if(imList!=null){ 
+        					for(CH_MychallengeImage im : imList){		%>
           <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail"  data-imMemberNo="<%=loginMember.getMemberNo() %>"  data-imchallengersNo="<%=chNum%>" alt="..." style="width: 200px; height: 200px;">
-          </div>
+          	<%if(im.getFilepath()==null){%>
+          	 <img src="<%=request.getContextPath()%>/upload/challengers/add-image.PNG" class="img-thumbnail"  data-imageNo="<%=im.getCh_imgNo() %>"  alt="..." style="width: 200px; height: 200px;">
+          	 <%}else{ %>
+          	 <img src="<%=request.getContextPath()%>/upload/challengers/<%=im.getFilepath()%>" class="img-thumbnail"  data-imageNo="<%=im.getCh_imgNo() %>"  alt="..." style="width: 200px; height: 200px;"> 	 
+          	  <%} %>
+          </div> 
+          	<%imCount++;
+          		if(imCount%6==0){%>
+          			 </div>
+          			 <%if(imCount==30){%>
+          			  </div>
+          			  <%}return; %>
+        			<br>
+					<div class="row"> 	
+          		<% }
+        		}
+        	} %>
+        	
+        	
+        	
+        	<%-- 
           <div class="col-2">
             <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
           </div>
@@ -512,9 +535,8 @@ if(myList!=null && !(myList.isEmpty())){
           </div>
         </div>
 
-      </div> 
-
-
+      </div>  --%>
+	
 
 
 <!-- ========================================================================================================================================= -->
