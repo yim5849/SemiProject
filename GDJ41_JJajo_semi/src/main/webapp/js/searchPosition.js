@@ -155,7 +155,7 @@ $(()=>{
         $(infoBox).children().first().find("small").html(data.phone);
 
         $(infoBox).click(e=>{
-            window.open("https://map.kakao.com/link/map/"+data.id,);
+            window.open("https://map.kakao.com/link/map/"+data.id);
         });
         
         let ployLine = new kakao.maps.Polyline({
