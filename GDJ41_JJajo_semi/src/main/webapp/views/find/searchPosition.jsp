@@ -3,10 +3,10 @@
 <%@ include file="/views/common/header.jsp" %>
 
 
-<section class="container">
+<section class="container-fluid">
 	<div class="row">
-		
-		<div class="col-xl-12">
+		<div class="col-xl-1"></div>
+		<div class="col-xl-10">
 			
 			<div id="map-container" >
 				<div id="map" style="width:100%;height:400px;" class="mx-auto">
@@ -46,19 +46,23 @@
 				</div>
 				
 			</div>
-			
+		<div class="col-xl-1"></div>	
 			
 	</div>
 	<div class="row">
-		<div class="col-xl-12">
+		<div class="col-xl-1"></div>
+		<div class="col-xl-10">
 			<span>*검색반경 : 5(기본) , 10 km</span>
 		</div>
+		<div class="col-xl-1"></div>
 	</div>
 	<div class="row">
-		<div class="col-xl-12">
+		<div class="col-xl-1"></div>
+		<div class="col-xl-10">
 			<div id="listRoot" class="list-group list-group-flush" style="height: 300px; overflow: auto">			
 			</div>
 		</div>
+		<div class="col-xl-1"></div>
 	</div>
 		<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=6229e7a2275e6c61112a0024bf9a0842&libraries=services,clusterer,drawing"></script>
 		<script src="<%=request.getContextPath() %>/js/searchPosition.js"></script>

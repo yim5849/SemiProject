@@ -21,10 +21,11 @@
 
 </style>
 
-<section class="container">
+<section class="container-fluid">
 	
 	<div class="row">
-		<div class="col-xl-12 d-flex justify-content-between">
+		<div class="col-xl-1"></div>
+		<div class="col-xl-10 d-flex justify-content-between">
 			<h3>공지사항</h3>
 			<% if(loginMember!=null&&loginMember.getMemberNo()==1){ %>
 			<button type="button" onclick="writeNotice();" class="btn btn-primary" >글쓰기</button>
@@ -32,13 +33,12 @@
 				<span></span>
 			<%}%>
 		</div>
+		<div class="col-xl-1"></div>
 	</div>
 	
 	<div class="row ">
-		<div class="col-xl-12">
-				
-		
-			
+		<div class="col-xl-1"></div>
+		<div class="col-xl-10">
 			<div id="listRoot" class="list-group">
 				<% if(nList!=null&&nList.size()>0){
 					for(Notice n : nList){ %>
@@ -68,6 +68,7 @@
 				<%=pageBar %>
 			</div>
 		</div>
+		<div class="col-xl-1"></div>
 		
 	</div>
 	
@@ -105,9 +106,9 @@
 
 	function writeNotice(){
 		//$(".container>button").css({display:"none"});
-		$("section>div.row>div").html("");
+		$("section>div.row>div:eq(1)").html("");
 		
-		$("section>div.row:last>div").append($("<h3>").html("공지사항입력"));
+		$("section>div.row:last>div:eq(1)").append($("<h3>").html("공지사항입력"));
 		let inputBox=$("<div>");
 		
 		let inputTitle = $("<input>").addClass("form-control form-control-lg").attr({type:"text",name:"title",placeholder:"제목",required:true});
@@ -135,7 +136,7 @@
 		table.append(tr1).append(tr2).append(tr3).append(btnTr);
 
 
-		$("section>div.row:last>div").append(table);
+		$("section>div.row:last>div:eq(1)").append(table);
 
 	}
 
@@ -145,7 +146,7 @@
 			data:{pageNo:pageNo,numPerPage:numPerPage},
 			success:data=>{
 			
-				$("section>div.row:last>div").html("");
+				$("section>div.row:last>div:eq(1)").html("");
 
 				let listGroup = $("<div>").attr({id:"listRoot",class:"list-group"});
 				
@@ -169,9 +170,9 @@
 					listGroup.append(listItem);
 				}
 				//$("section>div.row:last>div").append($("<h3>").html("공지사항"));
-				$("section>div.row:last>div").append(listGroup);
+				$("section>div.row:last>div:eq(1)").append(listGroup);
 				
-				$("section>div.row:last>div").append($("<div>").attr({id:"pageBar"}).css("display","flex").css("justify-content","center"));
+				$("section>div.row:last>div:eq(1)").append($("<div>").attr({id:"pageBar"}).css("display","flex").css("justify-content","center"));
 
 
 				$("#pageBar").html("").html(data["pageBar"]);
@@ -187,7 +188,7 @@
 			url:"<%=request.getContextPath()%>/notice/noticeDetailAjax.do",
 			data:{noticeNo:noticeNo},
 			success:data=>{
-				$("section>div.row:last>div").html("");//.append($("<h4>").html("공지사항"));
+				$("section>div.row:last>div:eq(1)").html("");//.append($("<h4>").html("공지사항"));
 
 				let noticeBox = $("<div>").addClass("card").css("width","100%");
 
@@ -219,7 +220,7 @@
 				
 				
 				noticeBox.append(div1).append(div2).append(div3);
-				$("section>div.row:last>div").append(noticeBox);
+				$("section>div.row:last>div:eq(1)").append(noticeBox);
 
 			}
 
