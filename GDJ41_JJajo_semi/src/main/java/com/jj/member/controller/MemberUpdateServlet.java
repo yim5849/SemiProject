@@ -1,4 +1,4 @@
-package com.jm.market.controller;
+package com.jj.member.controller;
 
 import java.io.IOException;
 
@@ -8,19 +8,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jm.market.service.MarketService;
+import com.jj.member.model.service.MemberService;
+import com.jj.member.model.vo.Member;
 
 /**
- * Servlet implementation class DeleteProductServlet
+ * Servlet implementation class MemberUpdateServlet
  */
-@WebServlet("/deleteProduct.do")
-public class DeleteProductServlet extends HttpServlet {
+@WebServlet("/member/memberUpdate.do")
+public class MemberUpdateServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteProductServlet() {
+    public MemberUpdateServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,30 +30,35 @@ public class DeleteProductServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 게시글 삭제하는 서블릿
-		
-		int productNo =Integer.parseInt(request.getParameter("productNo"));
-		String memberNo=request.getParameter("memberNo");
-		System.out.println(productNo);
-		System.out.println(memberNo);
-		
-		int result = new MarketService().deleteProduct(productNo);
-		System.out.println(result);
+		Member m=Member.builder()
+				.memberId(request.getParameter("userId"))
+				.memberPwd(request.getParameter("password"))
+				.memberName(request.getParameter("userName"))
+				.gender(request.getParameter("gender"))
+				.email(request.getParameter("email"))
+				.phone(request.getParameter("phone"))
+				.address(request.getParameter("address"))
+				.build();
+				
+		int result=new MemberService().updateMember(m);
 		
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="상품이 삭제 되었습니다";
-			loc="/myStore.do?memberNo="+memberNo;
+			msg="회원정보수정완료";
+			loc="/";
 		}else {
-			msg="상품 삭제에 실패했습니다";
-			loc="/myStore.do?memberNo="+memberNo;
+			msg="회원정보수정실패";
+			loc="/member/memberView.do";
 		}
-		
-		request.setAttribute("msg", msg);
+		request.setAttribute("msg",msg);
 		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-		
+		request.getRequestDispatcher("/views/common/msg.jsp")
+		.forward(request,response);
+	
+	
+	
+	
 	}
 
 	/**

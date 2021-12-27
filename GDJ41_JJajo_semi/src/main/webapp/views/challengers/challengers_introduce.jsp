@@ -11,7 +11,8 @@
 
 	List<CH_Advertisement> adList = (List)request.getAttribute("advertisementList");
 	List<CH_Challengers> chList = (List)request.getAttribute("challengersList");
-	List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");
+
+		List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");
 	
 	
 %>
@@ -132,11 +133,14 @@
 			      <button type="button"  id="chDelete" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#challengersList_delete"  data-no="<%=ch.getChallengersNo()%>">삭제하기</button>
 		        </div>
 		        <br>
+		        <br>
 		        <%} %>
 		        <!-- 챌린지 마다 서로 다른 form태그의 아이디를 가져야 한다 => 모달창의 확인버튼으로 submit을 발동시키는데 form태그의 아이디값이 같다면 어떤 챌린지의 form태그를 실행시킬 지 알 수 없기 때문이다 -->
 		        <!-- form태그가 발동되면 get방식으로 로그인한 회원의 memberNo와 해당 challengersNo를 넘긴다 -->
 		        <form id="ch_startFrm<%=count%>" action="<%=request.getContextPath()%>/challengers/ch_start.do?memberNo=<%=loginMember.getMemberNo()%>&challengersNo=<%=ch.getChallengersNo()%>"
 		        method="post">
+		        <br>
+		        <br>
 		        <!-- 해당 멤버가 진행중인 chNo를 담은 리스트를 불러와 각 챌린져스 chNo를 비교하여 같으면 진행중인 상태를 표시하는 버튼을 생성한다 -->
 		        <%if(myList!=null){
 		        			boolean flag1=true;
@@ -505,7 +509,7 @@
 	  	
 	  	$("#up_ch_title_").val(title); 
 	  	$("#chImg").val(img); 
-	  	$("#up_ch_orifile_").val(img); 
+	  	$("#up_ch_orifile").val(img); 
 	  	$("#up_ch_content_").val(content); 
 	  	$("#up_ch_no").val(no); 
 	  	   	 	
@@ -559,6 +563,19 @@
 	  
   }
   
+  // 챌린지 리스트 페이징 처리 (AJAX)
+<%--   function challengersListAjax(cPage,numPerPage){
+	  
+	  $.ajax({
+		  
+		  url:"<%=request.getContextPath()%>/Challengers/chListAjax.do",
+		  data:{cPage:cPage, numPerPage:numPerPage},
+		  success:data=>{
+			  $("#container").html(data);
+		  }
+	  });
+	  
+  } --%>
   
   
   

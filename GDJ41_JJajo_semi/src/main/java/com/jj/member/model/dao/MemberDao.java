@@ -1,6 +1,7 @@
 package com.jj.member.model.dao;
 
 import static com.jj.common.JDBCTemplate.close;
+import static com.jj.common.JDBCTemplate.close;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -80,14 +81,114 @@ public class MemberDao {
 		return m;
 	}
 	
+	public int insertMember(Connection conn, Member m) {
+		// 서비스에 있는걸 여기로 보냄
+		PreparedStatement pstmt=null;
+		int result=0; // 0또는 1이 담긴다
+		String sql=prop.getProperty("insertMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			// 여기 밑에는 컬럼 순서대로 적어줘야한다
+			pstmt.setString(1, m.getMemberId());
+			pstmt.setString(2, m.getMemberPwd());
+			pstmt.setString(3, m.getMemberName());
+			pstmt.setString(4, m.getBirthday());
+			pstmt.setString(5, m.getGender());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getEmail());
+			pstmt.setString(8, m.getPhone());
+			
+			
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result; // 0또는 1일 반환한다 , 다시 서비스로 간다
+	}
+	
+	
+	public Member checkIdDuplicate(Connection conn, String memberId) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		Member m=null;
+		//boolean flag=false;
+		String sql=prop.getProperty("selectId");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=Member.builder()
+						.memberId(rs.getString("memberId"))
+						.memberName(rs.getString("memberName"))
+						.birthday(rs.getString("birthday"))
+						.gender(rs.getString("gender"))
+						.email(rs.getString("email"))
+						.phone(rs.getString("phone"))
+						.address(rs.getString("address"))
+						.build();
+				//flag=true;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return m;
+	}
+	
+	
+	public int updateMember(Connection conn, Member m) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updateMember");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMemberName());
+			pstmt.setString(2, m.getBirthday());
+			pstmt.setString(3, m.getGender());
+			pstmt.setString(4, m.getEmail());
+			pstmt.setString(5, m.getPhone());
+			pstmt.setString(6, m.getAddress());
+			pstmt.setString(7, m.getMemberId());
+			
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	
 	
 	
-	
-	
-	
+	public int updatePassword(Connection conn,String memberPwd) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("updatePassword");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, memberPwd);
+			result=pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	
 	
 	
 }
+	
+	
+	
+	
+	
+	
+	
+	
+
 

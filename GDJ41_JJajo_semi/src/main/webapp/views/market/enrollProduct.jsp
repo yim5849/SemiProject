@@ -1,20 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
+<link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <style>
    section>*{
 		margin: 0px 200px 20px 500px; 
+		font-family: 'Gowun Batang', serif;
 	}
 
    select>div{
     display:inline;
-  }
+   }
   
 
    .enrollTitle{
     font-size: 30px; 
-  }
+     }
 	  
 	#inputPrice{
 		width:300px;
@@ -134,22 +136,7 @@
 		}
 	});
 	
-/* 	$("input[name=upFile]").change(e=>{
-		if(e.target.files[0].type.includes("image")){
-			let reader=new FileReader();
-			reader.onload=(e)=>{
-				const img=$("<img>").attr({
-					src:e.target.result,
-					width:"100px",
-					height:"100px"
-				});
-				$("#imageContainer").append(img); 
-			}
-			reader.readAsDataURL(e.target.files[0]);
-		}	
-		
-	});
-	 */
+ 
 	//다중파일 업로드하기
  	$("#upload").click(e=>{
  		const frm=new FormData();

@@ -1,11 +1,15 @@
 package com.jm.market.controller;
 
 import java.io.IOException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.jm.market.model.vo.ProductBoard;
+import com.jm.market.service.MarketService;
 
 /**
  * Servlet implementation class ReviewEnrollServlet
@@ -27,6 +31,9 @@ public class StoreReviewEnrollServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 리뷰작성페이지로 화면전환
+		int productNo=Integer.parseInt(request.getParameter("productNo"));
+		ProductBoard pb=new MarketService().reviewBoard(productNo);
+		request.setAttribute("pb", pb);
 		request.getRequestDispatcher("/views/market/store/reviewEnroll.jsp").forward(request, response);
 	}
 
