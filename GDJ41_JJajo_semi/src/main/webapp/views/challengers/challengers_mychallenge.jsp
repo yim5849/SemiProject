@@ -915,6 +915,17 @@
     })
     
     
+    // 갤러리 사진 등록 이미지를 클릭하면 모달창으로 데이터를 전송해주는 로직
+	$(document).on("click", "img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']", function () { 
+	  	
+		let check = $(this).data('check');
+
+		$("#ch_result_submit_button").val(check); 
+		
+		document.getElementById('ch_resultSubmitFrm').submit();
+	  	   	 	
+		});
+    
     
    
     
