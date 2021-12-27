@@ -58,10 +58,16 @@
 
 
 <section class="container">
+	<%if(loginMember!=null){ %>
+    <div class="fixed-bottom" style="left:90vw">
+        <img onclick="openChat();" src="<%=request.getContextPath()%>/images/chat.png" width="100px" height="100px">
+    </div>
+    <%} %>
     <div id="mainContainer" class="row">
-		<div class="col-xl-12 d-flex flex-wrap justify-content-around  ">
+		<div class="col-xl-12 d-flex flex-wrap justify-content-around">
         </div>
     </div>
+   
 </section>
 
 
@@ -70,6 +76,12 @@
 
 
     <script>
+        function openChat(){
+            window.open('<%=request.getContextPath()%>/chat/chat.do?memberId=<%=loginMember!=null?loginMember.getMemberId():""%>',"_blank","width=450px; height=550px");
+        }
+
+
+
         let listCount =2;
 		let flag = true;
 
@@ -152,10 +164,6 @@
                 }
             }
 
-           // let idx = info["attachedFile"]["imgNoList"].indexOf("1");
-            //console.log(idx);
-            
-           // console.log("이미지 이름 : " , info["attachedFile"]["imgNameList"][0] );
          
             if(mainImgName.length<=0){
                 mainImgName = "ex1.png";
