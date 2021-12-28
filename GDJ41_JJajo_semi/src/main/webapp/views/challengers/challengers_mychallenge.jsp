@@ -686,40 +686,44 @@ if(myList!=null && !(myList.isEmpty())){
 
 		let intervalDay = intervalMs/(1000*60*60*24);
 		
-
+		let plus=0;
+		
+		console.log(intervalDay);
 		<%if(loginMember!=null && !(loginMember.getMemberId().equals("admin"))){%>
 		switch(days){
 			
-			case "MY_2DAY": if(intervalDay<1)alert("아직 등록할 수 없습니다."+(1-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_3DAY": if(intervalDay<2)alert("아직 등록할 수 없습니다."+(2-intervalDay)+"일후에 등록 부탁드립니다");return;
-			case "MY_4DAY": if(intervalDay<3)alert("아직 등록할 수 없습니다."+(3-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_5DAY": if(intervalDay<4)alert("아직 등록할 수 없습니다."+(4-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_6DAY": if(intervalDay<5)alert("아직 등록할 수 없습니다."+(5-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_7DAY": if(intervalDay<6)alert("아직 등록할 수 없습니다."+(6-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_8DAY": if(intervalDay<7)alert("아직 등록할 수 없습니다."+(7-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_9DAY": if(intervalDay<8)alert("아직 등록할 수 없습니다."+(8-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_10DAY": if(intervalDay<9)alert("아직 등록할 수 없습니다."+(9-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_11DAY": if(intervalDay<10)alert("아직 등록할 수 없습니다."+(10-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_12DAY": if(intervalDay<11)alert("아직 등록할 수 없습니다."+(11-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_13DAY": if(intervalDay<12)alert("아직 등록할 수 없습니다."+(12-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_14DAY": if(intervalDay<13)alert("아직 등록할 수 없습니다."+(13-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_15DAY": if(intervalDay<14)alert("아직 등록할 수 없습니다."+(14-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_16DAY": if(intervalDay<15)alert("아직 등록할 수 없습니다."+(15-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_17DAY": if(intervalDay<16)alert("아직 등록할 수 없습니다."+(16-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_18DAY": if(intervalDay<17)alert("아직 등록할 수 없습니다."+(17-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_19DAY": if(intervalDay<18)alert("아직 등록할 수 없습니다."+(18-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_20DAY": if(intervalDay<19)alert("아직 등록할 수 없습니다."+(19-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_21DAY": if(intervalDay<20)alert("아직 등록할 수 없습니다."+(20-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_22DAY": if(intervalDay<21)alert("아직 등록할 수 없습니다."+(21-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_23DAY": if(intervalDay<22)alert("아직 등록할 수 없습니다."+(22-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_24DAY": if(intervalDay<23)alert("아직 등록할 수 없습니다."+(23-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_25DAY": if(intervalDay<24)alert("아직 등록할 수 없습니다."+(24-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_26DAY": if(intervalDay<25)alert("아직 등록할 수 없습니다."+(25-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_27DAY": if(intervalDay<26)alert("아직 등록할 수 없습니다."+(26-intervalDay)+"일후에 등록 부탁드립니다");return; 
-			case "MY_28DAY": if(intervalDay<27)alert("아직 등록할 수 없습니다."+(27-intervalDay)+"일후에 등록 부탁드립니다");return; 
-
+			case "MY_2DAY": if(intervalDay<1){alert("아직 등록할 수 없습니다."+(1-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break; 
+			case "MY_3DAY": if(intervalDay<2){alert("아직 등록할 수 없습니다."+(2-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;
+			case "MY_4DAY": if(intervalDay<3){alert("아직 등록할 수 없습니다."+(3-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break; 
+			case "MY_5DAY": if(intervalDay<4){alert("아직 등록할 수 없습니다."+(4-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break; 
+			case "MY_6DAY": if(intervalDay<5){alert("아직 등록할 수 없습니다."+(5-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break; 
+			case "MY_7DAY": if(intervalDay<6){alert("아직 등록할 수 없습니다."+(6-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_8DAY": if(intervalDay<7){alert("아직 등록할 수 없습니다."+(7-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_9DAY": if(intervalDay<8){alert("아직 등록할 수 없습니다."+(8-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_10DAY": if(intervalDay<9){alert("아직 등록할 수 없습니다."+(9-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_11DAY": if(intervalDay<10){alert("아직 등록할 수 없습니다."+(10-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_12DAY": if(intervalDay<11){alert("아직 등록할 수 없습니다."+(11-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_13DAY": if(intervalDay<12){alert("아직 등록할 수 없습니다."+(12-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_14DAY": if(intervalDay<13){alert("아직 등록할 수 없습니다."+(13-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_15DAY": if(intervalDay<14){alert("아직 등록할 수 없습니다."+(14-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_16DAY": if(intervalDay<15){alert("아직 등록할 수 없습니다."+(15-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_17DAY": if(intervalDay<16){alert("아직 등록할 수 없습니다."+(16-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_18DAY": if(intervalDay<17){alert("아직 등록할 수 없습니다."+(17-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_19DAY": if(intervalDay<18){alert("아직 등록할 수 없습니다."+(18-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_20DAY": if(intervalDay<19){alert("아직 등록할 수 없습니다."+(19-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_21DAY": if(intervalDay<20){alert("아직 등록할 수 없습니다."+(20-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_22DAY": if(intervalDay<21){alert("아직 등록할 수 없습니다."+(21-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_23DAY": if(intervalDay<22){alert("아직 등록할 수 없습니다."+(22-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_24DAY": if(intervalDay<23){alert("아직 등록할 수 없습니다."+(23-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_25DAY": if(intervalDay<24){alert("아직 등록할 수 없습니다."+(24-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_26DAY": if(intervalDay<25){alert("아직 등록할 수 없습니다."+(25-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_27DAY": if(intervalDay<26){alert("아직 등록할 수 없습니다."+(26-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			case "MY_28DAY": if(intervalDay<27){alert("아직 등록할 수 없습니다."+(27-intervalDay)+"일후에 등록 부탁드립니다");plus++;}break;  
+			
 		} 
 		<%}%>
+		
+		if(plus==1)return;
 		
 		console.log('이거찍혀?');
 		

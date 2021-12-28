@@ -185,8 +185,8 @@ public class CH_MychallengeServlet extends HttpServlet {
 			}
 			
 			//최대 회차수를 저장
-			request.setAttribute("chMaximumCount", count);
-			System.out.println("최대 회차수는 : "+count);
+			request.setAttribute("chMaximumCount", count-1);
+			System.out.println("최대 회차수는 : "+(count-1));
 	
 		} // if(챌린져스 번호 null값처리 끝부분)
 
