@@ -1,27 +1,23 @@
 package com.jm.market.controller;
 
 import java.io.IOException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.jm.market.model.vo.ProductBoard;
-import com.jm.market.service.MarketService;
-
 /**
- * Servlet implementation class ReviewEnrollServlet
+ * Servlet implementation class ChatServiceServlet
  */
-@WebServlet("/reviewEroll.do")
-public class StoreReviewEnrollServlet extends HttpServlet {
+@WebServlet("/payservice.do")
+public class PayServiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreReviewEnrollServlet() {
+    public PayServiceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,11 +26,10 @@ public class StoreReviewEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 리뷰작성페이지로 화면전환
-		int productNo=Integer.parseInt(request.getParameter("productNo"));
-		ProductBoard pb=new MarketService().reviewBoard(productNo);
-		request.setAttribute("pb", pb);
-		request.getRequestDispatcher("/views/market/store/reviewEnroll.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		String price=request.getParameter("price");
+		request.setAttribute("price", price);
+		request.getRequestDispatcher("/views/market/pay.jsp").forward(request, response);
 	}
 
 	/**

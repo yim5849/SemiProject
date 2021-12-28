@@ -35,7 +35,7 @@
 	    </div>
 	    
 	    <div class="d-grid gap-2 col-6 mx-auto">
-  			<button class="btn btn-primary" id="reviewEnroll"  >등록하기</button> 
+  			<button class="btn btn-primary" id="reviewEnroll">등록하기</button> 
 		</div>
 	    
 
@@ -48,16 +48,18 @@ $("#reviewEnroll").click(e=>{
 		frm.append("content",$("#content").val());
 		frm.append("memberNo",<%=pb.getMemberNo()%>);
 		frm.append("productNo",<%=pb.getProductNo()%>);
+		frm.append("writer","<%=loginMember.getMemberName()%>");
+		frm.append("title","<%=pb.getTitle()%>");
 		
 		 $.ajax({
-			url:"<%=request.getContextPath()%>/reviewEnroll.do",
+			url:"<%=request.getContextPath()%>/reviewEnrollend.do",
 			type:"post",
 			data:frm,
 			processData:false,
 			contentType:false,
 			success:data=>{
-			//	alert(data["msg"]);
-			//	location.replace("<%=request.getContextPath()%>"+data["loc"]);
+				alert(data["msg"]);
+				location.replace("<%=request.getContextPath()%>"+data["loc"]);
 			}
 		}) 
 	})

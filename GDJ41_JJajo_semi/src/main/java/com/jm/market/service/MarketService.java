@@ -7,11 +7,11 @@ import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.jj.member.model.vo.Member;
 import com.jm.market.dao.MarketDao;
-import com.jm.market.model.vo.AttachedFiles;
+import com.jm.market.model.vo.Comment;
 import com.jm.market.model.vo.ProductBoard;
 public class MarketService {
 	
@@ -158,4 +158,60 @@ public class MarketService {
 		close(conn);
 		return pb;
    }
-}
+   
+   
+   //-------------------------후기글 추가-------------------------------------------
+   
+   public int insertReview(Comment c) { 
+			Connection conn=getConnection();
+			int result=dao.insertComment(conn,c); 
+			if(result>0) { 	
+					commit(conn); 
+			}else {
+					rollback(conn);
+			}
+			close(conn);
+			return result; 
+	}
+   
+   //----------------------후기글 전체 불러오기--------------------------------------
+   
+   public List<Comment> commentAll(String memberNo){
+	   Connection conn = getConnection();
+		List<Comment> list = dao.commentAll(conn,memberNo);
+		close(conn);
+		return list;
+	    
+   }
+   
+   
+   //----------------------회원 찾기-----------------------------------------------
+   
+   public Member searchMember(String memberNo) {
+	   Connection conn = getConnection();
+	   Member m = dao.searchMember(conn,memberNo);
+		close(conn);
+		return m;
+   }
+	  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   }
+   
+   
+   
+   
+ 
+   
