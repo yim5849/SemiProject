@@ -150,7 +150,7 @@
                 <a class="nav-link" href="<%=request.getContextPath()%>/find/findPosition.do">헬스장찾기</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link">주변친구찾기</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/find/findFriend.do?memberNo=<%=loginMember.getMemberNo()%>">주변친구찾기</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link"  href="<%=request.getContextPath()%>/challengers/main.do">Challengers</a>
@@ -195,13 +195,14 @@
 	<%if(loginMember==null){ %>
       <div class="container-fluid">
         <div class="row">
+          <div class="col-1"></div>
           <div class="col-2" style="padding-top:7px; color:#FA5882;" id="banbok" >
 			※ 로그인 후, 이용해주세요 ※
           </div>
          <div class="col-4" >
 		
           </div>
-          <div class="col-6">
+          <div class="col-4">
               <button type="button" class="btn btn-outline-success" 
               onclick="location.assign('<%=request.getContextPath()%>/member/enrollMember.do')">회원가입</button>
               <!-- onclick부분은 띄어쓰지 말고 한줄로 쭉 쓸것 --> 
@@ -214,6 +215,7 @@
               name="saveId" <%=saveId!=null?"checked":"" %>>
               <label class="btn btn-outline-primary" for="saveId">아이디 저장</label>
             </div>
+            <div class="col-1"></div>
         </div>
       </div>
 	<%} %>

@@ -52,7 +52,7 @@
 	<div class="row">
 		<div class="col-xl-1"></div>
 		<div class="col-xl-10">
-			<span>*검색반경 : 5(기본) , 10 km</span>
+			<span>    *검색반경 : 5(기본) , 10 km</span>
 		</div>
 		<div class="col-xl-1"></div>
 	</div>
