@@ -21,7 +21,7 @@ public class CH_MychallengeNoticeDao {
 	
 	public CH_MychallengeNoticeDao() {
 		
-		String path=CH_MychallengeNoticeDao.class.getResource("/sql/challengers/mychallengenotice_sql.properties").getPath();
+		String path=CH_MychallengeNoticeDao.class.getResource("/sql/challengers/challengers_sql.properties").getPath();
 		try {
 			prop.load(new FileReader(path));
 		}catch(IOException e) {

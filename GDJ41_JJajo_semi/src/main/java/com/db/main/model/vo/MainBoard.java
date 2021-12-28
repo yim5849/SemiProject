@@ -20,4 +20,5 @@ public class MainBoard {
 	private String memberName;
 	private List<AttachedFile> attachedFileList;
 	private String tag;
+	
 }

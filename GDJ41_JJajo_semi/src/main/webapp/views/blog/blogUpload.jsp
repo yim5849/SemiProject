@@ -3,6 +3,11 @@
 <%@ include file="/views/common/header.jsp"%>
 <link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
 
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+
 <style>
 	#imagePreview{
    width: 300px;
@@ -16,9 +21,14 @@
    	
    }
 	
-	.uppy-Dashboard-inner{
-		min-height: 300px;
+/* 	.tagify--focus{
+	background-color:white;
 	}
+	
+	.tagify--empty{
+	background-color:white;
+	} */
+	
 </style>
 
 <section>
@@ -57,7 +67,8 @@
 			    			<h4>태그</h4>
 			    		</div>
 			    		<div class="col-8" style="text-align: right;">
-			    			<input class="form-control" id="post_tag" name="tag" type="text" placeholder="관련태그를 입력해주세요 (#으로 입력)" aria-label="default input example">
+			    			<input class="form-control" id="post_tag" name="tag" type="text" data-role="tagsinput" 
+			    			aria-label="default input example" data-role="tagsinput" ><!--  placeholder="관련태그를 입력해주세요 (#으로 입력)" -->
 			    		</div>
 			    	</div>			    	
 			    </div>
@@ -88,6 +99,12 @@
 		$("input[name=upFile]").click();
 	})
  */
+ 
+	//The DOM element you wish to replace with Tagify
+	 var input = document.querySelector('#post_tag');
+	
+	 // initialize Tagify on the above input node reference
+	new Tagify(input)
 
 	//multifile upload
 	$("#upload").click(e=>{
@@ -96,13 +113,14 @@
 		const num = $("input[name=memberNo]").val(); 
 
 		for(let i=0;i<fileInput[0].files.length;i++){
-			frm.append("memberNo", num);
+			
 			frm.append("upfile"+i,fileInput[0].files[i]);
-			frm.append("title", $("#post_title").val());
-			frm.append("tag", $("#post_tag").val());
-			frm.append("content", $("#post_description").val());
+
 		}	 
-		
+		frm.append("memberNo", num);
+		frm.append("title", $("#post_title").val());
+		frm.append("tag", $("#post_tag").val());
+		frm.append("content", $("#post_description").val());
 		$.ajax({
 			url:"<%=request.getContextPath()%>/blog/uploadpostend.do",
 			type:"post",
@@ -110,8 +128,8 @@
 			processData:false,
 			contentType:false,
 			success:data=>{
-				alert("파일업로드 성공");
-				$("input[name=upfile]").val("");
+				alert(data["msg"]);
+				location.replace("<%=request.getContextPath()%>"+data["loc"]);
 			}
 		});
 	

@@ -101,7 +101,7 @@
                 <a class="nav-link disabled">주변친구찾기</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link disabled">Challengers</a>
+                <a class="nav-link" href="<%=request.getContextPath()%>/challengers/main.do">Challengers</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="<%=request.getContextPath()%>/marketMainView.do">중고거래</a>

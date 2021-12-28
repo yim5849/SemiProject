@@ -8,20 +8,19 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.im.challengers.model.service.CH_MychallengeNoticeService;
-import com.im.challengers.model.vo.CH_MychallengeNotice;
+import com.im.challengers.model.service.CH_MychallengeImageService;
 
 /**
- * Servlet implementation class CH_MychallengeUpdateEndServlet
+ * Servlet implementation class CH_MychallengersImageDeleteServlet
  */
-@WebServlet("/challengers/update_end.do")
-public class CH_MychallengeNoticeUpdateEndServlet extends HttpServlet {
+@WebServlet("/challengers/galary_delete.do")
+public class CH_MychallengersImageDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CH_MychallengeNoticeUpdateEndServlet() {
+    public CH_MychallengersImageDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,31 +29,32 @@ public class CH_MychallengeNoticeUpdateEndServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+		int imageNo = Integer.parseInt(request.getParameter("image_del_imNum"));
+								
+		// 화면 전환시 get방식으로 전환하기 위해 필요한 데이터 => 갤러리 등록 후 해당 챌린저스의 마이페이지로 돌아가야하기 때문
+		int chNo = Integer.parseInt(request.getParameter("galary_challengersNo"));
 		
-		int noNo = Integer.parseInt(request.getParameter("updatenoticeNo"));
-		String content = request.getParameter("chNotice_content");
 		
-		CH_MychallengeNotice no=null;
-		
-		no = CH_MychallengeNotice.builder()
-				.mychallengeNoticeNo(noNo)
-				.content(content).build();
-		System.out.println(no);
-		int result = new CH_MychallengeNoticeService().updateMychallengeNotice(no);
+		int result = new CH_MychallengeImageService().deleteMyImage(imageNo);
 		
 		String msg="";
 		String loc="";
-		
 		if(result>0) {
-			msg="관리자님! 마이챌린지 안내사항 수정이 완료되었습니다 :)";
+			msg="사진이 정상적으로 삭제 완료되었습니다! :)";
+			loc="/challengers/mychallenge.do?challengersNo="+chNo;
 		}else {
-			msg="관리자님! 마이챌린지 안내사항 수정에 문제가 발생하였습니다 :(";
+			msg="사진을 삭제하는 과정에서 문제가 발생하였습니다 :(";
+			loc="/challengers/mychallenge.do?challengersNo="+chNo;
 		}
-		loc="/challengers/mychallenge.do";
-		
 		request.setAttribute("msg",msg);
-		request.setAttribute("loc", loc);
-		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+		request.setAttribute("loc",loc);
+		request.getRequestDispatcher("/views/common/msg.jsp")
+		.forward(request, response);
+	
+		
+		
+		
 	}
 
 	/**

@@ -37,15 +37,15 @@ public class CH_MychallengeResultEnrollServlet extends HttpServlet {
 		String result=request.getParameter("chResult");
 			
 		int end = new CH_MychallengeService().challengeResultEnroll(myDay, count, chNo, memberNo, result);
-		
+		int cPage=count;
 		String msg="";
 		String loc="";
 		if(end>0) {
 			msg="결과 등록이 정상적으로 완료되었습니다! :)";
-			loc="/challengers/mychallenge.do?challengersNo="+chNo;
+			loc="/challengers/mychallenge.do?challengersNo="+chNo+"&cPage="+count;
 		}else {
 			msg="결과 등록에 문제가 발생하였습니다 :(";
-			loc="/challengers/mychallenge.do?challengersNo="+chNo;
+			loc="/challengers/mychallenge.do?challengersNo="+chNo+"&cPage="+count;
 		}
 		request.setAttribute("msg",msg);
 		request.setAttribute("loc",loc);

@@ -8,12 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.db.main.model.service.MainBoardService;
 import com.db.main.model.vo.MainBoard;
-import com.google.gson.Gson;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.jj.member.model.vo.Member;
 
 /**
  * Servlet implementation class BlogMainServlet
@@ -35,6 +34,8 @@ public class BlogMainServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
+		
+		
 		int curPosition;
 		try {
 			curPosition=Integer.parseInt(request.getParameter("cPage"));
@@ -45,15 +46,57 @@ public class BlogMainServlet extends HttpServlet {
 		
 		int numPerOnce=20;
 		//String memberNo= request.getParameter(getServletName());
-		
-		List<MainBoard> ubList = new MainBoardService().getUserBlog(curPosition, numPerOnce, "3"); //member_no 보내야해
+		String memberNo=request.getParameter("memberNo");
 
-		//new Gson().toJson(ubList,response.getWriter());
+		List<MainBoard> ubList = new MainBoardService().getUserBlog(curPosition, numPerOnce,memberNo); //member_no 보내야함
 		
-		request.setAttribute("userBoardList", ubList);
+		request.setAttribute("userBoardList", ubList);//생성!
+		
+		
+		
+		
+		
+		HttpSession session=request.getSession(false);
+		Member m=null;
+		if(session!=null) {
+			if(session.getAttribute("loginMember")!=null) {
+				m=(Member)session.getAttribute("loginMember");
+			}else if(session==null || m==null) {
+				
+				String msg="로그인 후, 이용해주세요! :(";
+				String loc="/";
+				
+				request.setAttribute("msg",msg);
+				request.setAttribute("loc", loc);
+				request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
+				return;
+			}
+		}
+		int memberNo1=m.getMemberNo();
+		
+		String myinfo = new MainBoardService().getMyInfo(memberNo1);
+		request.setAttribute("myInfo",myinfo);
+		
+		
+		/* new Gson().toJson(ubList,response.getWriter()); */
+		
+		
+		
+		
+		
+		
 		
 		request.getRequestDispatcher("/views/blog/blogMain.jsp")
 		.forward(request, response);
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		
 	}
