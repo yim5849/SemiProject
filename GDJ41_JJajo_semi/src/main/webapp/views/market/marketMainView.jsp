@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp" %>
 <link href="https://fonts.googleapis.com/css2?family=Gowun+Batang&display=swap" rel="stylesheet">
-<%@ page import="java.util.List,com.jm.market.model.vo.ProductBoard" %>
+<%@ page import="java.util.List,com.jm.market.model.vo.ProductBoard" %> 
 <%
 	List<ProductBoard> list=(List)request.getAttribute("list");
 

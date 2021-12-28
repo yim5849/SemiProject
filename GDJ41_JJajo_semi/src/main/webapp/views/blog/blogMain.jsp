@@ -4,6 +4,7 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	List<MainBoard> ubList=(List)request.getAttribute("userBoardList");
+	String myInfo=(String)request.getAttribute("myInfo");
 %>
 
 
@@ -41,13 +42,13 @@
 								  			<!-- The slideshow/carousel -->
 									<div class="carousel-inner" style="height:500px;">
 										<div class="carousel-item active" >
-										  <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/picture-seal.jpg" alt="Los Angeles" class="d-block mx-auto">
+										  <img src="" alt="1" class="d-block mx-auto">
 										</div>
 										<div class="carousel-item" style="height:500px">
-										  <img src="https://images.pexels.com/photos/4588031/pexels-photo-4588031.jpeg" alt="Chicago" class="d-block mx-auto">
+										  <img src="" alt="2" class="d-block mx-auto">
 										</div>
 										<div class="carousel-item">
-										  <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/ocelot-picture.jpg" alt="New York" class="d-block mx-auto">
+										  <img src="" alt="3" class="d-block mx-auto">
 									 	</div>
 	 								</div>
 									  
@@ -135,7 +136,7 @@
 			<div class="col-6">
 				<div class="row row-cols-auto">
 					<div class="col-md-auto">
-						<h2>user_name</h2>
+						<h2><%=loginMember.getMemberName()%></h2>
 					</div>
 					<div class="col-md-auto">
 						<img src="<%=request.getContextPath()%>/images/blog/pencil.png"  width="30px" height="30px"
@@ -145,6 +146,7 @@
 				<div class="row">
 					<div class="col-4">
 						게시물
+						<p><%=ubList.size() %></p>
 					</div>
 					<div class="col-4">
 						팔로워
@@ -155,7 +157,7 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						자기소개
+						<h2><%=myInfo %></h2>
 					</div>
 				</div>	
 			</div>
@@ -184,8 +186,8 @@
 			    data-title="<%=mb.getBoardTitle() %>" 
 			    data-content="<%=mb.getBoardContent() %>" 
 			    data-tag="<%=mb.getTag() %>"
-			    data-image="<%=mb.getAttachedFileList() %>">
-			      <img src="https://hddesktopwallpapers.in/wp-content/uploads/2015/09/picture-seal.jpg" alt="1" style="width:100%">
+			   	data-image1="" >
+			      <img src="" alt="사진" style="width:100%">
 			      <h3><%=mb.getBoardTitle() %></h3>
 			      <p class="tag"><%=mb.getTag() %></p>
 			      <p><%=mb.getBoardContent() %></p>
@@ -212,7 +214,7 @@
 
 
 
-
+<!-- 
 <div class="container mt-3">
   <h3>Fading Modal Example</h3>
   <p>Click on the button to open the modal.</p>
@@ -220,7 +222,7 @@
   	Open modal
   </button>
 </div>
- 
+  -->
 
  
  
@@ -246,16 +248,19 @@
 		let title=$(this).data('title');
 		let content=$(this).data('content');
 		let tag=$(this).data('tag');
+		for(let i=0;i<)
 		let image=$(this).data('image'); //리스트
-		
+		console.log(image);
 		console.log($(this).data('tag'));
 		console.log($(this).data('title'));
+		
+		console.log('<%=request.getContextPath()%>/upload/blog/'+image.get(0).getImageName());
 		
 		$("#modal_board_userName").text(userName);
 		$("#modal_board_title").text(title);
 		$("#modal_board_content").text(content);
 		$("#modal_board_tag").text(tag);
-		
+		$(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()');
 		
 	});
 	

@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONObject;
 
 import com.db.main.model.service.MainBoardService;
 import com.db.main.model.vo.AttachedFile;
@@ -95,19 +96,40 @@ public class UploadPostEndServlet extends HttpServlet {
 		
 		 int result=new MainBoardService().insertBoard(mb,memberNo);
 		 
+		 
+		 
 		 String msg="";
 		 String loc="";
 		 if(result>0) {
 			 msg="게시물을 등록했습니다.";
-			 loc="/blog/blogmain.do"; }
+			 loc="/blog/blogmain.do?memberNo="+memberNo; }
 		 else {
 			 msg="게시물을 등록에 실패했습니다.";
 			 loc="/blog/uploadpost.do";
 			 }
-		 request.setAttribute("msg", msg);
-		 request.setAttribute("loc", loc);
-		 request.getRequestDispatcher("/views/common/msg.jsp")
-		 .forward(request,response);
+		 
+		 
+		 JSONObject jo=new JSONObject();
+		 jo.put("msg",msg);
+		 jo.put("loc",loc);
+		 
+		 response.setContentType("application/json;charset=UFT-8");
+		 response.getWriter().print(jo);
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+		 
+				/*
+				 * request.setAttribute("msg", msg); request.setAttribute("loc", loc);
+				 * request.getRequestDispatcher("/views/common/msg.jsp")
+				 * .forward(request,response);
+				 */
 		 
 		
 		 

@@ -1,8 +1,6 @@
 package com.db.main.model.dao;
 
 import static com.jj.common.JDBCTemplate.close;
-import static com.jj.common.JDBCTemplate.rollback;
-import static com.jj.common.JDBCTemplate.commit;
 
 import java.io.FileReader;
 import java.io.IOException;
@@ -14,10 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-import org.apache.tomcat.dbcp.dbcp2.PStmtKey;
-
 import com.db.main.model.vo.AttachedFile;
 import com.db.main.model.vo.MainBoard;
+import com.jj.member.model.vo.Member;
 
 public class MainBoardDao {
 	private Properties prop = new Properties();
@@ -224,6 +221,48 @@ public class MainBoardDao {
 	
 	
 	
+	//자기소개 수정
+	public int ModifyMyInfo(Connection conn,Member m) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("ModifyMyInfo");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, m.getMyInfo());
+			pstmt.setInt(2, m.getMemberNo());	
+			result = pstmt.executeUpdate();
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+
+	
+	//myInfo 가져오기
+	public String getMyInfo(Connection conn,int memberNo1) {
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		String m=null;
+		
+		String sql=prop.getProperty("getMyInfo");
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, memberNo1);
+			rs=pstmt.executeQuery();
+			if(rs.next()) {
+				m=rs.getString("my_info");
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return m;
+	}
+	
 	
 	
 	
@@ -247,14 +286,6 @@ public class MainBoardDao {
 		}return result3;	
 	}
 	*/
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	
@@ -287,16 +318,6 @@ public class MainBoardDao {
 			close(pstmt);
 		}return result3;
 	}*/
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

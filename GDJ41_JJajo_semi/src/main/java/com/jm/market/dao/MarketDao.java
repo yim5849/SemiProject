@@ -11,7 +11,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
+import com.jj.member.model.vo.Member;
 import com.jm.market.model.vo.AttachedFiles;
+import com.jm.market.model.vo.Comment;
 import com.jm.market.model.vo.ProductBoard;
 
 public class MarketDao {
@@ -542,5 +544,85 @@ public class MarketDao {
 		}
 		
 		
-		 
-}//클래스 종료
+		public int insertComment(Connection conn,Comment c) {
+			PreparedStatement pstmt=null;  
+			int result=0;  
+			String sql=prop.getProperty("insertComments");
+			
+			try {
+				pstmt=conn.prepareStatement(sql);  
+				pstmt.setString(1,c.getProductTitle());   
+				pstmt.setString(2,c.getCommentContent());    
+				pstmt.setInt(3,c.getProductNo());   
+				pstmt.setInt(4,c.getMemberNo());   
+				pstmt.setString(5,c.getCommentWriter());   
+				result = pstmt.executeUpdate();
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally { 
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		public List<Comment> commentAll(Connection conn,String memberNo){
+			PreparedStatement pstmt=null;
+			ResultSet rs=null;
+			List<Comment> list=new ArrayList();
+			String sql=prop.getProperty("commentAll");
+			Comment c=null;
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, memberNo);
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					c=Comment.builder().productTitle(rs.getString("BOARD_TILTE"))
+									    .commentContent(rs.getString("comment_content"))
+									   .enrollData(rs.getDate("comment_enrolldate"))
+									   .productNo(rs.getInt("pd_no"))
+									   .memberNo(rs.getInt("member_no"))
+									   .CommentWriter(rs.getString("writer"))
+									   .build();
+					list.add(c);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally { 
+				close(rs);
+				close(pstmt);
+			}
+			return list;
+			 
+		}
+		
+		
+		
+		
+		public Member searchMember(Connection conn,String memberNo) {
+			PreparedStatement pstmt=null;
+			ResultSet rs=null; 
+			Member m=null;
+			String sql=prop.getProperty("searchMember");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, memberNo);
+				rs=pstmt.executeQuery();
+				
+				while(rs.next()) {
+					m=Member.builder().memberNo(rs.getInt("member_no"))
+									  .memberName(rs.getString("member_name"))
+									  .build();
+					 
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally { 
+				close(rs);
+				close(pstmt);
+			}
+			return m;
+		}
+	 
+
+}

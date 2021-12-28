@@ -1,7 +1,6 @@
 package com.jm.market.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,16 +12,16 @@ import com.jm.market.model.vo.ProductBoard;
 import com.jm.market.service.MarketService;
 
 /**
- * Servlet implementation class StoreBuyListServlet
+ * Servlet implementation class ReviewEnrollServlet
  */
-@WebServlet("/buyList.do")
-public class StoreBuyListServlet extends HttpServlet {
+@WebServlet("/reviewEnroll.do")
+public class ReviewEnrollServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreBuyListServlet() {
+    public ReviewEnrollServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,12 +30,11 @@ public class StoreBuyListServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//구매목록화면으로 전환해주는 서블릿
-		String memberNo=request.getParameter("memberNo");
-		List<ProductBoard> list=new MarketService().buyList(memberNo);
-		//System.out.println(list);
-		request.setAttribute("list", list);
-		request.getRequestDispatcher("/views/market/store/buyList.jsp").forward(request, response);
+		// 리뷰작성페이지로 화면전환
+		int productNo=Integer.parseInt(request.getParameter("productNo"));
+		ProductBoard pb=new MarketService().reviewBoard(productNo);
+		request.setAttribute("pb", pb);
+		request.getRequestDispatcher("/views/market/store/reviewEnroll.jsp").forward(request, response);
 	}
 
 	/**

@@ -9,10 +9,20 @@
 %>
 
 <style> 
-	section>*{
-				margin: 0px 300px 20px 300px;
-		    	font-family: 'Gowun Batang', serif;
-			}
+		*{
+		list-style: none;
+		text-decoration: none; 
+		margin: 0px;
+		padding: 0px;
+		color: black;
+		font-family: 'Gowun Batang', serif;
+
+	}
+
+	#productView{
+	
+		text-decoration: none; 
+	}
 </style>
 
 		
@@ -26,6 +36,7 @@
 		<div>구매한 상품이 없습니다</div>
 	<%}else{ %>
 	  <%for(ProductBoard pb : list) {%>
+	  <a id="productView" href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>">
 		<div class="card" style="width: 18rem;">
 			<%if(pb.getFileName().isEmpty()){ %>
 				   <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top">	
@@ -35,11 +46,12 @@
 			  <div class="card-body">
 			    <h5 class="card-title"><%=pb.getTitle()%></h5>
 			     <p class="card-text"><%=pb.getEnrollDate()%></p>
+		</a>
 			   	 <div class="btn-group" role="group" aria-label="Basic outlined example">
-	  				<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/reviewEroll.do?productNo=<%=pb.getProductNo()%>")>거래후기남기기</button> 
-			 </div>
-		  </div>
-		</div>
+	  				<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/reviewEnroll.do?productNo=<%=pb.getProductNo()%>")>거래후기남기기</button> 
+			 	 </div>
+		 	   </div>
+		 </div>
 	 <%}
 	  }%>	 
 		
