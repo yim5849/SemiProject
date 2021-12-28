@@ -5,6 +5,9 @@
       			alert("내용을 입력해주세요!");
       			return false;
       		}else{
+				if($("#viewSaveId").prop("checked")){
+					$("#saveId").val("true");				
+				}
       			document.loginSubmit.submit();
       		}
       		
