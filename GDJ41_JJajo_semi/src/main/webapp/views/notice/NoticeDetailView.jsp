@@ -11,8 +11,8 @@
 	
 	<div class="row ">
 		<div class="col-xl-12">
-				<div>
-					<span>공지사항번호</span>
+				<div >
+					<span style="margin:auto;">공지사항번호</span>
 					<span>작성자</span>
 					<h4>제목</h4>
 					<span>작성일</span>
