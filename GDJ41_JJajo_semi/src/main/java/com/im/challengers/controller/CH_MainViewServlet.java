@@ -27,8 +27,8 @@ public class CH_MainViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		response.sendRedirect(request.getContextPath()+"/views/challengers/challengers_main.jsp");
-		
+		//response.sendRedirect(request.getContextPath()+"/views/challengers/challengers_main.jsp");
+		request.getRequestDispatcher("/views/challengers/challengers_main.jsp").forward(request, response);
 	}
 
 	/**

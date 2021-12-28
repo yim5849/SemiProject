@@ -978,11 +978,11 @@ if(myList!=null && !(myList.isEmpty())){
     
 	
 	$(()=>{
-		
+		<%if(!(loginMember.getMemberId().equals("admin"))){%>
 		if($("#doing_ch_list").val()==0){
 			alert("리스트에서 챌린지 선택 후 확인하세요! :)");
 		} 
-		
+		<%}%>
 	})
    
     

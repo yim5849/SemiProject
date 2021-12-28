@@ -41,7 +41,7 @@ public class CH_MychallengersImageDeleteServlet extends HttpServlet {
 		String msg="";
 		String loc="";
 		if(result>0) {
-			msg="사진이 정상적으로 완료되었습니다! :)";
+			msg="사진이 정상적으로 삭제 완료되었습니다! :)";
 			loc="/challengers/mychallenge.do?challengersNo="+chNo;
 		}else {
 			msg="사진을 삭제하는 과정에서 문제가 발생하였습니다 :(";

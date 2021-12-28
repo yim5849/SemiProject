@@ -45,14 +45,22 @@ public class CH_MychallengeFinishServlet extends HttpServlet {
 
 		int result = new CH_MychallengeService().finishChallenge(check,myNo);
 		
+		CH_Mychallenge my = new CH_MychallengeService().searchChallengeFromNo(myNo);
+		
+		int challengersNo = my.getChallengersNo();
+				
+		int count = my.getCount();
+		
 		String msg="";
 		String loc="";
 		if(result>0) {
 			msg=" 챌린지가 정상적으로 완료되었습니다! :)";
-			loc="/challengers/mychallenge.do";
+			if(challengersNo!=0 && count!=0)loc="/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+count;
+			else loc="/challengers/mychallenge.do";
 		}else {
 			msg="문제가 발생하였습니다 :(";
-			loc="/challengers/mychallenge.do";
+			if(challengersNo!=0 && count!=0)loc="/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+count;
+			else loc="/challengers/mychallenge.do";
 		}
 		request.setAttribute("msg",msg);
 		request.setAttribute("loc",loc);

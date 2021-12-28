@@ -20,7 +20,7 @@ public class CH_MychallengeImageDao {
 	
 	public CH_MychallengeImageDao() {
 		
-		String path=CH_AdvertisementDao.class.getResource("/sql/challengers/myChallengeImage_sql.properties").getPath();
+		String path=CH_AdvertisementDao.class.getResource("/sql/challengers/challengers_sql.properties").getPath();
 		try {
 			prop.load(new FileReader(path));
 		}catch(IOException e) {
