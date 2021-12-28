@@ -46,6 +46,7 @@ public class FindDao {
 						.email(rs.getString("email"))
 						.address(rs.getString("address"))
 						.filePath(rs.getString("filepath"))
+						.myInfo(rs.getString("my_info"))
 						.build();	
 				followList.add(m);
 			}

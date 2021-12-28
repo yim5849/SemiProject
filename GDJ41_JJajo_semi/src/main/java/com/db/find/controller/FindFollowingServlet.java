@@ -32,9 +32,7 @@ public class FindFollowingServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memberNo = request.getParameter("memberNo");
-//		System.out.println(memberNo);
-//		List<Member> followingList = new FindService().findFollowing(memberNo);
-//		System.out.println(followingList);
+
 		request.setAttribute("memberNo", memberNo);
 		
 		request.getRequestDispatcher("/views/find/searchFriend.jsp").forward(request, response);
