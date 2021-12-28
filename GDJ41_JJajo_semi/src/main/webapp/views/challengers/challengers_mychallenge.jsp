@@ -331,196 +331,7 @@ if(myList!=null && !(myList.isEmpty())){
       </div>
       <br>
 
- <%--      <div class="container">
-        <div class="row">
-          <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-        </div>
 
-        <br>
-
-     	 <div class="row"> 
-          <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-     	</div> 
-
-        <br>
-
-        <div class="row">
-          <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-           	<img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-        </div>
-
-      </div> --%>
-
-
-<!-- =================================================== 갤러리 테스트 구역 ==================================================================== -->
-
-<%System.out.println("아임 : "+imList); %>
-<%--  <div class="container">
-        <div class="row">
-      
-    	<div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-        </div>
-
-        <br>
-
-     	 <div class="row"> 
-          <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-     	</div> 
-
-        <br>
-
-        <div class="row">
-          <div class="col-2">
-           <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-          	 <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-        </div>
-
-        <br>
-
-        <div class="row">
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-           	<img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-          <div class="col-2">
-            <img src="<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
-          </div>
-        </div>
-
-      </div> --%>
 	 <div class="container" id="my_image_container">
 	 
 	 <% int imCount=0;
@@ -533,7 +344,6 @@ if(myList!=null && !(myList.isEmpty())){
 			<%}
 			} %>
 	</div>
-<!-- ========================================================================================================================================= -->
       <br>
       <br>
       <br>
@@ -1162,6 +972,14 @@ if(myList!=null && !(myList.isEmpty())){
 	});
     
     
+	
+	$(()=>{
+		
+		if($("#doing_ch_list").val()==0){
+			alert("리스트에서 챌린지 선택 후 확인하세요! :)");
+		} 
+		
+	})
    
     
     
