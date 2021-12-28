@@ -106,11 +106,56 @@ public class CH_MychallengeImageDao {
 	
 /* ================================이미지 수정============================================ */	
 
+	public int updateMyImage(Connection conn, CH_MychallengeImage im) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String sql=prop.getProperty("updateMyImage");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, im.getFilepath());
+			pstmt.setInt(2, im.getCh_imgNo());
+			
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+		
+		
+	}
 	
 	
 /* ================================이미지 삭제============================================ */	
 
+	public int deleteMyImage(Connection conn, int imageNo) {
 	
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String sql=prop.getProperty("deleteMyImage");
+	
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, imageNo);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+	}
 	
 	
 	

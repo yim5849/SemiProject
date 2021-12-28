@@ -14,6 +14,12 @@
 	List<CH_Mychallenge> myList = (List)request.getAttribute("mychallengeList");						// 드롭리스트에서 챌린지를 선택 시, 해당 챌린지의 데이터들이 담겨있는 리스트
 	List<CH_MychallengeImage> imList = (List)request.getAttribute("mychallengeImageList");						// 이미지 리스트
 	
+	
+	// 마이페이지에는 진행중 / 완료하기 / 재도전 / 완료 버튼이 순차적인 입력순으로 존재한다
+	// 온로드시, 재도전 -> 완료 버튼으로 변경하게끔 하기 위한 데이터 
+	int maxCount =0; 
+	if(request.getAttribute("chMaximumCount")!=null)maxCount=(Integer)request.getAttribute("chMaximumCount");						
+	
 
 	// 드롭 리스트를 통해 챌린지를 선책하면 화면이동이 이루어지는데 이때 드롭리스트에 표시되는 챌린지가 초기화가 되기에
 	// 이를 페이지 갱신되었을 때 드롭리스트에 해당 챌린지를 고정 해주기 위해서 가져오는 데이터!
@@ -515,15 +521,15 @@ if(myList!=null && !(myList.isEmpty())){
         </div>
 
       </div> --%>
-	 <div class="container">
+	 <div class="container" id="my_image_container">
 	 
 	 <% int imCount=0;
 	 if(imList!=null){ 
 	 		for(CH_MychallengeImage im : imList){	%>
- 			<img src="<%=request.getContextPath()%>/upload/challengers/<%=im.getFilepath()%>" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+ 			<img src="<%=request.getContextPath()%>/upload/challengers/<%=im.getFilepath()%>" class="img-thumbnail" data-man="<%=im.getCh_imgNo() %>" data-mfth="<%=im.getFilepath()%>"  alt="..." style="width: 200px; height: 200px;">
 			<%imCount++;} 
 				for(int i=0; i<30-imCount; i++){%>
-			 <img src="<%=request.getContextPath()%>/upload/challengers/add-image.PNG" class="img-thumbnail" alt="..." style="width: 200px; height: 200px;">
+			 <img src="<%=request.getContextPath()%>/upload/challengers/add-image.PNG" class="img-thumbnail"  alt="..." style="width: 200px; height: 200px;">
 			<%}
 			} %>
 	</div>
@@ -792,6 +798,52 @@ if(myList!=null && !(myList.isEmpty())){
 	    </div>
 	  </div>
 	</div>
+	
+	
+	
+	<!-- 갤러리 수정 / 삭제 모달 -->
+	<div class="modal fade" id="galary_up_delete" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+	  <div class="modal-dialog modal-dialog-centered">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="staticBackdropLabel" >갤러리 수정 / 삭제</h5>
+	        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+	      </div>
+	      <div class="modal-body">
+	
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">해당 사진을 수정 혹은 삭제 하시겠습니까?</div>
+		<div style="text-align: center; font-size: 15px; color: lightsalmon;">(수정 시, 이미지를 재등록하고 수정하기 버튼을 눌러주세요!)</div>
+	      <br>
+	      <br>
+	    
+	    <form action='<%=request.getContextPath()%>/challengers/galary_update.do'
+			method="post" enctype="multipart/form-data"  id="myChImageUpdateFrm">
+		    <div>갤러리 이미지</div>
+		   <input class="form-control"  name="galary_upfile" type="file" id="galFile">
+		   	<input class="form-control form-control-sm" type="text" id="galOriImg" placeholder="이전에 등록된 이미지가 없습니다!" aria-label=".form-control-sm example" value="" readonly>
+		    <input type="hidden"  id="gal_im_orifile" name="galary_orifile" value="">
+		    <br>
+		    <input type="hidden"   id="image_update_imNum"  name="image_up_imNum" value="">
+		    <input type="hidden" id="gal_ch_no" name="galary_up_challengersNo" value="<%=chNum%>">	  
+	<%--<input type="hidden" id="gal_member_no" name="galary_memberNo" value="<%=loginMember.getMemberNo()%>">	
+			<input type="hidden" id="gal_ch_no" name="galary_challengersNo" value="<%=chNum%>">		 --%>              	
+	 	</form>
+	
+		<form action='<%=request.getContextPath()%>/challengers/galary_delete.do'
+			method="post"  id="myChImageDeleteFrm">
+			<input type="hidden"  id="image_delete_imNum" name="image_del_imNum" value="">
+			<input type="hidden" id="gal_ch_no" name="galary_challengersNo" value="<%=chNum%>">	  	
+	 	</form>
+	
+	      </div>
+	      <div class="modal-footer">
+	      <button type="button" class="btn btn-primary"  data-bs-dismiss="modal" onclick="document.getElementById('myChImageUpdateFrm').submit();">&ensp;수정&ensp;</button>
+	      	<button type="button" class="btn btn-danger"  data-bs-dismiss="modal" onclick="document.getElementById('myChImageDeleteFrm').submit();">&ensp;삭제&ensp;</button>
+	        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
     
     
     
@@ -960,7 +1012,10 @@ if(myList!=null && !(myList.isEmpty())){
   	});
     
     
-    // 페이지 로드시, 미등록한 결과가 있는지 확인하고 없다면 하단에 진행중 버튼을 완료하기 버튼으로 바꾸는 로직
+    // 페이지 로드시, 미등록한 결과가 있는지 확인하고 없다면 하단에 진행중 버튼을 완료하기 / 재도전 / 완료 3가지 버튼 중, 하나를 화면에 출력해야한다
+    // 1. 완료하기 : 완료하기를 완료한 상태라면 "CHDO" 컬럼의 값이 "N"이어야 하는데 아직 "Y"상태인지 체크한다 -> 아직 "Y"라는 것은 완료하기 버튼을 수행하지 않았다는 것
+    // 2. 재도전 : 유저가 진행하고 있는 챌린지의 최대 회차수를 가져와서 해당 페이지에서 출력되는 회차수와 같다면 재도전 버튼이다. => 같다는 것은 이보다 큰 회차수가 없다는것이고 결국 재도전을 하지 않았다는 것!
+    // 3. 완료 : 위 조건에 모두 해당되지 않는다면 완료 버튼이다!
     $(()=>{
     	
     	let count=0;
@@ -995,8 +1050,8 @@ if(myList!=null && !(myList.isEmpty())){
 	    		$("#mychallenge_finish_btn").addClass('btn-danger');
 	    		
     		}else{
-    			
-    	  	  	if($("#total_ch_count").val()!=$("#mychallenge_finish_btn").data('countbt')){
+ 
+    	  	  	if(<%=maxCount%>!=$("#mychallenge_finish_btn").data('countbt')){
         	    	$("#mychallenge_finish_btn").removeAttr("data-bs-toggle");
         	    	$("#mychallenge_finish_btn").removeAttr("data-bs-target");
         			$("#mychallenge_finish_btn").text('');
@@ -1006,9 +1061,7 @@ if(myList!=null && !(myList.isEmpty())){
     	  	  		return;
     	  	  		
     	  	  	}
-    			
-    			
-    			console.log("이거찍힘?");
+
     	    	$("#mychallenge_finish_btn").removeAttr("data-bs-toggle");
     	    	$("#mychallenge_finish_btn").removeAttr("data-bs-target");
     			$("#mychallenge_finish_btn").text('');
@@ -1024,11 +1077,9 @@ if(myList!=null && !(myList.isEmpty())){
     		   	};
     			
     			$("#mychallenge_finish_btn").attr(attrObj);
-    		  	console.log("이것도찍힘?");
-    			
+
     		}
-    		
-    		
+    	
     	}
 
     });
@@ -1071,7 +1122,8 @@ if(myList!=null && !(myList.isEmpty())){
     
     
 
-    	// 온로드 될때, 사진등록되지 않은 부분에 갤러리 등록 모달로 연결할 수 있도록 모달 속성을 부여
+    // 온로드 될때, 사진등록되지 않은 부분에 갤러리 등록 모달로 연결할 수 있도록 모달 속성을 부여
+    // 사진 등록이 된 부분에는 갤러리 수정/삭제 모달로 연결할 수 있도록 모달 속성을 부여
 	$(()=>{
 		
 	    let attrObj={
@@ -1079,30 +1131,35 @@ if(myList!=null && !(myList.isEmpty())){
 	    			"data-bs-target":"#galary_enroll"
 	   	};
 
-		$("img[src='<%=request.getContextPath()%>/upload/challengers/add-image.PNG']").attr(attrObj);
-    	
-    	
-    })
-    
+	    let attrObj2={
+	    			"data-bs-toggle": "modal",
+	    			"data-bs-target":"#galary_up_delete"
+	   	};
+	    
+	    
 
+		$("#my_image_container>img[src='<%=request.getContextPath()%>/upload/challengers/add-image.PNG']").attr(attrObj);
+		$("#my_image_container>img[src!='<%=request.getContextPath()%>/upload/challengers/add-image.PNG']").attr(attrObj2);
     	
+    	
+    });
     
-    	
-    	
-    
-    // 갤러리 사진 등록 이미지를 클릭하면 모달창으로 데이터를 전송해주는 로직
-<%-- 	$(document).on("click", "img[src='<%=request.getContextPath()%>/images/challengers/mychallenge/add-image.PNG']", function () { 
+	// 등록된 이미지를 클릭하면 수정 / 삭제 모달창이 출력되므로 그 모달창으로 데이터를 전송해주는 로직
+	$(document).on("click","#my_image_container>img[src!='<%=request.getContextPath()%>/upload/challengers/add-image.PNG']", function () { 
 	  	
-		let imMno = $(this).data('imMemberNo');
-		let imCno = $(this).data('imChallengersNo');
+		let imNumber=$(this).data('man');
+		let imPath=$(this).data('mfth');
 
-		$("#gal_member_no").val(imMno); 
-		$("#gal_ch_no").val(imCno); 
-		$("#ch_result_submit_button").val(check); 
+		console.log(imNumber);
+		console.log(imPath);
 		
-		document.getElementById('ch_resultSubmitFrm').submit(); 
-	  	   	 	
-		}); --%>
+		$("#image_delete_imNum").val(imNumber); 
+		$("#image_update_imNum").val(imNumber); 
+	 
+		$("#galOriImg").val(imPath); 
+		$("#gal_im_orifile").val(imPath); 
+
+	});
     
     
    

@@ -163,9 +163,30 @@ public class CH_MychallengeServlet extends HttpServlet {
 			
 			List<CH_MychallengeImage> imList = new CH_MychallengeImageService().searchAllMyImage(memberNo,chNum);
 			
-		//이미지 리스트를 저장
-		request.setAttribute("mychallengeImageList", imList);
+			//이미지 리스트를 저장
+			request.setAttribute("mychallengeImageList", imList);
+
 			
+																	/*=== 해당 챌린지의 최대 회차수를 저장한다 ===*/
+			/* ===== 재도전 버튼 클릭 후, 정상적으로 완료가 되면 해당 버튼을 완료 버튼으로 바꾸기 위해 사용하고자 하는 데이터  =====*/
+			List<CH_Mychallenge> myList = new CH_MychallengeService().searchChallenge(memberNo,challengersNo);
+			
+			int count=0;
+			
+			if(myList==null || myList.isEmpty()) {
+				count=1;
+			}else {
+				for(CH_Mychallenge my : myList) {
+					if(count<my.getCount()) {
+					count=my.getCount();
+					}
+				}
+				count++;
+			}
+			
+			//최대 회차수를 저장
+			request.setAttribute("chMaximumCount", count);
+			System.out.println("최대 회차수는 : "+count);
 	
 		} // if(챌린져스 번호 null값처리 끝부분)
 

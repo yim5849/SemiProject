@@ -45,10 +45,33 @@ public class CH_MychallengeImageService {
 	
 /* ================================이미지 수정============================================ */	
 
+	public int updateMyImage(CH_MychallengeImage im) {
+		
+		Connection conn=getConnection();
+		int result = dao.updateMyImage(conn,im);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+	}
+	
+	
 	
 /* ================================이미지 삭제============================================ */	
 
-	
+	public int deleteMyImage(int imageNo) {
+		
+		Connection conn=getConnection();
+		int result = dao.deleteMyImage(conn,imageNo);
+		
+		if(result>0) commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+	}
 	
 	
 }
