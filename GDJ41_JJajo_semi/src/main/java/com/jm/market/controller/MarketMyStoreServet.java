@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jj.member.model.vo.Member;
 import com.jm.market.model.vo.ProductBoard;
 import com.jm.market.service.MarketService;
 
@@ -34,12 +35,16 @@ public class MarketMyStoreServet extends HttpServlet {
 		// 중고거래 내상점 화면으로 전환해주는 서블릿
 		String memberNo=request.getParameter("memberNo");
 		List<ProductBoard> list= new MarketService().storeMain(memberNo);
-		if(request.getParameter("productNo")!=null) {
-			int productNo=Integer.parseInt(request.getParameter("productNo"));
-			ProductBoard pb=new MarketService().searchProduct(productNo);
-			request.setAttribute("productBoard", pb);
-		}
+		Member m=new MarketService().searchMember(memberNo);
+		
+		/*
+		 * if(request.getParameter("productNo")!=null) { int
+		 * productNo=Integer.parseInt(request.getParameter("productNo")); ProductBoard
+		 * pb=new MarketService().searchProduct(productNo);
+		 * request.setAttribute("productBoard", pb); }
+		 */
 		request.setAttribute("list", list); 
+		request.setAttribute("member", m); 
 		request.getRequestDispatcher("/views/market/store/mystore.jsp").forward(request, response);
 	}
 

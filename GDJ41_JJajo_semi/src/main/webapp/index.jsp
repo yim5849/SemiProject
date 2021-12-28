@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/views/common/header.jsp"%>
 <%@ page import="com.db.main.model.vo.MainBoard,java.util.List"%>
+
 <style>
 
 .mainbox {

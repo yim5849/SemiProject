@@ -33,8 +33,8 @@ public class BuyProductServlet extends HttpServlet {
 		
 		String productNo=request.getParameter("productNo");
 		String memberNo=request.getParameter("memberNo");
-		System.out.println(productNo);
-		System.out.println(memberNo);
+		//System.out.println(productNo);
+		//System.out.println(memberNo);
 		
 		int result=new MarketService().buyProduct(productNo,memberNo);
 		
