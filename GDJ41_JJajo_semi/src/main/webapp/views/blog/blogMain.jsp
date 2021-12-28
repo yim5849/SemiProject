@@ -4,6 +4,7 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	List<MainBoard> ubList=(List)request.getAttribute("userBoardList");
+	String myInfo=(String)request.getAttribute("myInfo");
 %>
 
 
@@ -135,7 +136,7 @@
 			<div class="col-6">
 				<div class="row row-cols-auto">
 					<div class="col-md-auto">
-						<h2>user_name</h2>
+						<h2><%=loginMember.getMemberName()%></h2>
 					</div>
 					<div class="col-md-auto">
 						<img src="<%=request.getContextPath()%>/images/blog/pencil.png"  width="30px" height="30px"
@@ -145,6 +146,7 @@
 				<div class="row">
 					<div class="col-4">
 						게시물
+						<p><%=ubList.size() %></p>
 					</div>
 					<div class="col-4">
 						팔로워
@@ -155,7 +157,7 @@
 				</div>
 				<div class="row">
 					<div class="col">
-						자기소개
+						<h2><%=myInfo %></h2>
 					</div>
 				</div>	
 			</div>
@@ -212,7 +214,7 @@
 
 
 
-
+<!-- 
 <div class="container mt-3">
   <h3>Fading Modal Example</h3>
   <p>Click on the button to open the modal.</p>
@@ -220,7 +222,7 @@
   	Open modal
   </button>
 </div>
- 
+  -->
 
  
  

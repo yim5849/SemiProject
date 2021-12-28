@@ -44,7 +44,6 @@ public class ReviewEnrollEndServlet extends HttpServlet {
 		MultipartRequest mr=new MultipartRequest(request, path,1024*1024*10,
 				"UTF-8",new DefaultFileRenamePolicy());
 		
-		
 		String memberNo=mr.getParameter("memberNo");
 		String productNo=mr.getParameter("productNo");
 		String content=mr.getParameter("content");
