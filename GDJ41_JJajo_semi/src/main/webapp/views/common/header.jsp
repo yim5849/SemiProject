@@ -163,7 +163,7 @@
      		</div>
      		
      		<div class="col-1"  style="text-align:center; ">
-     			     <img class="home_avatar" src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg"/> 
+     			     <img class="home_avatar" src="<%=request.getContextPath()%>/images/market/myprofile1.png"/> 
      		</div>
      		
      		<div class="col-2"  style="padding-top:20px; padding-left:0px; padding-right:0px">

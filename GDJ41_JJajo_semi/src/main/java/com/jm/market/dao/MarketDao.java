@@ -612,6 +612,7 @@ public class MarketDao {
 				while(rs.next()) {
 					m=Member.builder().memberNo(rs.getInt("member_no"))
 									  .memberName(rs.getString("member_name"))
+									  .enrollDate(rs.getDate("enrolldate"))
 									  .build();
 					 
 				}

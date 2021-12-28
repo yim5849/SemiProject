@@ -27,10 +27,17 @@
 	}
 	 
 	.main-section{
-
 	width: 1000px;
-
-	} 
+	}
+	 
+	 .bottom{
+	 	display:flex;
+	 justify-content:space-between;
+	 }
+	 
+	.bottom>div{
+	 display: inline-block; 
+	}
 	
 </style>
 
@@ -50,7 +57,7 @@
 			
 	      <div class="col-12">
 		      <label class="form-label">제목</label>
-		      <input type="text" class="form-control" name="boardTitle" id="inputTitle" placeholder="상품제목을 입력해주세요.">
+		      <input type="text" class="form-control" name="boardTitle" id="inputTitle" placeholder="상품제목을 입력해주세요."> 
 	      </div>
 	      <br>
 	      <div class="col-12" >
@@ -80,20 +87,22 @@
 	       <br>
 	      
 	    <!-- 뒤로가기버튼 -->
-		 <div>
-		    <img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
-		    <input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
-		 </div>
-		 
+	    <div class="bottom"> 
+			 <div>
+			    <img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="40px" height="40px">
+			    <input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
+			 </div> 
+			<!-- 버튼 --> 
+		     <div> 
+	  			<button id="upload" class="btn btn-primary me-md-2  ">등록</button> 	  			
+			</div>
+		</div>	
 		 <div>
 		 	<input type="hidden" id="memberNo" value=<%=loginMember.getMemberNo()%>>
-
 		 </div>
-		<!-- 버튼 --> 
-	    <div class="d-grid gap-2 d-md-flex justify-content-md-end"> 
-  			<button id="upload" class="btn btn-primary me-md-2">등록</button> 	  			
-		</div>
+		
 	</div>	
+	 
 		 	
     
 	
@@ -142,13 +151,38 @@
  		const frm=new FormData();
  		const fileInput=$("input[name=upFile]");
  		console.log(fileInput);
+ 		if(fileInput[0].files.length<1){
+			alert("사진첨부는 필수입니다!!");
+			return;
+		}
  		for(let i=0;i<fileInput[0].files.length;i++){
  			frm.append("upfile"+i,fileInput[0].files[i]);
  		}
- 		frm.append("title",$("#inputTitle").val());
- 		frm.append("address",$("#inputAddress").val());
- 		frm.append("price",$("#inputPrice").val());
- 		frm.append("category",$("input[name=category]:checked").val());
+ 		const title=$("#inputTitle").val().trim();
+		if(title.length<1){
+			alert("제목을 입력해주세요!");
+			return;
+		}
+		const address=$("#inputAddress").val().trim();
+		if(address.length<1){
+			alert("거래장소를 입력해주세요!");
+			return;
+		}
+		const price=$("#inputPrice").val().trim();
+		if(price.length<1){
+			alert("가격을 입력해주세요!");
+			return;
+		}
+		const category=$("input[name=category]:checked").val();
+		if(category==null){
+			alert("카테고리를 선택해주세요!");
+			return;
+		}
+ 		frm.append("title",title);
+ 		frm.append("address",address);
+ 		frm.append("price",price);
+ 		frm.append("category",category);
+ 	/* 	frm.append("category",$("input[name=category]:checked").val()); */
  		frm.append("content",$("#boardContent").val());
  		frm.append("memberNo",$("#memberNo").val());
  		
