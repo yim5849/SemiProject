@@ -46,7 +46,8 @@ public class LoginServlet extends HttpServlet {
 
 		/* 아이디 저장로직 */
 		String saveId = request.getParameter("saveId");
-		if (saveId != null) {
+		
+		if (!saveId.equals("")) {
 			Cookie c = new Cookie("saveId", memberId); // 키와 value값을 ()안에 작성
 			c.setMaxAge(24 * 60 * 60 * 7);
 			response.addCookie(c);
