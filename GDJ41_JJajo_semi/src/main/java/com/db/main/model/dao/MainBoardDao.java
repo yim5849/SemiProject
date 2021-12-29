@@ -118,7 +118,10 @@ public class MainBoardDao {
 				List<String> tagList = new ArrayList<String>();
 				
 				while(rs2.next()) {
-					AttachedFile file = AttachedFile.builder().imgNo(rs2.getString("image_no")).imgName(rs2.getString("filename")).build();
+					AttachedFile file = AttachedFile.builder()
+							.imgNo(rs2.getString("image_no"))
+							.imgName(rs2.getString("filename"))
+							.build();
 					imgList.add(file);
 				}
 				
@@ -336,7 +339,32 @@ public class MainBoardDao {
 	}
 	
 	
-	
+	public List<AttachedFile> getImageList(Connection conn, String boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<AttachedFile> imageList = new ArrayList<AttachedFile>();
+		
+		String sql = prop.getProperty("getImageList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				AttachedFile file = AttachedFile.builder()
+						.imgNo(rs.getString("image_no"))
+						.imgName(rs.getString("filename"))
+						.build();
+				imageList.add(file);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return imageList;
+	}
 	
 	
 	

@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import com.db.main.model.dao.MainBoardDao;
+import com.db.main.model.vo.AttachedFile;
 import com.db.main.model.vo.MainBoard;
 import com.jj.member.model.vo.Member;
 
@@ -101,7 +102,15 @@ public class MainBoardService {
 	}
 	
 	
-	
+	public List<AttachedFile> getImageList(String boardNo){
+		Connection conn=getConnection();
+		List<AttachedFile> imageList=dao.getImageList(conn,boardNo);
+		if(imageList==null) {
+			rollback(conn);
+		}
+		close(conn);
+		return imageList;
+	}
 	
 	
 	

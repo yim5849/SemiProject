@@ -34,23 +34,16 @@
 								<div id="demo" class="carousel slide" data-interval="false">
 	 
 								  		<!-- Indicators/dots -->
-							  		<div class="carousel-indicators">
-									    <button type="button" data-bs-target="#demo" data-bs-slide-to="0" class="active"></button>
-									    <button type="button" data-bs-target="#demo" data-bs-slide-to="1"></button>
-									    <button type="button" data-bs-target="#demo" data-bs-slide-to="2"></button>
-									</div>
+							  	<%-- 	<div class="carousel-indicators">
+									  	<%for(int i=1;i<ubList;i++) {%>	
+										    <button type="button" data-bs-target="#demo" data-bs-slide-to="<%=i %>" class="active"></button>
+										<%} %>	
+									</div> --%>
 								  
 								  			<!-- The slideshow/carousel -->
 									<div class="carousel-inner" style="height:500px;">
-										<div class="carousel-item active" >
-										  <img src="" alt="1" class="d-block mx-auto">
-										</div>
-										<div class="carousel-item" style="height:500px">
-										  <img src="" alt="2" class="d-block mx-auto">
-										</div>
-										<div class="carousel-item">
-										  <img src="" alt="3" class="d-block mx-auto">
-									 	</div>
+										
+									
 	 								</div>
 									  
 									<!-- Left and right controls/icons -->
@@ -89,8 +82,9 @@
 									</div>
 			                    	<div class="col-sm" style="text-align:right;">
 										<div class="btn-group">
-										  <button type="button" class="btn btn-outline-dark btn-sm">Edit</button>
-										  <button type="button" class="btn btn-outline-dark btn-sm">Delete</button>
+										  <button type="button" class="btn btn-outline-dark btn-sm" >Edit</button>
+										  <button type="button" class="btn btn-outline-dark btn-sm" 
+										  onclick="location.assign('<%=request.getContextPath()%>/blog/postdelete.do?boardNo=">Delete</button>
 										</div> 
 				                    </div>
 								</div>
@@ -182,14 +176,17 @@
 		  	for(MainBoard mb : ubList){   %>		
 			   <div class="column">
 			    <div class="content" id="board_click_modal" data-bs-toggle="modal" data-bs-target="#myModal" 
-			    data-userName="<%=mb.getMemberName() %>"
+			    data-username="<%=mb.getMemberName() %>"
 			    data-title="<%=mb.getBoardTitle() %>" 
 			    data-content="<%=mb.getBoardContent() %>" 
 			   <%--  data-tag="<%=mb.getTag() %>" --%>
-			    data-boardNo="<%=mb.getBoardNo() %>">
+			    data-boardno="<%=mb.getBoardNo()%>">
 			    
-					<img src="" alt="사진" style="width:100%">
+					<img alt="사진" style="width:100%" 
+					src="<%=request.getContextPath()%>/upload/blog/
+					<%=mb.getAttachedFileList().isEmpty()?"default.png":mb.getAttachedFileList().get(0).getImgName()%>">
 					<h3><%=mb.getBoardTitle() %></h3>
+					<h3><%=mb.getBoardNo() %></h3>
 					<%-- <p class="tag"><%=mb.getTag() %></p> --%>
 					<p><%=mb.getBoardContent() %></p>
 			    </div>
@@ -251,54 +248,60 @@
 	
 	
 	
-<%-- 	//게시물 클릭시 해당 모달 보여줌
-	$(document).on("click","#board_click_modal",function(){
+ 	//게시물 클릭시 해당 모달 보여줌
+	$(document).on("click","#board_click_modal", function(){
 		let imageList;
 		//new Promise(resolve=>{
-			$.get("<%=request.getContextPath%>/주소",data=>{
+			<%-- $.get("<%=request.getContextPath()%>/주소",data=>{
 				imageList=data;
 				resolve(data);
-			});
+			}); --%>
 		//}).then(d=>{
-			let boardNo=$(this).data('boardNo');
+			
+			let boardNo=$(this).data('boardno');
+			console.log(boardNo);
 			$.ajax({
 				async:false,
-				url:"<%=request.getContextPath()%>/blog/modal.do,
-				url:"<%=request.getContextPath()%>/blog/blogmain.do?boardNo="+boardNo,
-				type:"post",
-				data:{boardNo:boardNo}
-				processData:false,
-				contentType:false,
+				url:"<%=request.getContextPath()%>/blog/blogImgList.do",
+				data:{"boardNo":boardNo},
 				success:data=>{
-					
-				}
+					$("div.carousel-inner").html("");
+					data.forEach((v,i)=>{
+						let div=i==0?$("<div>").addClass("carousel-item active"):$("<div>").addClass("carousel-item");
+						let img=$("<img>").addClass("d-block mx-auto").attr({
+								"alt":(i+1),
+								"src":"<%=request.getContextPath()%>/upload/blog/"+v['imgName']
+								});
+						div.append(img);
+						$("div.carousel-inner").append(div);
+					})
+				},
 			});
-			let userName=$(this).data('userName');
+			let userName=$(this).data('username');
 			let title=$(this).data('title');
 			let content=$(this).data('content');
 			let tag=$(this).data('tag');
 			
 			
-			for(let i=0;i<)
+			//for(let i=0;i<)
 			let image=$(this).data('image'); //리스트
 			console.log(image);
 			console.log($(this).data('tag'));
 			console.log($(this).data('title'));
 			
-			console.log('<%=request.getContextPath()%>/upload/blog/'+image.get(0).getImageName());
+		
 			
 			$("#modal_board_userName").text(userName);
 			$("#modal_board_title").text(title);
 			$("#modal_board_content").text(content);
 			$("#modal_board_tag").text(tag);
-			$(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()');
-		})
+			<%-- $(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()'); --%>
 				
-	}); --%>
+	}); 
 	
 	
 	
-	
+	<%-- 
 	//게시물 클릭시 해당 모달 보여줌
 	$(document).on("click","#board_click_modal",function(){
 		
@@ -321,7 +324,7 @@
 		/* $("#modal_board_tag").text(tag); */
 		$(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()');
 		
-	});
+	}); --%>
 
 	
 	

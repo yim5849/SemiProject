@@ -1,7 +1,9 @@
 package com.jy.blog.controller;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import com.db.main.model.service.MainBoardService;
+import com.db.main.model.vo.AttachedFile;
 import com.db.main.model.vo.MainBoard;
 import com.jj.member.model.vo.Member;
 
@@ -83,13 +86,28 @@ public class BlogMainServlet extends HttpServlet {
 		}
 		int memberNo1=m.getMemberNo();
 		
+		//이미지만들기(병승쌤)
+		Map<Integer,String> imageMap=new HashMap();
+		for(int i=0;i<ubList.size();i++) {
+			List<AttachedFile> imgList=ubList.get(i).getAttachedFileList();
+			String nameimg="";
+			for(int j=0;j<imgList.size();j++) {
+				if(j!=0) nameimg+=",";
+				nameimg=imgList.get(j).getImgName();
+			}
+			imageMap.put(i, nameimg);
+		}
+		System.out.println(imageMap);
+		
+		
+		
+		
 		String myinfo = new MainBoardService().getMyInfo(memberNo1);
 		request.setAttribute("myInfo",myinfo);
 		
 		
 		/* new Gson().toJson(ubList,response.getWriter()); */
 		
-
 		
 		
 		request.getRequestDispatcher("/views/blog/blogMain.jsp")
