@@ -37,15 +37,15 @@
 	<%}else{ %>
 	  <%for(ProductBoard pb : list) {%>
 	  <a id="productView" href="<%=request.getContextPath()%>/productView.do?productNo=<%=pb.getProductNo()%>">
-		<div class="card" style="width: 18rem;">
+		<div class="card" style="width: 18rem; margin-bottom:30px; height:350px;">
 			<%if(pb.getFileName().isEmpty()){ %>
 				   <img src="<%=request.getContextPath()%>/images/market/camera.png" height="150px" class="card-img-top">	
 		    <%}else{ %>
-			   <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(0).getFileName()%>" height="150px" class="card-img-top">
+			   <img src="<%=request.getContextPath()%>/upload/market/<%=pb.getFileName().get(0).getFileName()%>" height="200px" class="card-img-top">
 		     <%} %>   
 			  <div class="card-body">
 			    <h5 class="card-title"><%=pb.getTitle()%></h5>
-			     <p class="card-text"><%=pb.getEnrollDate()%></p>
+			     <p class="card-text"><%=pb.getEnrollDate()%></p><br>
 		</a>
 			   	 <div class="btn-group" role="group" aria-label="Basic outlined example">
 	  				<button type="button" class="btn btn-outline-primary" onclick=location.assign("<%=request.getContextPath()%>/reviewEnroll.do?productNo=<%=pb.getProductNo()%>")>거래후기남기기</button> 

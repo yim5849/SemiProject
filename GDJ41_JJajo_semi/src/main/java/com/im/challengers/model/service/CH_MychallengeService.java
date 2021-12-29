@@ -111,13 +111,34 @@ public class CH_MychallengeService {
 		
 	}
 	
+		
+/*=============================== 챌린지 완료 ============================ */
 	
+	public int finishChallenge(String check, int myNo) {
+		
+		Connection conn=getConnection();
+		int result = dao.finishChallenge(conn,check,myNo);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		close(conn);
+		return result;
+		
+	}
 	
+
+/*================= 마이챌린지 번호로 해당 마이챌린지 가져오기 ================= */
 	
-/*============================= 마이 챌린지 등록 ========================== */
-/*============================= 마이 챌린지 등록 ========================== */
-/*============================= 마이 챌린지 등록 ========================== */
-/*============================= 마이 챌린지 등록 ========================== */
-	
+	public CH_Mychallenge searchChallengeFromNo(int myNo) {
+		
+		Connection conn=getConnection();
+		
+		CH_Mychallenge my = dao.searchChallengeFromNo(conn,myNo);
+		
+		close(conn);
+		
+		return my;
+
+	}
+
 	
 }

@@ -143,10 +143,26 @@ ProductBoard pb=(ProductBoard)request.getAttribute("productBoard");
 			for(let i=0;i<fileInput[0].files.length;i++){
 				frm.append("upfile"+i,fileInput[0].files[i]);
 			}
+			
+			const title=$("#inputTitle").val().trim();
+			if(title.length<1){
+				alert("제목을 입력해주세요!");
+				return;
+			}
+			const address=$("#inputAddress").val().trim();
+			if(address.length<1){
+				alert("거래장소를 입력해주세요!");
+				return;
+			}
+			const price=$("#inputPrice").val().trim();
+			if(price.length<1){
+				alert("가격을 입력해주세요!");
+				return;
+			}
 			frm.append("productNo",$("#productNo").val());
-			frm.append("title",$("#inputTitle").val());
-			frm.append("address",$("#inputAddress").val());
-			frm.append("price",$("#inputPrice").val());
+			frm.append("title",title);
+			frm.append("address",address);
+			frm.append("price",price);
 			frm.append("category",$("input[name=category]:checked").val());
 			frm.append("content",$("#boardContent").val());
 			frm.append("memberNo",$("#memberNo").val());
