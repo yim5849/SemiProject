@@ -8,14 +8,15 @@
 	String myInfo=(String)request.getAttribute("myInfo");
 %>
 
+<style>
 
+
+
+</style>
 
 <!-- The Modal -->
 <div class="modal fade" id="myModal">
-
 <!-- Modal Header -->
-
-
 	<div class="modal-dialog modal-xl modal-dialog-centered">
 		<div class="modal-content" style="height:800px;">
 		  	<!-- Modal header -->
@@ -83,10 +84,10 @@
 			                    	<div class="col-sm" style="text-align:right;">
 										<div class="btn-group">
 										  <button type="button" class="btn btn-outline-dark btn-sm" >Edit</button>
-										  <button type="button" class="btn btn-outline-dark btn-sm" 
-										  onclick="location.assign('<%=request.getContextPath()%>/blog/postdelete.do?boardNo=">Delete</button>
-										</div> 
-				                    </div>
+										  <button type="button" id="board_del_btn" class="btn btn-outline-dark btn-sm" data-deno="" data-bs-toggle="modal" data-bs-target="#blog_delete_check" >Delete</button>
+										</div>
+									</div> 
+			                    	</div>
 								</div>
 		                	</div>
 	                		<div class="row">
@@ -114,7 +115,6 @@
 				</div>
 			</div>	 
 		</div>
-	</div>
 </div>
 
 
@@ -140,15 +140,14 @@
 				</div>
 				<div class="row">
 					<div class="col-4">
-						게시물
-						<p><%=ubList.size() %></p>
+						<p>게시물 <%=ubList.size() %></p>
 					</div>
-					<div class="col-4">
+				<!-- 	<div class="col-4">
 						팔로워
 					</div>
 					<div class="col-4">
 						팔로잉
-					</div>
+					</div> -->
 				</div>
 				<div class="row">
 					<div class="col">
@@ -186,7 +185,13 @@
 					src="<%=request.getContextPath()%>/upload/blog/
 					<%=mb.getAttachedFileList().isEmpty()?"default.png":mb.getAttachedFileList().get(0).getImgName()%>">
 					<h3><%=mb.getBoardTitle() %></h3>
-					<h3><%=mb.getBoardNo() %></h3>
+					
+					<%if(mb.getTag()!=null&&!(mb.getTag().isEmpty())){ 
+					for(String s:mb.getTag()){ %>
+					<h3><%=s %></h3>
+					<%}
+		 			 }else{ System.out.println("tagList is empty");
+		 			 }%>
 					<%-- <p class="tag"><%=mb.getTag() %></p> --%>
 					<p><%=mb.getBoardContent() %></p>
 			    </div>
@@ -202,9 +207,42 @@
   		
 		  
 		</div>
+		
+		
 	</div>
 	
- 	  
+
+	
+	
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="blog_delete_check" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="staticBackdropLabel">게시글 삭제 확인</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+       	게시글을 삭제하시겠습니까?
+       	<form id="deleteBoardFrm" name="delete_form" action="<%=request.getContextPath() %>/blog/postdelete.do">
+			<input type="hidden" id="delete_post" name="delete_post" >
+			<input type="hidden" id="delete_post" name="delete_post_userNo" value="<%=loginMember.getMemberNo()%>" >			
+		</form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">취소</button>
+        <button type="button" class="btn btn-primary" onclick="$('#deleteBoardFrm').submit()">삭제</button>
+      </div>
+    </div>
+  </div>
+</div>	
+	
+	
+	
+	
 		 
 </section>
 
@@ -245,9 +283,7 @@
 		$("input[name=upFile]").click();
 	})
 	
-	
-	
-	
+
  	//게시물 클릭시 해당 모달 보여줌
 	$(document).on("click","#board_click_modal", function(){
 		let imageList;
@@ -296,10 +332,31 @@
 			$("#modal_board_content").text(content);
 			$("#modal_board_tag").text(tag);
 			<%-- $(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()'); --%>
-				
+			
+			
+			// 삭제 모달로 데이터 넘기기
+			let bono=$(this).data('boardno');
+			console.log(bono);
+			
+			// 우선 게시글을 클릭했을때 그 게시글의 삭제 버튼에 데이터- 속성을 사용하여 값을 저장한다 => 즉, 삭제버튼마다 그 게시글의 고유의 넘버값이 저장된다 
+			$("#board_del_btn").data('deno',bono);
 	}); 
 	
-	
+		
+		
+	$(document).on("click","#board_del_btn", function(){	
+		
+		// 삭제 버튼을 클릭했을 때 그 삭제 버튼에 저장되어 있는 고유의 보드 넘버값을 삭제여부확인 모달안에 있는 인풋 벨류값으로 넘긴다 
+		let bonum = $(this).data('deno');
+		
+		console.log('나의 넘버는 : '+bonum);
+		
+		$('#delete_post').val(bonum);
+		
+		
+		
+	}); 
+
 	
 	<%-- 
 	//게시물 클릭시 해당 모달 보여줌

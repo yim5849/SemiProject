@@ -1,5 +1,6 @@
 package com.db.main.model.dao;
 
+
 import static com.jj.common.JDBCTemplate.close;
 
 import java.io.FileReader;
@@ -365,6 +366,63 @@ public class MainBoardDao {
 		}
 		return imageList;
 	}
+	
+	
+	
+	public List<String> getTagName(Connection conn, String boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> tagList = new ArrayList<String>();
+		
+		String sql = prop.getProperty("getTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				tagList.add(rs.getString("tag_name"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return tagList;
+	}
+	
+	
+	
+	public int deletePost(Connection conn, String boardNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deletePost");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,boardNo);
+			result=pstmt.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	
