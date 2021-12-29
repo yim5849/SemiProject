@@ -8,16 +8,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class ReviewEnrollServlet
+ * Servlet implementation class ChatServiceServlet
  */
-@WebServlet("/reviewEroll.do")
-public class StoreReviewEnrollServlet extends HttpServlet {
+@WebServlet("/payservice.do")
+public class PayServiceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public StoreReviewEnrollServlet() {
+    public PayServiceServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -26,8 +26,10 @@ public class StoreReviewEnrollServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// 리뷰작성페이지로 화면전환
-		request.getRequestDispatcher("/views/market/store/reviewEnroll.jsp").forward(request, response);
+		// TODO Auto-generated method stub
+		String price=request.getParameter("price");
+		request.setAttribute("price", price);
+		request.getRequestDispatcher("/views/market/pay.jsp").forward(request, response);
 	}
 
 	/**

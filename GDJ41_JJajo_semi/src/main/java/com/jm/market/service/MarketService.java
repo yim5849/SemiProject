@@ -7,11 +7,11 @@ import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.rollback;
 
 import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.List;
 
+import com.jj.member.model.vo.Member;
 import com.jm.market.dao.MarketDao;
-import com.jm.market.model.vo.AttachedFiles;
+import com.jm.market.model.vo.Comment;
 import com.jm.market.model.vo.ProductBoard;
 public class MarketService {
 	
@@ -96,6 +96,9 @@ public class MarketService {
 	   	if(pb!=null&&!pb.getFileName().isEmpty()) {
 	   		dao.deleteFile(conn,productNo);	   		
 	   	}
+	   //	if(pb!=null&&pb.getIsDelete().equals("Y")) {
+	   //		dao.deleteBuyList(conn,productNo);
+	   //	}
 	   	int result=dao.deleteProduct(conn,productNo);  
 	   	if(result>0) {
 	   			commit(conn); 				 
@@ -119,5 +122,96 @@ public class MarketService {
 		return result;  
    }
 
+   //----------------------------상품 구매하기-------------------------------------
    
-}
+   
+   public int buyProduct(String productNo,String memberNo) {
+	   Connection conn=getConnection();
+		int result=dao.buyProduct(conn,productNo,memberNo); 
+		if(result>0) {  
+			int result2=dao.updateBuyBoard(conn,productNo);
+			if(result>0) {
+					commit(conn); 
+			}else {
+				rollback(conn);
+		}
+		close(conn);
+   }
+		return result; 
+   }
+   
+   
+   //--------------------------구매 리스트-----------------------------------------
+   
+   public List<ProductBoard> buyList(String memberNo){
+	   Connection conn = getConnection();
+		List<ProductBoard> list = dao.buyList(conn,memberNo);
+		close(conn);
+		return list;
+   }
+   
+   //-------------------------리뷰쓰기-------------------------------------------
+   
+   public ProductBoard reviewBoard(int productNo) {
+	   Connection conn = getConnection();
+	   ProductBoard pb = dao.searchProduct(conn,productNo);
+		close(conn);
+		return pb;
+   }
+   
+   
+   //-------------------------후기글 추가-------------------------------------------
+   
+   public int insertReview(Comment c) { 
+			Connection conn=getConnection();
+			int result=dao.insertComment(conn,c); 
+			if(result>0) { 	
+					commit(conn); 
+			}else {
+					rollback(conn);
+			}
+			close(conn);
+			return result; 
+	}
+   
+   //----------------------후기글 전체 불러오기--------------------------------------
+   
+   public List<Comment> commentAll(String memberNo){
+	   Connection conn = getConnection();
+		List<Comment> list = dao.commentAll(conn,memberNo);
+		close(conn);
+		return list;
+	    
+   }
+   
+   
+   //----------------------회원 찾기-----------------------------------------------
+   
+   public Member searchMember(String memberNo) {
+	   Connection conn = getConnection();
+	   Member m = dao.searchMember(conn,memberNo);
+		close(conn);
+		return m;
+   }
+	  
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   
+   }
+   
+   
+   
+   
+ 
+   

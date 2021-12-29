@@ -24,6 +24,6 @@ public class Member {
 		private String address;
 		private String filePath;
 		private Date enrollDate;
-		
+		private String myInfo;
 }
 

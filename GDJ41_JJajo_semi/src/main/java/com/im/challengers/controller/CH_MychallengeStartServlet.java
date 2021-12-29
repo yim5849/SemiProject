@@ -57,10 +57,12 @@ public class CH_MychallengeStartServlet extends HttpServlet {
 		String loc="";
 		if(result>0) {
 			msg="챌린지 신청에 성공하였습니다! :)";
-			loc="/challengers/introduce.do";
+			if(count>1)loc="/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+count;
+			else loc="/challengers/introduce.do";
 		}else {
 			msg="회원님.. 챌린지 신청에 문제가 발생하였습니다 :(";
-			loc="/challengers/introduce.do";
+			if(count>1)loc="/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+(count-1);
+			else loc="/challengers/introduce.do";
 		}
 		request.setAttribute("msg",msg);
 		request.setAttribute("loc",loc);

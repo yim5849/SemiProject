@@ -38,7 +38,8 @@ public class CH_IntroduceServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	
-		/* 광고 */
+		/* 등록된 광고 데이터 가져오기 */
+		
 		List<CH_Advertisement> adlist = new CH_AdvertisementService().searchAllAdvertisement();
 		
 		/* 챌린져스 진행여부 체크 */
@@ -130,8 +131,6 @@ public class CH_IntroduceServlet extends HttpServlet {
 			pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/introduce.do?cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 		}
 
-		
-		
 		
 		request.setAttribute("advertisementList", adlist);
 

@@ -3,6 +3,11 @@
 <%@ include file="/views/common/header.jsp"%>
 <link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
 
+<script src="https://unpkg.com/@yaireo/tagify"></script>
+<script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
+<link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
+
+
 <style>
 	#imagePreview{
    width: 300px;
@@ -16,9 +21,14 @@
    	
    }
 	
-	.uppy-Dashboard-inner{
-		min-height: 300px;
+/* 	.tagify--focus{
+	background-color:white;
 	}
+	
+	.tagify--empty{
+	background-color:white;
+	} */
+	
 </style>
 
 <section>
@@ -57,7 +67,8 @@
 			    			<h4>태그</h4>
 			    		</div>
 			    		<div class="col-8" style="text-align: right;">
-			    			<input class="form-control" id="post_tag" name="tag" type="text" placeholder="관련태그를 입력해주세요 (#으로 입력)" aria-label="default input example">
+			    			<input class="form-control" id="post_tag" name="tag" type="text" data-role="tagsinput" 
+			    			aria-label="default input example" data-role="tagsinput" ><!--  placeholder="관련태그를 입력해주세요 (#으로 입력)" -->
 			    		</div>
 			    	</div>			    	
 			    </div>
@@ -68,7 +79,7 @@
 			<h4>내용</h4>
 		  	<textarea class="form-control" id="post_description" name="content" rows="10" placeholder="내용을 입력해주세요" style="resize:none;"></textarea>
 		</div>
-		
+		<input class="form-control" type="hidden" id="post_memberNo" name="memberNo" value="<%=loginMember.getMemberNo()%>">
 		<hr class="line_break">
 		<div id="upload_btn">
 		<button type="button" class="btn btn-primary" id="upload">등록하기</button>
@@ -88,19 +99,28 @@
 		$("input[name=upFile]").click();
 	})
  */
+ 
+	//The DOM element you wish to replace with Tagify
+	 var input = document.querySelector('#post_tag');
+	
+	 // initialize Tagify on the above input node reference
+	new Tagify(input)
 
 	//multifile upload
 	$("#upload").click(e=>{
 		const frm=new FormData();
 		const fileInput=$("input[name=upfile]");
+		const num = $("input[name=memberNo]").val(); 
+
 		for(let i=0;i<fileInput[0].files.length;i++){
 			
 			frm.append("upfile"+i,fileInput[0].files[i]);
-			frm.append("title", $("#post_title").val());
-			frm.append("tag", $("#post_tag").val());
-			frm.append("content", $("#post_description").val());
+
 		}	 
-		
+		frm.append("memberNo", num);
+		frm.append("title", $("#post_title").val());
+		frm.append("tag", $("#post_tag").val());
+		frm.append("content", $("#post_description").val());
 		$.ajax({
 			url:"<%=request.getContextPath()%>/blog/uploadpostend.do",
 			type:"post",
@@ -108,8 +128,8 @@
 			processData:false,
 			contentType:false,
 			success:data=>{
-				alert("파일업로드 성공");
-				$("input[name=upfile]").val("");
+				alert(data["msg"]);
+				location.replace("<%=request.getContextPath()%>"+data["loc"]);
 			}
 		});
 	
@@ -117,29 +137,7 @@
 
 	
 
-	//Uppy Library Upload
-	<%-- var uppy = Uppy.Core({
-		restrictions: {
-			maxNumberOfFiles: 3,
-			allowedFileTypes:['image/*']
-		}
-	})
-    .use(Uppy.Dashboard, {
-      inline: true,
-      target: '#drag-drop-area',
-      height:'100px'
-    })
-    .use(Uppy.Tus, {endpoint: '<%=request.getContextPath()%>/blog/uploadpostend.do'})
 
-	uppy.on('complete', (result) => {
-    	console.log('업로드 성공!:', result.successful)
-	})
-	
-	uppy.on('file-added', (file) => {
-	  var addedFile = file;
-	  test = file;
-	})
-	 --%>
 	
 	
 	

@@ -8,6 +8,8 @@ import com.notice.model.vo.Notice;
 
 import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.close;
+import static com.jj.common.JDBCTemplate.commit;
+import static com.jj.common.JDBCTemplate.rollback;
 
 public class NoticeService {
 	private NoticeDao dao = new NoticeDao();
@@ -32,6 +34,14 @@ public class NoticeService {
 		Notice notice = dao.searchNoticeOne(conn,noticeNo);
 		close(conn);
 		return notice;
+	}
+
+	public int insertNotice(Notice notice) {
+		Connection conn = getConnection();
+		int result = dao.insertNotice(conn, notice);
+		if(result>0)commit(conn);
+		else rollback(conn);
+		return result;
 	}
 
 }

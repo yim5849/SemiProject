@@ -39,7 +39,7 @@ public class CH_MychallengeNoticeUpdateEndServlet extends HttpServlet {
 		no = CH_MychallengeNotice.builder()
 				.mychallengeNoticeNo(noNo)
 				.content(content).build();
-		
+		System.out.println(no);
 		int result = new CH_MychallengeNoticeService().updateMychallengeNotice(no);
 		
 		String msg="";
