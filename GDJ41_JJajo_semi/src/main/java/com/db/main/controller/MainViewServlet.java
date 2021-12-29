@@ -44,7 +44,7 @@ public class MainViewServlet extends HttpServlet {
 		
 		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
 
-	
+		System.out.println(mbList);
 		new Gson().toJson(mbList,response.getWriter());
 
 		
