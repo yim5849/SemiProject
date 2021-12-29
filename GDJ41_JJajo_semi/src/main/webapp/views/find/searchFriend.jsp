@@ -185,7 +185,7 @@
             if(!info["filePath"]){
                 imgPath = "<%=request.getContextPath()%>/images/blankimg.png";
             }else{
-                imgPath = "<%=request.getContextPath()%>/upload/attachedimg/"+info["filePath"];
+                imgPath = "<%=request.getContextPath()%>/upload/blog/"+info["filePath"];
             }
 
             $("#friendImg").attr({src:imgPath});
