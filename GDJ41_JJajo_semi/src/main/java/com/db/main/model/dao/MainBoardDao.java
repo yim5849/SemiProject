@@ -1,5 +1,6 @@
 package com.db.main.model.dao;
 
+
 import static com.jj.common.JDBCTemplate.close;
 
 import java.io.FileReader;
@@ -67,9 +68,9 @@ public class MainBoardDao {
 				MainBoard mb = MainBoard.builder().boardNo(boardNo)		
 									.boardTitle(rs.getString("board_title"))
 									.boardContent(rs.getString("board_content"))
-									.boardDate(rs.getDate("board_date"))
+									.boardDate(rs.getString("board_date"))
 									.deleteYn(rs.getString("delete_yn"))
-									.updateDate(rs.getDate("update_date"))
+									.updateDate(rs.getString("update_date"))
 									.memberNo(rs.getString("member_no"))
 									.memberName(rs.getString("member_name"))
 									.attachedFileList(imgList)
@@ -119,7 +120,10 @@ public class MainBoardDao {
 				List<String> tagList = new ArrayList<String>();
 				
 				while(rs2.next()) {
-					AttachedFile file = AttachedFile.builder().imgNo(rs2.getString("image_no")).imgName(rs2.getString("filename")).build();
+					AttachedFile file = AttachedFile.builder()
+							.imgNo(rs2.getString("image_no"))
+							.imgName(rs2.getString("filename"))
+							.build();
 					imgList.add(file);
 				}
 				
@@ -129,9 +133,9 @@ public class MainBoardDao {
 				MainBoard mb = MainBoard.builder().boardNo(boardNo)		
 									.boardTitle(rs.getString("board_title"))
 									.boardContent(rs.getString("board_content"))
-									.boardDate(rs.getDate("board_date"))
+									.boardDate(rs.getString("board_date"))
 									.deleteYn(rs.getString("delete_yn"))
-									.updateDate(rs.getDate("update_date"))
+									.updateDate(rs.getString("update_date"))
 									.memberNo(rs.getString("member_no"))
 									.memberName(rs.getString("member_name"))
 									.attachedFileList(imgList)
@@ -335,6 +339,88 @@ public class MainBoardDao {
 		}
 		return tagList;
 	}
+	
+	
+	public List<AttachedFile> getImageList(Connection conn, String boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<AttachedFile> imageList = new ArrayList<AttachedFile>();
+		
+		String sql = prop.getProperty("getImageList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				AttachedFile file = AttachedFile.builder()
+						.imgNo(rs.getString("image_no"))
+						.imgName(rs.getString("filename"))
+						.build();
+				imageList.add(file);
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return imageList;
+	}
+	
+	
+	
+	public List<String> getTagName(Connection conn, String boardNo){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> tagList = new ArrayList<String>();
+		
+		String sql = prop.getProperty("getTagList");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, boardNo);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				tagList.add(rs.getString("tag_name"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return tagList;
+	}
+	
+	
+	
+	public int deletePost(Connection conn, String boardNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("deletePost");
+		
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1,boardNo);
+			result=pstmt.executeUpdate();
+			
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	
 	
 	

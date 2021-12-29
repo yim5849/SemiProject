@@ -197,10 +197,25 @@ public class MarketService {
    
    
    
+   //------------------판매중인 상품의 총 갯수----------------------------------------
+   
+   public int totalProduct(String memberNo) {
+	   Connection conn=getConnection();
+	   int totalProduct=dao.totalProduct(conn,memberNo);
+	   close(conn);
+	   return totalProduct; 
+   }
    
    
+   //--------------------거래횟수------------------------------------------------
+ 
    
-   
+   public int dealProduct(String memberNo) {
+	   Connection conn=getConnection();
+	   int dealProduct=dao.dealProduct(conn,memberNo);
+	   close(conn);
+	   return dealProduct; 
+   }
    
    
    

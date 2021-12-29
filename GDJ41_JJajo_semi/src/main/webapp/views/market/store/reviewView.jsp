@@ -7,6 +7,9 @@
 	List<Comment> list=(List)request.getAttribute("list");
 	String memberName = (String)request.getAttribute("memberName"); 
 	String memberNo = (String)request.getAttribute("memberNo"); 
+	Member m=(Member)request.getAttribute("member");
+	int totalProduct=(int)request.getAttribute("totalProduct");
+	int dealProduct=(int)request.getAttribute("dealProduct");
 %>
 <style>
 	section>*{
@@ -54,9 +57,9 @@
 	      <div class="text-center container store1" style="height:300px; width:400px;">
 	      	<div style="display:inline-block;">
 			  <img src="<%=request.getContextPath()%>/images/market/myprofile1.png" id="myImage" class="rounded-circle">
-			  <br><br>
-			  <span style="font-size: 20px;"><%=memberName%>님의 상점</span><br><br> 
-			  <% if(loginMember!=null&&loginMember.getMemberName().equals(memberName)) { %>
+			  <br><br>  
+			   <span style="font-size: 20px; font-weight: bolder;"><%=memberName%></span><br><br>
+			  <% if(loginMember!=null&&loginMember.getMemberName().equals(m.getMemberName())) { %>
 	 		 	<button type="button" class="btn btn-outline-dark" onclick=location.assign("<%=request.getContextPath()%>/buyList.do?memberNo=<%=loginMember.getMemberNo()%>")>구매내역</button>
 	 		  <%} %>
 			</div>  
@@ -66,11 +69,13 @@
 	    <br><br>
 	    	<div style="margin-bottom:30px;"> 
 	    		<img src="<%=request.getContextPath()%>/images/market/shop.png" width="50px" height="50px" >
-	        	<span style="font-size: 30px; font-weight: bolder;"> <%=memberName%>님의 상점</span>
+	        	<span style="font-size: 30px; font-weight: bolder;"> <%=m.getMemberName()%>님의 상점</span>
 	    	</div>
 	    	<div>
-	    	<span>상점오픈일 : 2021-02-28  </span> <br>
-	    	<span>판매중인 상품수 : 4개 상품판매 : 3회</span> 
+	    	<span>상점오픈일 : <%=m.getEnrollDate()%>  </span> <br>
+	    	<br><br>
+	        <span>판매중인 상품 :<%=totalProduct %>개  </span> &nbsp&nbsp
+	        <span>거래횟수 :<%=dealProduct%>회</span> 
 	    	</div> 
 	    </div>
 	  </div>
@@ -80,26 +85,10 @@
  
  
  
-<%--  
- 	<div class="text-center container">
-	  <img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle">
-	  <br>
-	  <span><%=memberName%></span> 
-	</div>
-	
-	<br>
-	
-	<div class="btn-group  " role="group" aria-label="Basic example" style="margin-left: 960px;">
-	  <button type="button" class="btn btn-primary">블로그</button>
-	 	<% if(loginMember!=null&&loginMember.getMemberName()==memberName) { %>
-	  	<button type="button" class="btn btn-primary" onclick=location.assign("<%=request.getContextPath()%>/buyList.do?memberNo=<%=loginMember.getMemberNo()%>")>구매내역</button>
-	  	<%} %>
-	</div>
-	<br> --%>
   
 	
 	
-	<div class="btn-group " role="group" aria-label="Basic outlined example" style="margin-bottom:0px; margin-left:410px;">
+	<div class="btn-group " role="group" aria-label="Basic outlined example" style="margin-bottom:0px; margin-left:200px;">
   	<button type="button" class="btn btn-outline-dark" onclick=location.assign("<%=request.getContextPath()%>/myStore.do?memberNo=<%=memberNo%>&&memberName=<%=memberName%>")>판매상품</button>
   	<button type="button" class="btn btn-outline-dark" onclick=location.assign("<%=request.getContextPath()%>/review.do?memberNo=<%=memberNo%>&&memberName=<%=memberName%>")>후기</button> 
 	

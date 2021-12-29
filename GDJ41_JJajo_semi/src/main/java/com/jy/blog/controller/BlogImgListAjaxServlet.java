@@ -1,4 +1,4 @@
-package com.db.main.controller;
+package com.jy.blog.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,20 +10,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.db.main.model.service.MainBoardService;
-import com.db.main.model.vo.MainBoard;
+import com.db.main.model.vo.AttachedFile;
 import com.google.gson.Gson;
 
 /**
- * Servlet implementation class MainViewServlet
+ * Servlet implementation class BlogImgListAjaxServlet
  */
-@WebServlet("/main/mainView.do")
-public class MainViewServlet extends HttpServlet {
+@WebServlet("/blog/blogImgList.do")
+public class BlogImgListAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainViewServlet() {
+    public BlogImgListAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +32,15 @@ public class MainViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int curPosition;
-		try {
-			curPosition=Integer.parseInt(request.getParameter("cPage"));
-		}catch(NumberFormatException e) {
-			curPosition=1;
-		}
-		System.out.println(curPosition);
-		int numPerOnce=20;
-		
-		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
+		// TODO Auto-generated method stub
 
-		System.out.println(mbList);
-		new Gson().toJson(mbList,response.getWriter());
-
+		String boardNo=request.getParameter("boardNo");
+		System.out.println("보드넘버!!"+boardNo);
+		List<AttachedFile> imageList=new MainBoardService().getImageList(boardNo);
 		
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(imageList,response.getWriter());
 	}
-	
-	
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

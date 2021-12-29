@@ -1,8 +1,6 @@
 package com.jy.blog.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,26 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
-import org.json.simple.JSONObject;
-
 import com.db.main.model.service.MainBoardService;
 import com.db.main.model.vo.AttachedFile;
-import com.db.main.model.vo.MainBoard;
-import com.oreilly.servlet.MultipartRequest;
-import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+import com.google.gson.Gson;
 
 /**
- * Servlet implementation class ModalServlet
+ * Servlet implementation class GetTagNameServlet
  */
-@WebServlet("/blog/modal.do")
-public class ModalServlet extends HttpServlet {
+@WebServlet("/blog/gettagname.do")
+public class GetTagNameServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ModalServlet() {
+    public GetTagNameServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,29 +32,12 @@ public class ModalServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-		String path = request.getServletContext().getRealPath("/upload/blog/");
-		int maxSize = 1024 * 1024 * 10;
-		String encode = "UTF-8";
-		// 업로드 처리
-		MultipartRequest mr=new MultipartRequest(request, path, maxSize, encode,new DefaultFileRenamePolicy());
-				
-				System.out.println("boardNo넘어오는지 확인!!!"+mr.getParameter("boardNo"));
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+		String boardNo=request.getParameter("boardNo");
+		System.out.println("태그네임 가져오기 위한 보드넘버 - "+boardNo);
+		List<String> TagList=new MainBoardService().getTagName(boardNo);
+		
+		response.setContentType("application/json;charset=utf-8");
+		new Gson().toJson(TagList,response.getWriter());
 	}
 
 	/**

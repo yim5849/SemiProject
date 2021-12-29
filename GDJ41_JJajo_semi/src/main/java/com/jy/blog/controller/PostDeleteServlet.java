@@ -1,7 +1,6 @@
-package com.db.main.controller;
+package com.jy.blog.controller;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,20 +9,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.db.main.model.service.MainBoardService;
-import com.db.main.model.vo.MainBoard;
-import com.google.gson.Gson;
 
 /**
- * Servlet implementation class MainViewServlet
+ * Servlet implementation class PostDeleteServlet
  */
-@WebServlet("/main/mainView.do")
-public class MainViewServlet extends HttpServlet {
+@WebServlet("/blog/postdelete.do")
+public class PostDeleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainViewServlet() {
+    public PostDeleteServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +30,34 @@ public class MainViewServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		int curPosition;
-		try {
-			curPosition=Integer.parseInt(request.getParameter("cPage"));
-		}catch(NumberFormatException e) {
-			curPosition=1;
-		}
-		System.out.println(curPosition);
-		int numPerOnce=20;
 		
-		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
+		String boardNo = request.getParameter("delete_post");
+		/* System.out.println("송신 성공!! 넘어온 번호는 :"+boardNo); */
+		
+		int userNo=Integer.parseInt(request.getParameter("delete_post_userNo"));
+		
+		int result=new MainBoardService().deletePost(boardNo);
+		
+		
+		
+		
+		String msg="";
+		String loc="";
+		if(result>0) {
+			msg="게시물 삭제 완료!";
+			loc="/blog/blogmain.do?memberNo="+userNo;
+		}else {
+				msg="게시물 삭제 실패";
+				loc="/blog/blogmain.do?memberNo="+userNo;
+		}
+		
+		request.setAttribute("msg", msg);
+		request.setAttribute("loc", loc);
+		request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
 
-		System.out.println(mbList);
-		new Gson().toJson(mbList,response.getWriter());
-
+		
 		
 	}
-	
-	
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
