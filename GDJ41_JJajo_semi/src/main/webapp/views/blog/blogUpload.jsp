@@ -72,7 +72,7 @@
 			    		</div>
 			    		<div class="col-8" style="text-align: left;">
 			    			<input class="form-control" id="post_tag" name="tag" type="text" 
-			    			aria-label="default input example"  placeholder="관련태그를 입력해주세요 (#으로 입력)">
+			    			aria-label="default input example"  placeholder="태그를 입력해주세요.">
 			    		</div>
 			    	</div>			    	
 			    </div>

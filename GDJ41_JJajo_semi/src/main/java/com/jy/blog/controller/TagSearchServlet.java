@@ -1,29 +1,23 @@
-package com.db.main.controller;
+package com.jy.blog.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.db.main.model.service.MainBoardService;
-import com.db.main.model.vo.MainBoard;
-import com.google.gson.Gson;
-
 /**
- * Servlet implementation class MainViewServlet
+ * Servlet implementation class TagSearchServlet
  */
-@WebServlet("/main/mainView.do")
-public class MainViewServlet extends HttpServlet {
+@WebServlet("/blog/tagsearch.do")
+public class TagSearchServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MainViewServlet() {
+    public TagSearchServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,26 +26,9 @@ public class MainViewServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		int curPosition;
-		try {
-			curPosition=Integer.parseInt(request.getParameter("cPage"));
-		}catch(NumberFormatException e) {
-			curPosition=1;
-		}
-		System.out.println(curPosition);
-		int numPerOnce=20;
-		
-		List<MainBoard> mbList = new MainBoardService().searchMainBoard(curPosition,numPerOnce);
-
-		System.out.println(mbList);
-		new Gson().toJson(mbList,response.getWriter());
-
-		
+		// TODO Auto-generated method stub
+		response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
-	
-	
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

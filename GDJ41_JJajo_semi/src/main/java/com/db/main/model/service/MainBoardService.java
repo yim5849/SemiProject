@@ -3,11 +3,13 @@ package com.db.main.model.service;
 import static com.jj.common.JDBCTemplate.close;
 import static com.jj.common.JDBCTemplate.getConnection;
 import static com.jj.common.JDBCTemplate.rollback;
+import static com.jj.common.JDBCTemplate.commit;
 
 import java.sql.Connection;
 import java.util.List;
 
 import com.db.main.model.dao.MainBoardDao;
+import com.db.main.model.vo.AttachedFile;
 import com.db.main.model.vo.MainBoard;
 import com.jj.member.model.vo.Member;
 
@@ -43,9 +45,9 @@ public class MainBoardService {
 			int result2=dao.insertImageFile(conn,mb,boardNo);
 			if(result2>0) {
 					int result3=dao.insertTag(conn, mb,boardNo);
-					System.out.println("RESULT 3 is " + result3);
-					if(result3 < 1)
-						rollback(conn);
+					/* System.out.println("RESULT 3 is " + result3); */
+					if(result3 >0)commit(conn);
+					else rollback(conn);
 			}else rollback(conn);
 		}else rollback(conn);	
 		
@@ -60,7 +62,7 @@ public class MainBoardService {
 		int result=dao.ModifyMyInfo(conn,m);
 
 		if(result>0) {
-			result=1;
+			commit(conn);
 		}else rollback(conn);
 		close(conn);
 		return result;
@@ -73,9 +75,7 @@ public class MainBoardService {
 	public String getMyInfo(int memberNo1) {
 		Connection conn=getConnection();
 		String result=dao.getMyInfo(conn,memberNo1);
-		if(result==null) {
-			rollback(conn);
-		}
+		
 		close(conn);
 		return result;
 	}
@@ -83,9 +83,7 @@ public class MainBoardService {
 	public List<String> getTags(String tagName) {
 		Connection conn=getConnection();
 		List<String> result=dao.getTags(conn, tagName);
-		if(result==null) {
-			rollback(conn);
-		}
+		
 		close(conn);
 		return result;
 	}
@@ -93,19 +91,40 @@ public class MainBoardService {
 	public List<String> getAllTags() {
 		Connection conn=getConnection();
 		List<String> result=dao.getAllTags(conn);
-		if(result==null) {
-			rollback(conn);
-		}
+		
 		close(conn);
 		return result;
 	}
 	
 	
+	public List<AttachedFile> getImageList(String boardNo){
+		Connection conn=getConnection();
+		List<AttachedFile> imageList=dao.getImageList(conn,boardNo);
+		
+		close(conn);
+		return imageList;
+	}
 	
 	
 	
+	public List<String> getTagName(String boardNo){
+		Connection conn=getConnection();
+		List<String> tagList=dao.getTagName(conn,boardNo);
+		
+		close(conn);
+		return tagList;
+	}
 	
 	
+	public int deletePost(String boardNo) {
+		Connection conn=getConnection();
+		int result=dao.deletePost(conn,boardNo);
+		if(result>0) {
+			commit(conn);
+		}else rollback(conn);
+		close(conn);
+		return result;
+	}
 	
 	
 	

@@ -10,64 +10,90 @@
 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 <title>Insert title here</title>
 <style>
+
+	.message{
+		width: 100%;
+    	display: flex;
+    	margin-bottom: 15px;
+    	
+	}
+
+	.message_own{
+		width: 100%;
+    	display: flex;
+    	margin-bottom: 15px;
+		justify-content: flex-end;
+	}
+
+
 	.myChatBox{
        display:flex;
        justify-content: flex-end;
        margin-right: 4px;
-	   margin-bottom: 4px;
+	  
     }
 	.myChatContent{
-        
-		text-align: left;
-		background: #F7E600;
-		border-radius: 10px 10px 10px 10px;
-        max-width: 200px;
-        padding: 3px 3px;
-        
+		background-color: #F7E600;
+		font-size: 14px;
+		border-radius: 10px;
+		border-top-right-radius: 0px;
+		padding: 8px 13px;
+		
 	}
 
     .chatBox{
 		display: flex;
 		flex-direction: column;
-		justify-content: flex-start;
-        margin-left: 4px;
-		margin-bottom: 4px;
+		justify-content: left;
+		margin-left: 5px;
     }
 
 	.chatContent{
-		text-align: left;
-        background-color: white;
-        border-radius: 10px 10px 10px 10px;
-        max-width: 200px;
-        padding: 3px 3px;
+		background-color: white;
+		font-size: 14px;
+    	border-radius: 10px;
+   		 border-top-left-radius: 0px;
+
+    	padding: 8px 13px;
+    	margin-right: 5px;
+	}
+
+	.chat__timestamp {
+		color: white;
+		background-color: #92a4b2;
+		padding: 10px;
+		font-size: 14px;
+		border-radius: 25px;
+		margin-bottom: 25px;
+		
 	}
 </style>
 </head>
 <body>
 	<div style="display: flex;">
-		<div id="chatRoot" style="width: 300px; height:500px;background-color:cornflowerblue; display: flex; flex-direction: column; justify-content: space-between;" >
+		<div id="chatRoot" style="width: 300px; height:500px;background-color:white; display: flex; flex-direction: column; justify-content: space-between;" >
 			<div>
-				<div id="msgContainer" style="width:300px; height: 450px;background-color: crimson; overflow: hidden;">
-					<!-- <span>fdsfssdf</span> -->
+				<div id="msgContainer" style="width:300px; height: 450px; background-color: #abc1d1; overflow: scroll; display:flex; flex-direction: column; align-items: center;">
+					
 				</div>
 				<div id="inputBox" style="margin-bottom: 10px; margin-left: 10px;">
 					<input type="hidden" id="sender" value="<%=memberId%>">
 					<input type="hidden" id="receiver" value="ALL">
-					<input type="text" id="msg" style="width: 230px;" placeholder="전송할 메시지 입력">
-					<button type="button" id="sendMsg">전송</button>
+					<div class="reply__column">
+						<input type="text" id="msg" style="width: 230px;" placeholder="메시지">
+						<button id="sendMsg">
+						  <i class="fas fa-arrow-up" aria-hidden="true"></i>
+						</button>
+					  </div>
 				</div>
+				
 			</div>
 		</div>
-		<div id="navRoot" style="background-color: cadetblue; width:100px; height:500px">
-			<button id="allChatBtn" type="button" class="btn btn-primary">전체대화방</button>
-			<button id="whisperBtn">귓속말</button>
-			<input type="text" id="whisperId" size="8">
-			<div id="userList"></div>
-		</div>
+		
 	</div>				
-
+	<script src="https://kit.fontawesome.com/6478f529f2.js" ;="" crossorigin="anonymous"></script>
 <script>
-	let socket = new WebSocket("ws://localhost:9090<%=request.getContextPath()%>/jjajo/chatting");
+	let socket = new WebSocket("ws://61.78.121.242:9999<%=request.getContextPath()%>/jjajo/chatting");
 	$("#allChatBtn").click(e=>{
 		$("#receiver").val("ALL");
 		
@@ -84,7 +110,7 @@
 
 	socket.onopen=e=>{
 		console.log("소캣 서버연결성공");
-		$("#msgContainer").append($("<p>전체 대화방 입장!!!</p>"));
+		$("#msgContainer").append($("<span>전체 대화방 입장!!!</span>").addClass("chat__timestamp"));
 		let sender = $("#sender").val();
 		const enterMsg=new Message(sender, sender, sender);
 		socket.send(JSON.stringify(enterMsg));
@@ -93,22 +119,18 @@
 	}
 	
 	socket.onmessage=e=>{
-		console.log("e :",e);
-
-		console.log("e.data : ",e.data);
-
 		const datas = JSON.parse(e.data);
-
-		console.log(datas);
-		
-		const chatBox=$("<div>").addClass("chatBox").append($("<span>").html(datas["sender"])).append($("<div>").addClass("chatContent").html(datas["msg"]));
-		if(datas["receiver"]=="<%=memberId%>"){
-			chatBox.find("<span>").after($("<span>귓속말</span>"));
+		let chatBox;
+		if(datas['sender']=='SERVER'){
+			chatBox=$("<span>").addClass("chat__timestamp").html(datas["msg"]);
+		}else{
+			chatBox=$("<div>").addClass("message").append($("<div>").addClass("chatBox").append($("<span>").html(datas["sender"])).append($("<span>").addClass("chatContent").html(datas["msg"])));
 		}
 
 		$("#msgContainer").append(chatBox);
-		
-		
+		$("#msgContainer").animate({
+			scrollTop:$("#msgContainer").get(0).scrollHeight
+		},100);
 	}
 
 	socket.onclose=e=>{
@@ -118,12 +140,16 @@
 
 
 	$("#sendMsg").click(e=>{
+		if(!$("#msg").val())return;
 		sendMsg();
+		$("#msg").val("");
 	})
 	
 	$("#msg").keydown(key=>{
+		if(!$("#msg").val())return;
 		if(key.keyCode==13){
 			sendMsg();
+			$("#msg").val("");
 		}
 	})
 
@@ -135,8 +161,11 @@
 		const msg=new Message(sender, receiver, val);
 		socket.send(JSON.stringify(msg));
 		console.log("send");
-		const myChatBox = $("<div>").addClass("myChatBox").append($("<div>").addClass("myChatContent").html(val));
+		const myChatBox = $("<div>").addClass("message_own").append($("<div>").addClass("myChatBox").append($("<span>").addClass("myChatContent").html(val)));
 		$("#msgContainer").append(myChatBox);
+		$("#msgContainer").animate({
+			scrollTop:$("#msgContainer").get(0).scrollHeight
+		},100);
 	}
 
 	

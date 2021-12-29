@@ -191,8 +191,8 @@
         
             let footerContainer = $("<div>").addClass("footerContainer");
             let additionalContainer=$("<div>").addClass("additionalContainer");
-            let day =$("<small>").html(calDay(info["boardDate"])+ " /");
-            let comment = $("<small>").html("&nbsp;   "+(Math.floor(Math.random()*20))+"개의 댓글");
+            let day =$("<small>").html(info["boardDate"]);
+            let comment = $("<small>").html(info["comment"]+"개의 댓글");
 
             additionalContainer.append(day).append(comment);
             footerContainer.append(additionalContainer);
@@ -216,7 +216,7 @@
 
             let wSecondDiv=$("<div>");
             let heartImg = $("<img>").attr({src: "<%=request.getContextPath()%>/images/heart.png", width:"24px", height:"24px"});    
-            let read=$("<small>").html((Math.floor(Math.random()*20)));
+            let read=$("<small>").html(0);
             wSecondDiv.append(heartImg).append(read);
             writerContainer.append(wFirstDiv).append(wSecondDiv);
             footerContainer.append(writerContainer);
@@ -226,26 +226,10 @@
             return mainbox;
         }
 
-        function calDay(sDate){
-            if(!sDate) return "";
-
-            let writeDay = new Date(sDate);
-            console.log("w", writeDay);
-            let today = new Date();
-            console.log("t",today);
-            let el =today.getTime()-writeDay.getTime();
-            let re = el / 1000/60/60/24;
-            let result = Math.floor(re);
-
-            if(result==0){
-                return '오늘';
-            }else{
-                return result+" 일전";
-            }
+	
 
 
-           
-        }
+
 
     </script>
 
