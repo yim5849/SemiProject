@@ -41,7 +41,7 @@ public class CH_ChallengersDeleteServlet extends HttpServlet {
 			loc="/challengers/introduce.do";
 		}else {
 			msg="관리자님! 챌린져스 삭제 프로세스에 문제가 발생하였습니다 :(";
-			loc="/challengers/advertisement_enroll.do";
+			loc="/challengers/introduce.do";
 		}
 		request.setAttribute("msg",msg);
 		request.setAttribute("loc",loc);

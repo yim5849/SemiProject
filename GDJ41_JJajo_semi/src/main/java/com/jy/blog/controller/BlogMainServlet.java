@@ -55,15 +55,8 @@ public class BlogMainServlet extends HttpServlet {
 		
 		List<String> allTags = new MainBoardService().getAllTags();
 		request.setAttribute("allTags", allTags);
-		/*
-		 * if(ubList!=null&&!(ubList.isEmpty())){ for(MainBoard u : ubList) {
-		 * System.out.println("BlogMainServlet 테스트 : "+u.getAttachedFileList().get(
-		 * numPerOnce));
-		 * 
-		 * }
-		 * 
-		 * }
-		 */
+		
+		
 		
 		
 		HttpSession session=request.getSession(false);

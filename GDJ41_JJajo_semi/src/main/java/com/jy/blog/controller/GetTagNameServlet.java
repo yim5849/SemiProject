@@ -34,10 +34,10 @@ public class GetTagNameServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String boardNo=request.getParameter("boardNo");
 		System.out.println("태그네임 가져오기 위한 보드넘버 - "+boardNo);
-		List<String> TagList=new MainBoardService().getTagName(boardNo);
+		List<String> tagList=new MainBoardService().getTagName(boardNo);
 		
 		response.setContentType("application/json;charset=utf-8");
-		new Gson().toJson(TagList,response.getWriter());
+		new Gson().toJson(tagList,response.getWriter());
 	}
 
 	/**
