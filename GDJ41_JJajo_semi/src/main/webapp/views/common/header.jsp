@@ -174,8 +174,8 @@
 
 				<div class="col"
 					style="padding-top: 20px; padding-left: 0px; padding-right: 0px">
-					<span style="color: #01DFA5">HELLO. <%=loginMember.getMemberName()%>님,
-						환영합니다
+					<span style="color: #01DFA5">HELLO. <%=loginMember.getMemberName()%>님,<br>
+					환영합니다
 					</span>
 				</div>
 
