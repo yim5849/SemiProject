@@ -176,7 +176,7 @@
                 mainImgName = "ex1.png";
             }
 
-            let mainImg = $("<img>").attr({src: "<%=request.getContextPath()%>/upload/attachedimg/"+mainImgName ,width:"300px",height:"180px"});
+            let mainImg = $("<img>").attr({src: "<%=request.getContextPath()%>/upload/blog/"+mainImgName ,width:"300px",height:"180px"});
              mainbox.append(mainImg);
 
          
