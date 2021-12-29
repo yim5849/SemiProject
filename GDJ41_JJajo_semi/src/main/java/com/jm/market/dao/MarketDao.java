@@ -625,5 +625,48 @@ public class MarketDao {
 			return m;
 		}
 	 
+		
+		public int totalProduct(Connection conn,String memberNo){
+			PreparedStatement pstmt=null; 
+			ResultSet rs=null;
+			int result=0;  
+			String sql=prop.getProperty("totalProduct");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, memberNo);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					result=rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
+		
+		 
 
+		public int dealProduct(Connection conn,String memberNo){
+			PreparedStatement pstmt=null; 
+			ResultSet rs=null;
+			int result=0;  
+			String sql=prop.getProperty("dealProduct");
+			try {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1, memberNo);
+				rs=pstmt.executeQuery();
+				if(rs.next()) {
+					result=rs.getInt(1);
+				}
+			}catch(Exception e) {
+				e.printStackTrace();
+			}finally {
+				close(rs);
+				close(pstmt);
+			}
+			return result;
+		}
 }

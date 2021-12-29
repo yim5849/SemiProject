@@ -31,7 +31,7 @@
 	<h2 style="text-align: center;">구매목록</h2>
 	<br>
 	
-<div id="product-line" class="container" style="margin-left: 900px;">
+<div id="product-line" class="container" style="margin-left: 700px;">
 	<%if(list.isEmpty()) { %>
 		<div>구매한 상품이 없습니다</div>
 	<%}else{ %>

@@ -37,12 +37,11 @@ public class MarketMyStoreServet extends HttpServlet {
 		List<ProductBoard> list= new MarketService().storeMain(memberNo);
 		Member m=new MarketService().searchMember(memberNo);
 		
-		/*
-		 * if(request.getParameter("productNo")!=null) { int
-		 * productNo=Integer.parseInt(request.getParameter("productNo")); ProductBoard
-		 * pb=new MarketService().searchProduct(productNo);
-		 * request.setAttribute("productBoard", pb); }
-		 */
+		int totalProduct = new MarketService().totalProduct(memberNo);
+		int dealProduct = new MarketService().dealProduct(memberNo);
+		 
+		request.setAttribute("dealProduct",dealProduct);
+		request.setAttribute("totalProduct",totalProduct);
 		request.setAttribute("list", list); 
 		request.setAttribute("member", m); 
 		request.getRequestDispatcher("/views/market/store/mystore.jsp").forward(request, response);
