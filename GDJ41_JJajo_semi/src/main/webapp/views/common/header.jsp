@@ -52,7 +52,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
 
 
-<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <!-- Bootstrap CSS -->
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
@@ -179,8 +179,8 @@
 
 				<div class="col"
 					style="padding-top: 20px; padding-left: 0px; padding-right: 0px">
-					<span style="color: #01DFA5">HELLO. <%=loginMember.getMemberName()%>님,
-						환영합니다
+					<span style="color: #01DFA5">HELLO. <%=loginMember.getMemberName()%>님,<br>
+					환영합니다
 					</span>
 				</div>
 

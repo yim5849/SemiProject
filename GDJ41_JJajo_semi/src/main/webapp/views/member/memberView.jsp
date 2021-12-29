@@ -31,7 +31,7 @@
 <section class="container">
 		<!-- 텍스트는 text align으로 맞추기 힘듬 -->
         <h2>회원정보 수정</h2>
-        <form id="memberFrm"  method="post" >
+        <form id="memberFrm" method="post" >
         <div class="form-group">
         	<label for="memberId_">아이디</label>
         	<div class="idform" style="display:flex;"> 
@@ -42,6 +42,7 @@
         <div class="form-group">
         	<label for="password_">패스워드</label>
         	<input class="form-control" type="password" name="memberPwd" id="password_" >
+        											<!-- name 속성이 참 중요하다 -->
         	<label for="password_">패스워드확인</label>
         	<input class="form-control" type="password" id="password_2" ><br>
 			<span id="pwresult"></span>
