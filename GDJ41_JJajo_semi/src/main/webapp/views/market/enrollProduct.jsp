@@ -43,7 +43,7 @@
 
 <section>  
  
-	<div class="main-section"> 
+	<div class="main-section container"> 
 	      <div style="border-bottom: black solid 3px">
 	       		 <label for="enrollTitle" class="enrollTitle">기본정보</label>
 	      </div>
