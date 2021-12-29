@@ -24,8 +24,8 @@
 		margin: 0px 300px 200px 300px;
 	 }
 	 #myImage{
-		height:100px;
-		width:100px; 
+		height:70px;
+		width:70px; 
 	}
 	
  	.w-100{
@@ -33,8 +33,9 @@
 		height:400px;
 	}
 	.carousel-item{
-		margin-right:500px;
+		margin-right:500px; 
 	}
+	 
 	.carousel-inner{
 		height:400px;
 	}
@@ -43,14 +44,18 @@
 		height:400px;
 		background: none;
 	}
+	#profile>div{
+		display:inline-block;
+	}
 	 
 </style> 
  	
 <section>
-	 
-<div class="container" style="margin-left:500px;"> 
- 
-		<div id="carouselExampleDark" class="carousel carousel-dark slide container" data-bs-ride="carousel">
+
+<div class="container" style="margin-left:400px; margin-top:20px;  margin-bottom:20px;">
+  <div class="row">
+    <div class="col">
+      	<div id="carouselExampleDark" class="carousel carousel-dark slide container" data-bs-ride="carousel">
 		  <div class="carousel-indicators">
 		    <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
 		     <%for(int i=1; i<pb.getFileName().size();i++) { %>  
@@ -76,64 +81,65 @@
 		    <span class="visually-hidden">Next</span>
 		  </button>
 		</div>
-	 
-	 
-	<br><br>	
-		
- 	<table class="product-table" style="margin-left: 30px;">
-		<tr>
-			<td>
-<%-- 			<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>&&productNo=<%=pb.getProductNo()%>"><img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle"></a> --%>
-				<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="https://img3.daumcdn.net/thumb/R658x0.q70/?fname=https://t1.daumcdn.net/news/202105/25/sbsnoriter/20210525064846663ctyu.jpg" id="myImage" class="rounded-circle"></a>
-			</td>
-			<td rowspan="2" width="400px" border="1" style="padding-left: 30px;" >
-				<div>
-					<h1><%=pb.getMember_name()%></h1>
-					<%-- <h1><%=pb.getTitle()%></h1> --%>
-				</div>
-				<%-- <div>
-					<p style="margin-bottom: 0px; font-size:30px; font-weight: bolder; "><%=pb.getPrice()원</p>
-				</div>  --%>
-				<div>
-					<p><%=pb.getAddress()%></p>
-				</div> 
-			<%--	<div>
-					<p style="color: cornflowerblue;">#<%=pb.getCategory()%></p>
-				</div>--%>
-			</td>
-		</tr>
-		<tr>
-			<%-- <td style="text-align:center;"><%=pb.getMember_name()%> </td> --%>
-		</tr>
- 
- 	</table>
- 	
- 		<br>
- 	 	 <div style="border-top: gray 1px solid; padding-top:20px;">
+    </div>
+    
+    <div class="col">
+      <div id="content-1">
+        <div style="border-top: gray 1px solid;  padding-top:20px;">
 			 <h1 style="font-weight: 700;"><%=pb.getTitle()%></h1>
-		 </div>
-		 <div>
-			 <p style="color: cornflowerblue;">#<%=pb.getCategory()%></p>
+	    </div>
+	    <div>
+	    	 <p style="color: cornflowerblue;">#<%=pb.getCategory()%></p>
 		</div>
-	     <div>
+	    <div>
 		     <p style="margin-bottom: 0px; font-size:30px; font-weight: bolder; "><%=pb.getPrice()%>원</p>
-		 </div>	
- 	  <br>
- 	  <div class="col-12 content" style="border-bottom: black solid 3px;   font-size:25px; padding:0px;"> 
- 	  	  <%=pb.getContent()%>
-	      <%-- 	<textarea rows="5" cols="50" style="width:1100px;" class="form-control" readonly ><%=pb.getContent()%></textarea> --%>
-	      	<br>
-	  </div>
-	  
-	 
-		
-		
-	  <br>
-	  <div>
+	    </div>	
+	    <br>
+   	    <div class="col-12 content" style="font-size:25px;  height:150px; border-bottom: gray 1px solid; padding:0px;"> 
+	 	  	  <%=pb.getContent()%> 
+      	<br>
+	    </div>
+      </div>
+      
+      <div class="container" style="padding-left:0px;">
+		  <div class="row" style="margin-left:0px; padding-left:0px;">
+		    <div class="col-2">
+		    	<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="<%=request.getContextPath()%>/images/market/myprofile1.png" id="myImage" class="rounded-circle"></a>
+		    </div>
+		    <div class="col" style="margin-left:0px">
+		      <h3><%=pb.getMember_name()%></h3>	
+			  <p><%=pb.getAddress()%></p>
+		    </div> 
+		  </div>
+		</div>
+      
+    </div> 
+    
+    
+    
+  </div>
+</div>
+
+<%--  <div class="container">
+  <div class="row" style="margin-left:20px">
+    <div class="col-1">
+    	<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="<%=request.getContextPath()%>/images/market/myprofile1.png" id="myImage" class="rounded-circle"></a>
+    </div>
+    <div class="col" style="margin-left:20px">
+      <h1><%=pb.getMember_name()%></h1>	
+	  <p><%=pb.getAddress()%></p>
+    </div> 
+  </div>
+</div> --%>
+
+  
+ <div class="container">  
+	  <div class="col-1">
 			<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
 			<input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
 	  </div>
- 	  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+	  
+ 	  <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
  	   <%if(pb.getMemberNo()!=loginMember.getMemberNo()&&pb.getIsDelete().equals("N")){ %>
 			 <!-- Button trigger modal --> 
 		<!-- 	 <button class="btn btn-primary" id="pay" onclick="requestPay()">결제하기</button> -->

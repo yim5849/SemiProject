@@ -52,8 +52,17 @@ public class BlogMainServlet extends HttpServlet {
 		
 		request.setAttribute("userBoardList", ubList);//생성!
 		
-		
-		
+		List<String> allTags = new MainBoardService().getAllTags();
+		request.setAttribute("allTags", allTags);
+		/*
+		 * if(ubList!=null&&!(ubList.isEmpty())){ for(MainBoard u : ubList) {
+		 * System.out.println("BlogMainServlet 테스트 : "+u.getAttachedFileList().get(
+		 * numPerOnce));
+		 * 
+		 * }
+		 * 
+		 * }
+		 */
 		
 		
 		HttpSession session=request.getSession(false);
@@ -80,25 +89,12 @@ public class BlogMainServlet extends HttpServlet {
 		
 		/* new Gson().toJson(ubList,response.getWriter()); */
 		
-		
-		
-		
-		
+
 		
 		
 		request.getRequestDispatcher("/views/blog/blogMain.jsp")
 		.forward(request, response);
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 	}
 
 	/**

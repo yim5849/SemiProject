@@ -23,7 +23,7 @@ public class CH_MychallengeDao {
 	
 	public CH_MychallengeDao() {
 		
-		String path=CH_MychallengeDao.class.getResource("/sql/challengers/mychallenge_sql.properties").getPath();
+		String path=CH_MychallengeDao.class.getResource("/sql/challengers/challengers_sql.properties").getPath();
 		try {
 			prop.load(new FileReader(path));
 		}catch(IOException e) {
@@ -302,13 +302,67 @@ public class CH_MychallengeDao {
 	}
 	
 	
+/*=============================== 챌린지 완료 ============================*/
+	
+	public int finishChallenge(Connection conn, String check, int myNo) {
+		
+		PreparedStatement pstmt=null;
+		int result=0;
+		
+		String sql=prop.getProperty("finishChallenge");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, check);
+			pstmt.setInt(2, myNo);
+			
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+		
+		
+	}
 	
 	
-/*============================= 마이 챌린지 등록 ========================== */
-/*============================= 마이 챌린지 등록 ========================== */
-/*============================= 마이 챌린지 등록 ========================== */
-/*============================= 마이 챌린지 등록 ========================== */
+/*================= 마이챌린지 번호로 해당 마이챌린지 가져오기 ================= */
 	
+	public CH_Mychallenge searchChallengeFromNo(Connection conn,int myNo) {
+		
+		PreparedStatement pstmt=null;
+		ResultSet rs=null;
+		CH_Mychallenge my=null;
+		
+		String sql = prop.getProperty("searchChallengeFromNo");
+		
+		try {
+			
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setInt(1, myNo);
+			
+			rs=pstmt.executeQuery();
+			
+			if(rs.next()) {
+				
+				my=CH_Mychallenge.builder()
+						.challengersNo(rs.getInt("CH_NO"))
+						.count(rs.getInt("MY_COUNT"))
+						.build();
+			}
+
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}return my;
+			
+		
+	}
 	
 	
 }

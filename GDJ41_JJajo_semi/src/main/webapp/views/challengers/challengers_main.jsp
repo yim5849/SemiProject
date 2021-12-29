@@ -69,11 +69,11 @@
 	  <div class="row">
 	    <div class="col"></div>
 	    <div class="col" style="text-align:center; ">
-	    	<button type="button" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#challenge-do-check" style="font-size:20px;">Start Challenge</button>
+	    	<button type="button"  id="mainViewStartbtn" class="btn btn-outline-success" data-bs-toggle="modal" data-bs-target="#challenge-do-check" style="font-size:20px;">Start Challenge</button>
 	    </div>
 	    
 	    <div class="col" style="text-align:center;">
-	    	<button type="button" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#mychallenge-go-check" style="font-size:20px;">My Challenge</button>
+	    	<button type="button"  id="mainViewmypagebtn" class="btn btn-outline-info" data-bs-toggle="modal" data-bs-target="#mychallenge-go-check" style="font-size:20px;">My Challenge</button>
 	    </div>
 	    <div class="col"></div>
 	  </div>
@@ -98,7 +98,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
-        <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='<%=request.getContextPath() %>/challengers/introduce.do?memberNo=<%=loginMember.getMemberNo()%>'">&ensp;네&ensp;</button>
+        <%if(loginMember!=null){%><button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="location.href='<%=request.getContextPath() %>/challengers/introduce.do?memberNo=<%=loginMember.getMemberNo()%>'">&ensp;네&ensp;</button><%} %>
       </div>
     </div>
   </div>
@@ -123,5 +123,29 @@
   </div>
 </div>
 
+<script>
+	$(document).on("click","#mainViewStartbtn", function () { 
+	  	
+			if(<%=loginMember==null%>){
+				alert("로그인 후 이용해주세요");
+				location.replace('<%=request.getContextPath()%>/');
+				return;
+			}
+
+		});
+	
+	
+	$(document).on("click","#mainViewmypagebtn", function () { 
+	  	
+		if(<%=loginMember==null%>){
+			alert("로그인 후 이용해주세요");
+			location.replace('<%=request.getContextPath()%>/');
+			return;
+		}
+
+	});
+	
+	
+	</script>
 
 <%@ include file="/views/common/footer.jsp"%>

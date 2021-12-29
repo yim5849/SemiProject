@@ -10,10 +10,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.im.challengers.model.service.CH_MychallengeImageService;
 import com.im.challengers.model.service.CH_MychallengeNoticeService;
 import com.im.challengers.model.service.CH_MychallengeService;
 import com.im.challengers.model.vo.CH_Challengers;
 import com.im.challengers.model.vo.CH_Mychallenge;
+import com.im.challengers.model.vo.CH_MychallengeImage;
 import com.im.challengers.model.vo.CH_MychallengeNotice;
 import com.jj.member.model.vo.Member;
 
@@ -37,7 +39,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-		/* 사용자가 로그인 한 상태인지  체크 */
+		/*===================================== 1. 사용자가 로그인 한 상태인지  체크 ============================================*/
 		
 		HttpSession session = request.getSession(false);
 		
@@ -55,11 +57,12 @@ public class CH_MychallengeServlet extends HttpServlet {
 			request.setAttribute("msg",msg);
 			request.setAttribute("loc", loc);
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-			return;
+			return; // 로그인한 상태가 아니기 때문에 로직 종료
 		}
 		
+		/*============================================ IF (사용자가 로그인한 상태라면) ============================================*/
+		/*================================= 2. 사용자가 진행했던 or 진행중인 챌린지 뽑아오기 (DropList) =================================*/
 		
-		/* 사용자가 진행했던 or 진행중인 챌린지 뽑아오기 (DropList) */
 		int memberNo = m.getMemberNo(); // 로그인 한 유저의 유저번호를 추출
 		
 		// 로그인한 유저의 넘버를 사용하여 해당 유저가 진행중인 or 진행했던 챌린지들을 추출
@@ -74,12 +77,16 @@ public class CH_MychallengeServlet extends HttpServlet {
 			request.setAttribute("msg",msg);
 			request.setAttribute("loc", loc);
 			request.getRequestDispatcher("/views/common/msg.jsp").forward(request, response);
-			return;
+			return;  // dropList 가 없기에 로직 종료
 		}
 		
-		/* 사용자가 진행중인 챌린지 중, 사용자가 선택한(DropList) 마이챌린지에 표시할 챌린지 데이터 가져오기 */
+		
+		/*============= 사용자가 진행중인 챌린지 중, 사용자가 선택한(DropList) 마이챌린지에 표시할 챌린지 데이터 (기록 및 갤러리) 가져오기 ===============*/
+		
+		/*=================== (사용자가 드롭리스트에서 챌린지를 선택하면 화면에 해당 챌린지의 기록들을 가져오는 것) / <페이징 처리> ====================*/
+	
 		int challengersNo;
-		if(request.getParameter("challengersNo")!=null) {		
+		if(request.getParameter("challengersNo")!=null) {		// 챌린져스 번호 NULL값 처리!!
 			challengersNo= Integer.parseInt(request.getParameter("challengersNo"));
 
 			int cPage;
@@ -115,7 +122,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 			if(pageNo==1) {
 				pageBar+="<a class=\"page-link\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
 			}else {
-				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+(pageNo-1)
+				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+(pageNo-1)
 									+"\" aria-label=\"Previous\"><span aria-hidden=\"true\">&laquo;</span></a></li>";
 			}
 			
@@ -124,7 +131,7 @@ public class CH_MychallengeServlet extends HttpServlet {
 				if(cPage==pageNo) {
 					pageBar+="<li class=\"page-item\"><a class=\"page-link\">"+pageNo+"</a></li>";
 				}else {
-					pageBar+="<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\"> "+pageNo+"</a></li>";
+					pageBar+="<li class=\"page-item\"><a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+pageNo+"\"> "+pageNo+"</a></li>";
 				}
 				pageNo++;
 			}
@@ -134,24 +141,54 @@ public class CH_MychallengeServlet extends HttpServlet {
 			if(pageNo>totalPage) {
 				pageBar+="<a class=\"page-link\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 			}else {
-				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
+				pageBar+="<a class=\"page-link\" href=\""+request.getContextPath()+"/challengers/mychallenge.do?challengersNo="+challengersNo+"&cPage="+pageNo+"\" aria-label=\"Next\"><span aria-hidden=\"true\">&raquo;</span></a></li></ul></nav>";
 			}
 			
 
-			
+			// 페이지 바 저장
 			request.setAttribute("pageBar", pageBar);
 			
 			// 해당 챌린지의 데이터를 저장
 			request.setAttribute("mychallengeList", chList);
 			
-			
+			// 화면전환 후, 드롭리스트에서 해당 챌린지를 Selected 상태로 고정시키기 위한 값을 저장
 			int chNum=0;
 			if(chList!=null && !(chList.isEmpty())) {
 				chNum=chList.get(0).getChallengersNo();
 			}
 			request.setAttribute("chNum", chNum);
+			
+			
+			/*==================================== 갤러리 가져오기  ==================================*/
+			
+			List<CH_MychallengeImage> imList = new CH_MychallengeImageService().searchAllMyImage(memberNo,chNum);
+			
+			//이미지 리스트를 저장
+			request.setAttribute("mychallengeImageList", imList);
+
+			
+																	/*=== 해당 챌린지의 최대 회차수를 저장한다 ===*/
+			/* ===== 재도전 버튼 클릭 후, 정상적으로 완료가 되면 해당 버튼을 완료 버튼으로 바꾸기 위해 사용하고자 하는 데이터  =====*/
+			List<CH_Mychallenge> myList = new CH_MychallengeService().searchChallenge(memberNo,challengersNo);
+			
+			int count=0;
+			
+			if(myList==null || myList.isEmpty()) {
+				count=1;
+			}else {
+				for(CH_Mychallenge my : myList) {
+					if(count<my.getCount()) {
+					count=my.getCount();
+					}
+				}
+				count++;
+			}
+			
+			//최대 회차수를 저장
+			request.setAttribute("chMaximumCount", count-1);
+			System.out.println("최대 회차수는 : "+(count-1));
 	
-		}
+		} // if(챌린져스 번호 null값처리 끝부분)
 
 
 		
