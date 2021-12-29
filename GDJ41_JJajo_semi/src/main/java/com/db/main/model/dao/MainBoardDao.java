@@ -232,8 +232,8 @@ public class MainBoardDao {
 			for(int i=0; i<length;i++) {
 				pstmt=conn.prepareStatement(sql);
 				pstmt.setString(1,boardNo);
-				pstmt.setString(2,mb.getAttachedFileList().get(i).getImgNo());
-				pstmt.setString(3,mb.getAttachedFileList().get(i).getImgName());
+				/* pstmt.setString(2,mb.getAttachedFileList().get(i).getImgNo()); */
+				pstmt.setString(2,mb.getAttachedFileList().get(i).getImgName());
 				result2=pstmt.executeUpdate();
 				if(result2>0) {
 					temp++;
@@ -353,6 +353,7 @@ public class MainBoardDao {
 			pstmt.setString(1, boardNo);
 			rs = pstmt.executeQuery();
 			while(rs.next()) {
+				
 				AttachedFile file = AttachedFile.builder()
 						.imgNo(rs.getString("image_no"))
 						.imgName(rs.getString("filename"))
