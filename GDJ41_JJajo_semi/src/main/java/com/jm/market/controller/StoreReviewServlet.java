@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jj.member.model.vo.Member;
 import com.jm.market.model.vo.Comment;
 import com.jm.market.service.MarketService;
 
@@ -34,13 +35,16 @@ public class StoreReviewServlet extends HttpServlet {
 		//후기화면으로 전환
 		String memberNo=request.getParameter("memberNo");
 		String memberName=request.getParameter("memberName");
-		//String title=request.getParameter("title");
-	//	System.out.println(memberNo);
-	//	System.out.println(memberName);
+		 
 		List<Comment> list= new MarketService().commentAll(memberNo);
-		//System.out.println(list);
+		Member m=new MarketService().searchMember(memberNo);
 		
-		//request.setAttribute("title", title);
+		int totalProduct = new MarketService().totalProduct(memberNo);
+		int dealProduct = new MarketService().dealProduct(memberNo);
+		 
+		request.setAttribute("dealProduct",dealProduct);
+		request.setAttribute("totalProduct",totalProduct);
+		request.setAttribute("member", m);
 		request.setAttribute("memberNo", memberNo);
 		request.setAttribute("memberName", memberName);
 		request.setAttribute("list", list);

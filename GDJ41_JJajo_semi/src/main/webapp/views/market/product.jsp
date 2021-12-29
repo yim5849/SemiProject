@@ -52,7 +52,7 @@
  	
 <section>
 
-<div class="container" style="margin-left:400px; margin-top:20px;  margin-bottom:20px;">
+<div class="container" style="margin-top:20px;  margin-bottom:20px;">
   <div class="row">
     <div class="col">
       	<div id="carouselExampleDark" class="carousel carousel-dark slide container" data-bs-ride="carousel">
@@ -119,30 +119,16 @@
     
   </div>
 </div>
-
-<%--  <div class="container">
-  <div class="row" style="margin-left:20px">
-    <div class="col-1">
-    	<a href="<%=request.getContextPath()%>/myStore.do?memberNo=<%=pb.getMemberNo()%>"><img src="<%=request.getContextPath()%>/images/market/myprofile1.png" id="myImage" class="rounded-circle"></a>
-    </div>
-    <div class="col" style="margin-left:20px">
-      <h1><%=pb.getMember_name()%></h1>	
-	  <p><%=pb.getAddress()%></p>
-    </div> 
-  </div>
-</div> --%>
-
-  
+ 
  <div class="container">  
-	  <div class="col-1">
+	 <!--  <div class="col-1">
 			<img id="target2" src="<%=request.getContextPath()%>/images/market/back-button.png" width="50px" height="50px">
 			<input type="button" name="back"  style="display:none;"  onclick="javascript:history.back();">
-	  </div>
+	  </div> --> 
 	  
  	  <div class="col d-grid gap-2 d-md-flex justify-content-md-end">
  	   <%if(pb.getMemberNo()!=loginMember.getMemberNo()&&pb.getIsDelete().equals("N")){ %>
-			 <!-- Button trigger modal --> 
-		<!-- 	 <button class="btn btn-primary" id="pay" onclick="requestPay()">결제하기</button> -->
+			 <!-- Button trigger modal -->  
 			<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop">
 			 	구매하기
 			</button>
@@ -161,7 +147,7 @@
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">아니오</button>
 			        <button type="button" class="btn btn-primary"  id="pay"  >네</button>
-<%-- 			        <button type="button" class="btn btn-primary" onclick="location.assign('<%=request.getContextPath()%>/buyProduct.do?productNo=<%=pb.getProductNo()%>&&memberNo=<%=loginMember.getMemberNo()%>')">네</button> --%>
+ 
 			      </div>
 			    </div>
 			  </div>

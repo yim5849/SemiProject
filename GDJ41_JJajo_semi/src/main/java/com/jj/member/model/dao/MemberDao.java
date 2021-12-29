@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.util.Properties;
 
 import com.jj.member.model.vo.Member;
+import com.jj.member.model.vo.Member.MemberBuilder;
 
 public class MemberDao {
 
@@ -121,8 +122,10 @@ public class MemberDao {
 			rs=pstmt.executeQuery();
 			if(rs.next()) {
 				m=Member.builder()
-						.memberId(rs.getString("memberId"))
-						.memberName(rs.getString("memberName"))
+						.memberId(rs.getString("member_id"))
+						// 디벨로퍼와 동일하게 작성을 해야한다
+						// 컬럼명과 동일하게
+						.memberName(rs.getString("member_Name"))
 						.birthday(rs.getString("birthday"))
 						.gender(rs.getString("gender"))
 						.email(rs.getString("email"))
@@ -146,9 +149,10 @@ public class MemberDao {
 		String sql=prop.getProperty("updateMember");
 		try {
 			pstmt=conn.prepareStatement(sql);
+			// sql 디비에 담겨 있는 데이터 순서대로 적어야 한다
 			pstmt.setString(1, m.getMemberName());
-			pstmt.setString(2, m.getBirthday());
-			pstmt.setString(3, m.getGender());
+			pstmt.setString(2, m.getGender());
+			pstmt.setString(3, m.getBirthday());
 			pstmt.setString(4, m.getEmail());
 			pstmt.setString(5, m.getPhone());
 			pstmt.setString(6, m.getAddress());
@@ -179,9 +183,26 @@ public class MemberDao {
 		}return result;
 	}
 	
-	
+	public int memberDelete(Connection conn, String memberId) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		//boolean flag=false;
+		String sql=prop.getProperty("delete");
+		// 프로폴티스 = 디비 작성문들을 한곳에 작성을 해놓는 곳
+		try {
+			pstmt=conn.prepareStatement(sql);
+			pstmt.setString(1, memberId);
+			result=pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	
 }
+
 	
 	
 	

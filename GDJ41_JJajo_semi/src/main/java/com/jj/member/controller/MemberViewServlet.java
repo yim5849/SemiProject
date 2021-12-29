@@ -39,25 +39,25 @@ public class MemberViewServlet extends HttpServlet {
 			System.out.println(memberId);		
 			
 			Member m=new MemberService().checkIdDuplicate(memberId);
-			try {
-				m.setPhone(AESCryptor.decrypt(m.getPhone()));
-				m.setEmail(AESCryptor.decrypt(m.getEmail()));
-				m.setAddress(AESCryptor.decrypt(m.getAddress()));
-			}catch(Exception e) {
-				e.printStackTrace();
-			}
+//			try {
+//				m.setPhone(AESCryptor.decrypt(m.getPhone()));
+//				m.setEmail(AESCryptor.decrypt(m.getEmail()));
+//				m.setAddress(AESCryptor.decrypt(m.getAddress()));
+//			}catch(Exception e) {
+//				e.printStackTrace();
+//			} // InvalidKeyException :안썼는데 왜 써놨니? 라는 말이다
+			// 암호화를 하지 않았는데 
 			
-		
+			
 			request.setAttribute("member", m);
 			
 			
-			request.getRequestDispatcher("/views/member/memberView.jsp")
-			.forward(request, response);
+			request.getRequestDispatcher("/views/member/memberView.jsp").forward(request, response);
 			// 특정한 데이터 가져올 수 있게 하는 모습
-		//}
+		}
 	
 	
-	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

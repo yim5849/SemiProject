@@ -22,6 +22,7 @@ public class MainBoardDao {
 	
 	public MainBoardDao() {
 		String path = MainBoardDao.class.getResource("/sql/mainBoard/mainboardsql.properties").getPath();
+		// sql 지윤, 다빈형꺼에서 복붙 properties꺼 없어서 오류난거임
 		try {
 			prop.load(new FileReader(path));
 		} catch (IOException e) {
@@ -67,9 +68,9 @@ public class MainBoardDao {
 				MainBoard mb = MainBoard.builder().boardNo(boardNo)		
 									.boardTitle(rs.getString("board_title"))
 									.boardContent(rs.getString("board_content"))
-									.boardDate(rs.getDate("board_date"))
+									.boardDate(rs.getString("board_date"))
 									.deleteYn(rs.getString("delete_yn"))
-									.updateDate(rs.getDate("update_date"))
+									.updateDate(rs.getString("update_date"))
 									.memberNo(rs.getString("member_no"))
 									.memberName(rs.getString("member_name"))
 									.attachedFileList(imgList)
@@ -132,9 +133,9 @@ public class MainBoardDao {
 				MainBoard mb = MainBoard.builder().boardNo(boardNo)		
 									.boardTitle(rs.getString("board_title"))
 									.boardContent(rs.getString("board_content"))
-									.boardDate(rs.getDate("board_date"))
+									.boardDate(rs.getString("board_date"))
 									.deleteYn(rs.getString("delete_yn"))
-									.updateDate(rs.getDate("update_date"))
+									.updateDate(rs.getString("update_date"))
 									.memberNo(rs.getString("member_no"))
 									.memberName(rs.getString("member_name"))
 									.attachedFileList(imgList)

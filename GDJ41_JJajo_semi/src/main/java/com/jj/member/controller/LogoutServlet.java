@@ -27,7 +27,7 @@ public class LogoutServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// 이 세션 --> 탈퇴 할때 사용한 구문 //
 		HttpSession session=request.getSession(false);
 		if(session!=null) {
 			session.invalidate();

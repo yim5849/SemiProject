@@ -33,8 +33,6 @@ public class ChatServlet extends HttpServlet {
 		}
 		
 		
-		
-		System.out.println(memberId);
 		request.setAttribute("memberId", memberId);
 		
 		request.getRequestDispatcher("/views/chatting/chattingView.jsp").forward(request, response);
