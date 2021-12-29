@@ -128,9 +128,10 @@
           <div class="col-1">
             <button type="button" class="btn btn-outline-warning" onclick="loginDo()">로그인</button>
           </div>
+   		<input type="hidden" name="saveId" id="saveId">
+      	  <!-- from태그안에 있지 않아서 오류가 남 그래서 hidden처리를 함 -->	
           <div class="col-1" ></div>
       
-      	  	
         </div>
       </form>
       
@@ -170,8 +171,13 @@
      			     <img class="home_avatar" src="<%=request.getContextPath()%>/images/market/myprofile1.png"/> 
      		</div>
      		
+
+     		<div class="col-2"  style="padding-top:20px; padding-left:0px; padding-right:0px">
+     			<span style="color:#01DFA5">HELLO. <%=loginMember.getMemberName()%>님, 환영합니다</span> 
+
      		<div class="col-1"  style="padding-top:20px; padding-left:0px; padding-right:0px">
      			<span style="color:#01DFA5">HELLO. <%=loginMember.getMemberName()%>님</span> 
+
      			    
      		</div>
      		
@@ -202,18 +208,25 @@
          <div class="col-4" >
 		
           </div>
+
+          <div class="col-6">
+          	  
+              <input type="checkbox" id="viewSaveId" 
+               <%=saveId!=null?"checked":"" %>>
+              <label for="saveId">아이디 저장</label>
+              <!-- form 태그안에 있어야 할게 밖에 있어서 이런 오류가 났다 -->
+              
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+              &nbsp;
+
           <div class="col-4">
+
               <button type="button" class="btn btn-outline-success" 
               onclick="location.assign('<%=request.getContextPath()%>/member/enrollMember.do')">회원가입</button>
               <!-- onclick부분은 띄어쓰지 말고 한줄로 쭉 쓸것 --> 
               
-              
-              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-              <button type="button" class="btn btn-outline-success">ID / PW 찾기</button>
-              &nbsp;
-              <input type="checkbox" class="btn-check" id="btn-check-outlined" autocomplete="off"
-              name="saveId" <%=saveId!=null?"checked":"" %>>
-              <label class="btn btn-outline-primary" for="saveId">아이디 저장</label>
+              <!-- <button type="button" class="btn btn-outline-success">ID / PW 찾기</button> -->
             </div>
             <div class="col-1"></div>
         </div>
@@ -241,8 +254,13 @@
 </header>
 
 	<script>
-	/* 회원정보 보여주는 servlet호출 */
+	/* 회원정보 보여주는 servlet호출, 쿼리 스트링 방식 서버에 데이터 전송하기(get방식으로 전송) */
 	const memberView=()=>{
+
+	location.assign("<%=request.getContextPath()%>/member/memberView.do?memberId=<%=loginMember!=null?loginMember.getMemberId():""%>")
+			}															// userId로 해서 안넘어 갔다...
+
 	location.assign('<%=request.getContextPath()%>/member/memberView.do?userId=<%=loginMember!=null?loginMember.getMemberId():""%>');
 			}
+
 	</script>	

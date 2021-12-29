@@ -25,7 +25,7 @@ public class FindDao {
 			e.printStackTrace();
 		}
 	}
-
+	/**/
 	public List<Member> findFollowing(Connection conn, String memberNo) {
 		PreparedStatement pstmt = null;
 		ResultSet rs=null;

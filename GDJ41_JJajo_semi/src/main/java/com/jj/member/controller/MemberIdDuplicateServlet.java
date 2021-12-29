@@ -33,16 +33,16 @@ public class MemberIdDuplicateServlet extends HttpServlet {
 		//아이디 중복확인할 데이터를 받아서 DB에 있는지 확인하고 
 		//그 결과를 idDulicate.jsp에 전달하는 기능!
 		String memberId=request.getParameter("memberId");
-		
+		System.out.println(memberId);
 		Member m=new MemberService().checkIdDuplicate(memberId);
-		
+		System.out.println(m);
 		request.setAttribute("member", m);
 		
 		
 
 		request.getRequestDispatcher("/views/member/idDuplicate.jsp")
 		.forward(request, response);
-	
+		
 	
 	
 	

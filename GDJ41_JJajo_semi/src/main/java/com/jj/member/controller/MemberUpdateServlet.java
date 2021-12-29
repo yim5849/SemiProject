@@ -31,13 +31,14 @@ public class MemberUpdateServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Member m=Member.builder()
-				.memberId(request.getParameter("userId"))
-				.memberPwd(request.getParameter("password"))
-				.memberName(request.getParameter("userName"))
-				.gender(request.getParameter("gender"))
+				.memberId(request.getParameter("memberId"))
+				.memberPwd(request.getParameter("memberPwd"))
+				.memberName(request.getParameter("memberName"))
 				.email(request.getParameter("email"))
 				.phone(request.getParameter("phone"))
 				.address(request.getParameter("address"))
+				.gender(request.getParameter("gender"))
+				.birthday(request.getParameter("birthday").replace("-", "/"))
 				.build();
 				
 		int result=new MemberService().updateMember(m);
