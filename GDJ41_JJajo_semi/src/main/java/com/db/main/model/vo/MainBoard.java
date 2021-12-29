@@ -13,9 +13,9 @@ public class MainBoard {
 	private String boardNo;
 	private String boardTitle;
 	private String boardContent;
-	private Date boardDate;
+	private String boardDate;
 	private String deleteYn;
-	private Date updateDate;
+	private String updateDate;
 	private String memberNo;
 	private String memberName;
 	private List<AttachedFile> attachedFileList;
