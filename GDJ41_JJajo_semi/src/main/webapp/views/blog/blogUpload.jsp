@@ -1,12 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.List,com.db.main.model.vo.MainBoard" %>
+<%@ page import="java.util.ArrayList,com.db.main.model.vo.MainBoard" %>
 <%@ include file="/views/common/header.jsp"%>
-<link href="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.css" rel="stylesheet">
+<%
+	List<String> allTags = (List<String>)request.getAttribute("allTags");
+	String[] whitelist = (String[])request.getAttribute("whitelist");
+%>
 
 <script src="https://unpkg.com/@yaireo/tagify"></script>
 <script src="https://unpkg.com/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
 <link href="https://unpkg.com/@yaireo/tagify/dist/tagify.css" rel="stylesheet" type="text/css" />
-
 
 <style>
 	#imagePreview{
@@ -21,13 +25,13 @@
    	
    }
 	
-/* 	.tagify--focus{
-	background-color:white;
-	}
-	
-	.tagify--empty{
-	background-color:white;
-	} */
+	.bootstrap-tagsinput .tag {
+      margin-right: 2px;
+      color: white !important;
+      background-color: #0d6efd;
+      padding: 0.2rem;
+      width: 100%;
+    }
 	
 </style>
 
@@ -66,9 +70,9 @@
 			    		<div class="col-4">
 			    			<h4>태그</h4>
 			    		</div>
-			    		<div class="col-8" style="text-align: right;">
-			    			<input class="form-control" id="post_tag" name="tag" type="text" data-role="tagsinput" 
-			    			aria-label="default input example" data-role="tagsinput" ><!--  placeholder="관련태그를 입력해주세요 (#으로 입력)" -->
+			    		<div class="col-8" style="text-align: left;">
+			    			<input class="form-control" id="post_tag" name="tag" type="text" 
+			    			aria-label="default input example"  placeholder="관련태그를 입력해주세요 (#으로 입력)">
 			    		</div>
 			    	</div>			    	
 			    </div>
@@ -85,37 +89,53 @@
 		<button type="button" class="btn btn-primary" id="upload">등록하기</button>
 		</div>
 	</div>
+	<textarea type="hidden" data-tagList="<%=whitelist%>"></textarea>
 </section>
-
-
-
-<script src="https://transloadit.edgly.net/releases/uppy/v1.6.0/uppy.min.js"></script>
-
-
-
 
 <script>
 	/* $("#target").click(e=>{
 		$("input[name=upFile]").click();
 	})
  */
- 
-	//The DOM element you wish to replace with Tagify
-	 var input = document.querySelector('#post_tag');
+	//Creating Tagify element and joining tags into String (input.value)
+	//whitelist는 Tag_db에서 오는 리스트로 바꿔야함
 	
-	 // initialize Tagify on the above input node reference
-	new Tagify(input)
-
+	var wList = "<%=whitelist%>";
+	var wTags = "<%=allTags%>";
+	
+	console.log(wTags);
+	
+	
+	var input = document.querySelector('input[name=tag]');
+	var tagify = new Tagify(input, {
+		texts: {
+		    duplicate: "Duplicates are not allowed"
+		  },
+		 delimiters : ",",
+ 		 originalInputValueFormat: valuesArr => valuesArr.map(item => item.value).join(','),
+ 		 whitelist : ["car", "tag", "cat"],
+         autoComplete : true,
+         dropdown : {
+            classname     : "color-blue",
+            enabled       : 1,              // show the dropdown immediately on focus
+            position      : "text",         // place the dropdown near the typed text
+            closeOnSelect : true,          // keep the dropdown open after selecting a suggestion
+            highlightFirst: true
+        }
+	});
+	
+//	console.log(whitelist.size());
+	
 	//multifile upload
 	$("#upload").click(e=>{
 		const frm=new FormData();
 		const fileInput=$("input[name=upfile]");
 		const num = $("input[name=memberNo]").val(); 
-
+<%-- 		const whitetag="<%=whitelist[0]%>";
+		console.log(whitetag); --%>
 		for(let i=0;i<fileInput[0].files.length;i++){
-			
 			frm.append("upfile"+i,fileInput[0].files[i]);
-
+			console.log(wList[i]);
 		}	 
 		frm.append("memberNo", num);
 		frm.append("title", $("#post_title").val());

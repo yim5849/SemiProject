@@ -35,7 +35,7 @@ $(()=>{
 
     let map = new kakao.maps.Map(container, options);
     
-
+    map.relayout();
 
     // 일반 지도와 스카이뷰로 지도 타입을 전환할 수 있는 지도타입 컨트롤을 생성합니다
     //let mapTypeControl = new kakao.maps.MapTypeControl();
@@ -78,16 +78,20 @@ $(()=>{
      
      $("#searchBtnBox>button").click(e=>{
          const keyword = $(e.target).val();
-         ps.keywordSearch(keyword, placesSearchCB, {location:new kakao.maps.LatLng(map.getCenter().getLat(),map.getCenter().getLng()),radius:5000}); 
+         let selectedRadius = $("#selectRadius").val();
+         console.log("반경 ",selectedRadius);
+         ps.keywordSearch(keyword, placesSearchCB, {location:new kakao.maps.LatLng(map.getCenter().getLat(),map.getCenter().getLng()),radius:selectedRadius*1000}); 
      });
      
       //------------------------------------------ 	
      
      
      $("#goHomeBtn").click(e=>{
-         console.log("clicke");
-         console.log(lat,lng);
-          map.panTo(new kakao.maps.LatLng(lat,lng));  
+        console.log("clicke");
+        console.log(lat,lng);
+        map.setLevel(3);
+        map.panTo(new kakao.maps.LatLng(lat,lng));  
+        console.log(map.getLevel());
      });
      
     
@@ -146,9 +150,13 @@ $(()=>{
         const infoBox = $("#boxContainer>a").clone();
         console.log(infoBox);
         //$(infoBox).css({display:"block"});
-        $(infoBox).children().first().find("h5").html(data.place_name);
+        $(infoBox).children().first().find("h5").css("font-weight","bolder").html(data.place_name);
         $(infoBox).find("p").html(data.road_address_name);
         $(infoBox).children().first().find("small").html(data.phone);
+
+        $(infoBox).click(e=>{
+            window.open("https://map.kakao.com/link/map/"+data.id);
+        });
         
         let ployLine = new kakao.maps.Polyline({
                                 map:map, 
@@ -159,7 +167,8 @@ $(()=>{
                                 strokeStyle: 'solid' // 선의 스타일입니다
                             
                             });
-        $(infoBox).find("span").html(Math.round(ployLine.getLength())+"m");
+        
+        $(infoBox).find("span").addClass("badge bg-info").css("height","24px").html(calDistance(ployLine.getLength()));
         ployLine.setMap(null);   //거리계산 라인 삭제 
 
 
@@ -168,11 +177,27 @@ $(()=>{
     
     };
 
+    function calDistance(meter){
+        if(!meter) return 0+" m";
+
+        let dis = Math.round(meter);
+        if(dis>=1000){
+            let km = dis/1000;
+            return km.toFixed(1)+" Km";
+        }else{
+            return dis+" m";
+        }
+    }
 
 
 
+    map.relayout();
+
+   
+    
 
 });
+
 
 
  

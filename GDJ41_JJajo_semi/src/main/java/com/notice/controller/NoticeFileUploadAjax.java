@@ -63,10 +63,9 @@ public class NoticeFileUploadAjax extends HttpServlet {
 		
 		if(result>0) {
 			//response.getWriter().write(1123414);
-			response.sendRedirect("/");
+			response.sendRedirect(request.getContextPath());
 		}else {
-			//실패 
-			response.getWriter().write(0);
+			response.sendRedirect(request.getContextPath());
 		}
 		
 		

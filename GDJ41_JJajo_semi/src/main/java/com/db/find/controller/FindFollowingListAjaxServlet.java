@@ -1,7 +1,6 @@
-package com.jy.blog.controller;
+package com.db.find.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,19 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.db.main.model.service.MainBoardService;
+import com.db.find.model.service.FindService;
+import com.google.gson.Gson;
+import com.jj.member.model.vo.Member;
 
 /**
- * Servlet implementation class UploadImgServlet
+ * Servlet implementation class FindFollowingListAjaxServlet
  */
-@WebServlet("/blog/uploadpost.do")
-public class UploadPostServlet extends HttpServlet {
+@WebServlet("/find/findFriendsList.do")
+public class FindFollowingListAjaxServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UploadPostServlet() {
+    public FindFollowingListAjaxServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +32,15 @@ public class UploadPostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> allTags = new MainBoardService().getAllTags();
-
-		ArrayList<String> array = new ArrayList<String>(allTags);
-		String[] whitelist = new String[allTags.size()];
+		String memberNo = request.getParameter("memberNo");
 		
-		for(int i = 0; i < allTags.size(); i++) {
-			whitelist[i] = allTags.get(i);
-		}
+		List<Member> followingList = new FindService().findFollowing(memberNo);
 		
-		request.setAttribute("whitelist", whitelist);
-		request.setAttribute("allTags", array);
 		
-		System.out.println("doGet allTAgs - " + whitelist.length);
-
-		request.getRequestDispatcher("/views/blog/blogUpload.jsp")
-		.forward(request, response);
+		response.setContentType("application/json;charset=utf-8");
+		
+		new Gson().toJson(followingList,response.getWriter());
+	
 	}
 
 	/**

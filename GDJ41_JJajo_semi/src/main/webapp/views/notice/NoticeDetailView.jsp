@@ -10,6 +10,7 @@
 <section class="container">
 	
 	<div class="row ">
+		<div class="col-xl-1"></div>
 		<div class="col-xl-12">
 				<div >
 					<span style="margin:auto;">공지사항번호</span>
@@ -25,6 +26,7 @@
 					</p>
 				</div>
 		</div>
+		<div class="col-xl-1"></div>
 	</div>
 	  
 </section>

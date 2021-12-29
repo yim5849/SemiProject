@@ -58,14 +58,20 @@
 
 
 
-<section class="container">
+<section class="container-fluid">
 	<%if(loginMember!=null){ %>
     <div class="fixed-bottom" style="left:90vw">
         <img onclick="openChat();" src="<%=request.getContextPath()%>/images/chat.png" width="100px" height="100px">
     </div>
     <%} %>
     <div id="mainContainer" class="row">
-		<div class="col-xl-12 d-flex flex-wrap justify-content-around">
+        <div class="col-xl-1">
+
+        </div>
+		<div class="col-xl-10 d-flex flex-wrap justify-content-around">
+        </div>
+        <div class="col-xl-1">
+
         </div>
     </div>
    
@@ -102,7 +108,7 @@
                     console.log(data);
                     for(let i=0; i<data.length;i++){
                         let info =data[i];
-                        $("#mainContainer>div").append(addbox(info));
+                        $("#mainContainer>div:eq(1)").append(addbox(info));
                     }
                     infinityScroll();
                 }
@@ -112,8 +118,8 @@
     
 
         function infinityScroll(){
-            const root = $("#mainContainer>div");
-            let lastBox = $("#mainContainer>div>div:eq(10)");
+            const root = $("#mainContainer:eq(1)>div");
+            let lastBox = $("#mainContainer>div:eq(1)>div:eq(10)");
             console.log(root);
             console.log(lastBox);
             const io = new IntersectionObserver((entry,observer)=>{
@@ -132,7 +138,7 @@
                          console.log(data);
                         for(let i=0; i<data.length;i++){
                             let info =data[i];
-                            $("#mainContainer>div").append(addbox(info));
+                            $("#mainContainer>div:eq(1)").append(addbox(info));
                         }
                         listCount++;
                         flag=true;
@@ -193,10 +199,17 @@
 
             let writerContainer=$("<div>").addClass("writerContainer");
             let wFirstDiv =$("<div>");
+            
+            
+            let profileImgName;
+            
+            if(!info["profileImgName"]){
+                profileImgName ="defaultUser.png";
+            }else{
+                profileImgName=info["profileImgName"];
+            }
 
-            let profileImgName = info["profileImgName"];
-                
-            let writerImg = $("<img>").attr({src:"",width:"30px",height:"30px"});
+            let writerImg = $("<img>").css("margin-right","5px").attr({src:"<%=request.getContextPath()%>/images/"+profileImgName,width:"30px",height:"30px"});
             let by =$("<small>").html("by");
             let writer=$("<span>").html(info["memberName"]);
             wFirstDiv.append(writerImg).append(by).append(writer);

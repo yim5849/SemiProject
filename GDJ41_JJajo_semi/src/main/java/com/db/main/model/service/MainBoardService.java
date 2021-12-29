@@ -33,22 +33,22 @@ public class MainBoardService {
 	}
 
 	
-
-	
-	
-	
 	//JY
 	public int insertBoard(MainBoard mb, String memberNo) {
 		Connection conn=getConnection();
 		int result=dao.insertBoard(conn, mb, memberNo);
 		String boardNo=dao.getBoardNo(conn);
-		if(result>0&&boardNo!=null) {
+		
+		if(result>0&&boardNo!=null) {	
 			int result2=dao.insertImageFile(conn,mb,boardNo);
 			if(result2>0) {
-				/* int result3=dao.insertTag(conn, mb,boardNo); */
-				result=1;
+					int result3=dao.insertTag(conn, mb,boardNo);
+					System.out.println("RESULT 3 is " + result3);
+					if(result3 < 1)
+						rollback(conn);
 			}else rollback(conn);
 		}else rollback(conn);	
+		
 		close(conn);
 		return result;		 
 	}
@@ -58,7 +58,7 @@ public class MainBoardService {
 	public int ModifyMyInfo(Member m) {
 		Connection conn=getConnection();
 		int result=dao.ModifyMyInfo(conn,m);
-		System.out.println("MB Service - MODIFY : " + result);
+
 		if(result>0) {
 			result=1;
 		}else rollback(conn);
@@ -73,6 +73,26 @@ public class MainBoardService {
 	public String getMyInfo(int memberNo1) {
 		Connection conn=getConnection();
 		String result=dao.getMyInfo(conn,memberNo1);
+		if(result==null) {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public List<String> getTags(String tagName) {
+		Connection conn=getConnection();
+		List<String> result=dao.getTags(conn, tagName);
+		if(result==null) {
+			rollback(conn);
+		}
+		close(conn);
+		return result;
+	}
+	
+	public List<String> getAllTags() {
+		Connection conn=getConnection();
+		List<String> result=dao.getAllTags(conn);
 		if(result==null) {
 			rollback(conn);
 		}

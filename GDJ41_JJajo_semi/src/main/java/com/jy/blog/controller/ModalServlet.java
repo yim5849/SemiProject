@@ -2,6 +2,7 @@ package com.jy.blog.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -10,19 +11,26 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
+import org.json.simple.JSONObject;
+
 import com.db.main.model.service.MainBoardService;
+import com.db.main.model.vo.AttachedFile;
+import com.db.main.model.vo.MainBoard;
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 /**
- * Servlet implementation class UploadImgServlet
+ * Servlet implementation class ModalServlet
  */
-@WebServlet("/blog/uploadpost.do")
-public class UploadPostServlet extends HttpServlet {
+@WebServlet("/blog/modal.do")
+public class ModalServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public UploadPostServlet() {
+    public ModalServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,22 +39,29 @@ public class UploadPostServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<String> allTags = new MainBoardService().getAllTags();
 
-		ArrayList<String> array = new ArrayList<String>(allTags);
-		String[] whitelist = new String[allTags.size()];
-		
-		for(int i = 0; i < allTags.size(); i++) {
-			whitelist[i] = allTags.get(i);
-		}
-		
-		request.setAttribute("whitelist", whitelist);
-		request.setAttribute("allTags", array);
-		
-		System.out.println("doGet allTAgs - " + whitelist.length);
-
-		request.getRequestDispatcher("/views/blog/blogUpload.jsp")
-		.forward(request, response);
+		String path = request.getServletContext().getRealPath("/upload/blog/");
+		int maxSize = 1024 * 1024 * 10;
+		String encode = "UTF-8";
+		// 업로드 처리
+		MultipartRequest mr=new MultipartRequest(request, path, maxSize, encode,new DefaultFileRenamePolicy());
+				
+				System.out.println("boardNo넘어오는지 확인!!!"+mr.getParameter("boardNo"));
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 	}
 
 	/**

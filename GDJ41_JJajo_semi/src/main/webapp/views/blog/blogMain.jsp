@@ -4,6 +4,7 @@
 <%@ include file="/views/common/header.jsp"%>
 <%
 	List<MainBoard> ubList=(List)request.getAttribute("userBoardList");
+	List<String> allTags = (List)request.getAttribute("allTags");
 	String myInfo=(String)request.getAttribute("myInfo");
 %>
 
@@ -176,21 +177,21 @@
 	<div class="main">	
 		<!-- Portfolio Gallery Grid -->	
  		<div class="row">
-		  <%System.out.println(ubList);
+		  <%
 		  if(ubList!=null&&!(ubList.isEmpty())){ 
-		  	for(MainBoard mb : ubList){   
-		  	System.out.println("TAGSSSS - "+mb.getTag());%>		
+		  	for(MainBoard mb : ubList){   %>		
 			   <div class="column">
 			    <div class="content" id="board_click_modal" data-bs-toggle="modal" data-bs-target="#myModal" 
 			    data-userName="<%=mb.getMemberName() %>"
 			    data-title="<%=mb.getBoardTitle() %>" 
 			    data-content="<%=mb.getBoardContent() %>" 
-			    data-tag="<%=mb.getTag() %>"
-			   	data-image1="" >
-			      <img src="" alt="사진" style="width:100%">
-			      <h3><%=mb.getBoardTitle() %></h3>
-			      <p class="tag"><%=mb.getTag() %></p>
-			      <p><%=mb.getBoardContent() %></p>
+			   <%--  data-tag="<%=mb.getTag() %>" --%>
+			    data-boardNo="<%=mb.getBoardNo() %>">
+			    
+					<img src="" alt="사진" style="width:100%">
+					<h3><%=mb.getBoardTitle() %></h3>
+					<%-- <p class="tag"><%=mb.getTag() %></p> --%>
+					<p><%=mb.getBoardContent() %></p>
 			    </div>
 			  </div> 
 			<%}
@@ -250,6 +251,54 @@
 	
 	
 	
+<%-- 	//게시물 클릭시 해당 모달 보여줌
+	$(document).on("click","#board_click_modal",function(){
+		let imageList;
+		//new Promise(resolve=>{
+			$.get("<%=request.getContextPath%>/주소",data=>{
+				imageList=data;
+				resolve(data);
+			});
+		//}).then(d=>{
+			let boardNo=$(this).data('boardNo');
+			$.ajax({
+				async:false,
+				url:"<%=request.getContextPath()%>/blog/modal.do,
+				url:"<%=request.getContextPath()%>/blog/blogmain.do?boardNo="+boardNo,
+				type:"post",
+				data:{boardNo:boardNo}
+				processData:false,
+				contentType:false,
+				success:data=>{
+					
+				}
+			});
+			let userName=$(this).data('userName');
+			let title=$(this).data('title');
+			let content=$(this).data('content');
+			let tag=$(this).data('tag');
+			
+			
+			for(let i=0;i<)
+			let image=$(this).data('image'); //리스트
+			console.log(image);
+			console.log($(this).data('tag'));
+			console.log($(this).data('title'));
+			
+			console.log('<%=request.getContextPath()%>/upload/blog/'+image.get(0).getImageName());
+			
+			$("#modal_board_userName").text(userName);
+			$("#modal_board_title").text(title);
+			$("#modal_board_content").text(content);
+			$("#modal_board_tag").text(tag);
+			$(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()');
+		})
+				
+	}); --%>
+	
+	
+	
+	
 	//게시물 클릭시 해당 모달 보여줌
 	$(document).on("click","#board_click_modal",function(){
 		
@@ -257,11 +306,11 @@
 		let userName=$(this).data('userName');
 		let title=$(this).data('title');
 		let content=$(this).data('content');
-		let tag=$(this).data('tag');
+		/* let tag=$(this).data('tag'); */
 		for(let i=0;i<)
 		let image=$(this).data('image'); //리스트
 		console.log(image);
-		console.log($(this).data('tag'));
+	/* 	console.log($(this).data('tag')); */
 		console.log($(this).data('title'));
 		
 		console.log('<%=request.getContextPath()%>/upload/blog/'+image.get(0).getImageName());
@@ -269,30 +318,11 @@
 		$("#modal_board_userName").text(userName);
 		$("#modal_board_title").text(title);
 		$("#modal_board_content").text(content);
-		$("#modal_board_tag").text(tag);
+		/* $("#modal_board_tag").text(tag); */
 		$(".carousel-inner").attr('src','<%=request.getContextPath()%>/upload/blog/image.get(0).getAttachedFileList()');
 		
 	});
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
+
 	
 	
 	
