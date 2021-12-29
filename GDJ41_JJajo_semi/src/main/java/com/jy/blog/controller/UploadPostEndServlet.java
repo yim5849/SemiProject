@@ -3,7 +3,9 @@ package com.jy.blog.controller;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -67,21 +69,19 @@ public class UploadPostEndServlet extends HttpServlet {
 							.build();
 			afList.add(af);
 		}
+
 		
-		//태그 리스트 - List<String> tagList 이제 안써서 필요없음
-		/* List<String> htList=new ArrayList<String>(); */
-		/*
-		 * System.out.println("mr.title: " + mr.getParameter("title"));
-		 * System.out.println("mr.content: " + mr.getParameter("content"));
-		 * System.out.println("mr.tag: " + mr.getParameter("tag"));
-		 */
 		
-		/*
-		 * String tag=mr.getParameter("tag"); System.out.println(tag); String[]
-		 * tags=tag.split("#"); //조건문 수정필요 -> #으로 시작, 띄어쓰기X, _(언더바)만 사용가능
-		 * System.out.println(tags); for(int i=0; i<tags.length;i++) {
-		 * htList.add(tags[i]); }
-		 */
+		// split tags into String[]
+		var tagList = new ArrayList<String>();
+	 	String tag=mr.getParameter("tag"); 
+	 	System.out.println(tag); 
+	 	String[] tags=tag.split(","); //조건문 수정필요 -> #으로 시작, 띄어쓰기X, _(언더바)만 사용가능
+		 
+	 	for(int i=0; i<tags.length;i++) {
+	 		tagList.add(tags[i]);
+	 	}
+		 
 		 
 		//멤버넘버 -> 개인블로그주소 구분짓기 위함(blog+memberNo)
 		String memberNo = mr.getParameter("memberNo");
@@ -90,13 +90,12 @@ public class UploadPostEndServlet extends HttpServlet {
 		MainBoard mb = MainBoard.builder()
 				.boardTitle(mr.getParameter("title"))
 				.boardContent(mr.getParameter("content"))
-				.tag(mr.getParameter("tag"))
+				.tag(tagList)
 				.attachedFileList(afList)
 				.build();
 		
 		 int result=new MainBoardService().insertBoard(mb,memberNo);
-		 
-		 
+
 		 
 		 String msg="";
 		 String loc="";

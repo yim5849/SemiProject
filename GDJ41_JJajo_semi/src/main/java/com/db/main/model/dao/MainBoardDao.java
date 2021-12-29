@@ -96,6 +96,7 @@ public class MainBoardDao {
 		String sql = prop.getProperty("searchMainBoard");
 		String sql2 = prop.getProperty("searchAttachedFile");
 		
+		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, (curPosition-1)*numPerOnce+1);
@@ -114,12 +115,14 @@ public class MainBoardDao {
 				ResultSet rs2 = pstmt.executeQuery();
 				
 				List<AttachedFile> imgList = new ArrayList<AttachedFile>();
-				
+				List<String> tagList = new ArrayList<String>();
 				
 				while(rs2.next()) {
 					AttachedFile file = AttachedFile.builder().imgNo(rs2.getString("image_no")).imgName(rs2.getString("filename")).build();
 					imgList.add(file);
 				}
+				
+				//ResultSet rs3 = pstmt.executeQuery();
 				
 				//AttachedFile af = new AttachedFile(noList, nameList);
 				MainBoard mb = MainBoard.builder().boardNo(boardNo)		
@@ -129,7 +132,6 @@ public class MainBoardDao {
 									.deleteYn(rs.getString("delete_yn"))
 									.updateDate(rs.getDate("update_date"))
 									.memberNo(rs.getString("member_no"))
-									.tag(rs.getString("tag"))
 									.memberName(rs.getString("member_name"))
 									.attachedFileList(imgList)
 									.build();
@@ -161,7 +163,6 @@ public class MainBoardDao {
 			pstmt.setString(1, mb.getBoardTitle());
 			pstmt.setString(2, mb.getBoardContent());
 			pstmt.setString(3,memberNo);
-			pstmt.setString(4, mb.getTag());
 			result=pstmt.executeUpdate();
 		}catch(SQLException e){
 			e.printStackTrace();
@@ -188,7 +189,31 @@ public class MainBoardDao {
 		}return boardNo;
 	}
 	
-	
+	public int insertTag(Connection conn, MainBoard mb, String boardNo) {
+		PreparedStatement pstmt=null;
+		int result=0;
+		String sql=prop.getProperty("insertTag");
+		try {
+			int length = mb.getTag().size();
+			int temp=0;
+			for(int i=0; i<length;i++) {
+				pstmt=conn.prepareStatement(sql);
+				pstmt.setString(1,boardNo);
+				pstmt.setString(2, mb.getTag().get(i));
+				result=pstmt.executeUpdate();
+				if(result>0) {
+					temp++;
+				}
+			}
+			if(temp!=length) {
+				return 0;
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(pstmt);
+		}return result;
+	}
 	
 	
 	//게시물에 사진추가
@@ -261,6 +286,53 @@ public class MainBoardDao {
 			close(pstmt);
 		}
 		return m;
+	}
+	
+	public List<String> getAllTags(Connection conn){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> tagList = new ArrayList<String>();
+		
+		String sql = prop.getProperty("getAllTags");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				boolean b = tagList.contains(rs.getString("tag_name"));
+				if(!b)
+					tagList.add(rs.getString("tag_name"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return tagList;
+	}
+	
+	public List<String> getTags(Connection conn, String tagName){
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		List<String> tagList = new ArrayList<String>();
+		
+		String sql = prop.getProperty("getTags");
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, tagName);
+			rs = pstmt.executeQuery();
+			while(rs.next()) {
+				tagList.add(rs.getString("board_no"));
+			}
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}finally {
+			close(rs);
+			close(pstmt);
+		}
+		return tagList;
 	}
 	
 	
