@@ -42,8 +42,10 @@
 	<script>
 		const el=document.querySelector("#btn").addEventListener("click",e=>{
 			const memberId='<%=request.getParameter("memberId")%>';
-			opener.enrollMemberFrm.memberId.value=memberId;
-			opener.enrollMemberFrm.password.focus();
+			opener.document.enrollMemberFrm.memberId.value=memberId;
+			opener.document.enrollMemberFrm.memberPwd.focus();
+			// opener.document.enrollMemberFrm.memberPwd(이부분이 password로 되어있어서 안되었음)
+			// 닫기 버튼 되게 만듬
 			close();
 		});
 	</script>
