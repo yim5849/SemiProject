@@ -21,6 +21,7 @@ public class MainBoardDao {
 	
 	public MainBoardDao() {
 		String path = MainBoardDao.class.getResource("/sql/mainBoard/mainboardsql.properties").getPath();
+		// sql 지윤, 다빈형꺼에서 복붙 properties꺼 없어서 오류난거임
 		try {
 			prop.load(new FileReader(path));
 		} catch (IOException e) {
